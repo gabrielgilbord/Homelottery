@@ -183,7 +183,7 @@ export function recordResult(challengeId: string, outcome: Outcome): ResultSumma
       if (!b) return;
       if (b === 'card') { const t = giveCard(s, p); lines.push(`${PLAYER_NAME[p]} recibe la carta ${CARDS[t].name}`); }
       else if (b === 'key') { s.players[p].keys += 1; lines.push(`${PLAYER_NAME[p]} recibe una Llave Legendaria`); }
-      else { const tier = b.replace('box-', '') as BoxTier; s.players[p].freeBoxes[tier] = (s.players[p].freeBoxes[tier] || 0) + 1; lines.push(`${PLAYER_NAME[p]} gana una ${boxByTier(tier).name} gratis (ábrela en Mystery Boxes)`); }
+      else { const tier = b.replace('box-', '') as BoxTier; s.players[p].freeBoxes[tier] = (s.players[p].freeBoxes[tier] || 0) + 1; lines.push(`${PLAYER_NAME[p]} gana una ${boxByTier(tier).name} gratis (ábrela en Cajas misteriosas)`); }
     };
 
     for (const p of PLAYERS) {
@@ -365,7 +365,7 @@ export function spinWheel(p: PlayerId, wheelId: string): SpinResult | { error: s
         text = `Intercambio: das ${CARDS[ca.type].name} y recibes ${CARDS[cb.type].name}.`; break;
       }
       case 'card': { const names = []; for (let i = 0; i < (seg.value || 1); i++) names.push(CARDS[giveCard(s, p)].name); text = `Recibes: ${names.join(', ')}.`; break; }
-      case 'box': s.players[p].freeBoxes[seg.box!] = (s.players[p].freeBoxes[seg.box!] || 0) + 1; text = `¡Una ${boxByTier(seg.box!).name} gratis! Ábrela en Mystery Boxes.`; break;
+      case 'box': s.players[p].freeBoxes[seg.box!] = (s.players[p].freeBoxes[seg.box!] || 0) + 1; text = `¡Una ${boxByTier(seg.box!).name} gratis! Ábrela en Cajas misteriosas.`; break;
       case 'revenge': giveCard(s, p, 'revenge'); text = 'Recibes una carta Revenge.'; break;
       case 'multiplier': s.players[p].multiplier = Math.max(s.players[p].multiplier, seg.value!); text = `Multiplicador x${seg.value} para tu próxima prueba.`; break;
       case 'key': s.players[p].keys += 1; text = '¡LLAVE LEGENDARIA!'; break;

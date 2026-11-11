@@ -58,7 +58,7 @@ export const PRIZES: Prize[] = [
   { id: 's-2cards', title: 'Doble carta', text: 'Dos cartas especiales aleatorias.', kind: 'advantage', prep: 'Automático.', effect: { card: 'random' } },
   { id: 's-massage', title: 'Masaje de 10 minutos', text: 'Vale por un masaje de 10 minutos en la zona que elijas. Cobrable hoy.', kind: 'romantic', prep: 'Ten crema o aceite a mano.' },
   { id: 's-bedbreakfast', title: 'Desayuno en la cama', text: 'Vale por un desayuno en la cama otro día, preparado por el rival.', kind: 'romantic', prep: 'Ninguna (recordatorio para el futuro).', unique: true },
-  { id: 's-moviepick', title: 'La Butaca de Oro', text: 'Ganas automáticamente UNA subasta de la Movie Lottery (sin pagar). Úsalo en Movie Night.', kind: 'advantage', prep: 'Ninguna. Recuérdalo en la Movie Lottery.', unique: true },
+  { id: 's-moviepick', title: 'La Butaca de Oro', text: 'Ganas automáticamente UNA subasta de la Movie Lottery (sin pagar). Úsalo en Noche de cine.', kind: 'advantage', prep: 'Ninguna. Recuérdalo en la Movie Lottery.', unique: true },
   { id: 's-dessert', title: 'Postre sorpresa', text: 'El rival te prepara o trae un postre sorpresa antes de la noche.', kind: 'practical', prep: 'Ten helado, chocolate o fruta en casa.' },
   { id: 's-shield', title: 'Armadura de plata', text: 'Una carta Shield y +15 monedas.', kind: 'advantage', prep: 'Automático.', effect: { card: 'shield', coins: 15 } },
   { id: 's-veto', title: 'Vale de Veto', text: 'Anula una prueba o carta elegida por el rival. Una vez. Sin dar explicaciones.', kind: 'advantage', prep: 'Ninguna.' },
@@ -222,7 +222,7 @@ export const EVENTS: { id: EventEffect; title: string; text: string }[] = [
   { id: 'leadertax', title: 'Impuesto al líder', text: 'El líder en puntos entrega 20 monedas al otro.' },
   { id: 'cuddle', title: 'Pausa de mimos', text: '2 minutos de abrazo en el sofá. +10 monedas cada uno.' },
   { id: 'cardsall', title: 'Reparto de cartas', text: 'Los dos recibís una carta aleatoria.' },
-  { id: 'laugh', title: 'Reto relámpago', text: 'El primero que haga reír al otro en los próximos 2 minutos gana 15 monedas (regístralo en Host Mode o con el botón de la ruleta).' },
+  { id: 'laugh', title: 'Reto relámpago', text: 'El primero que haga reír al otro en los próximos 2 minutos gana 15 monedas (regístralo en Host Mode → Control → Ajustar marcador).' },
 ];
 
 /* ============================== SECRET ENVELOPES ============================== */
@@ -307,7 +307,7 @@ export const ACHIEVEMENTS: AchievementDef[] = [
   { id: 'cards3', name: 'Estratega', desc: 'Usa 3 cartas especiales.', reward: { coins: 20 }, glyph: 'cards' },
   { id: 'coop5', name: 'Equipo Imbatible', desc: 'Superad 5 pruebas cooperativas.', reward: { coins: 30 }, glyph: 'heart' },
   { id: 'explorer', name: 'Todoterreno', desc: 'Participa en pruebas de las 6 categorías.', reward: { key: 1 }, glyph: 'compass' },
-  { id: 'bingo', name: 'Cantor de Bingo', desc: 'Canta una línea en un Bingo de Movie Night.', reward: { coins: 20 }, glyph: 'film' },
+  { id: 'bingo', name: 'Cantor de Bingo', desc: 'Canta una línea en un Bingo de Noche de cine.', reward: { coins: 20 }, glyph: 'film' },
   { id: 'oracle', name: 'Oráculo', desc: 'Acierta 3 predicciones.', reward: { coins: 25 }, glyph: 'eye' },
   { id: 'mission', name: 'Agente Secreto', desc: 'Completa una misión secreta.', reward: { coins: 15 }, glyph: 'eye' },
   { id: 'breakfast', name: 'Buenos Días', desc: 'Completa la Operación Desayuno.', reward: { coins: 10 }, glyph: 'sun' },

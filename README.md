@@ -3,7 +3,13 @@
 
 Un concurso de un día entero en una web app pensada para el móvil: 8 episodios, 84 pruebas jugables, economía de monedas y puntos, cajas misteriosas, ruletas, cartas especiales, sobres secretos, Movie Night interactiva y un Host Mode privado con el Cheat Sheet de Gabriel.
 
-> ⚠️ Gabriel: el Cheat Sheet completo está en `docs/GABRIEL_SECRET_CHEAT_SHEET.md` y en la app (Host Mode). Este README no tiene spoilers.
+## Guías para Gabriel
+| Documento | Para qué | Versión móvil |
+|---|---|---|
+| [Guía rápida](docs/GUIA_RAPIDA_GABRIEL.md) | Cómo funciona todo, en dos minutos. **Sin spoilers.** | [guia-rapida-gabriel.html](docs/guia-rapida-gabriel.html) |
+| [Cheat Sheet secreto](docs/GABRIEL_SECRET_CHEAT_SHEET.md) | Preparación, PIN, controles de anfitrión, premios, sobres, cronología y plan B. **Confidencial: no abrir delante de Tatiana.** | [gabriel-secret-cheat-sheet.html](docs/gabriel-secret-cheat-sheet.html) |
+
+Los cuatro archivos se generan desde los datos del juego con `npm run cheatsheet`, así que siempre coinciden con la app. La versión interactiva del Cheat Sheet, con su checklist, está en la app: Más → Host Mode → Cheat Sheet.
 
 ## Ejecutar
 
@@ -15,7 +21,7 @@ npm run dev        # desarrollo: abre la URL "Network" desde el móvil (misma Wi
 npm run build      # genera dist/ (web estática)
 npm run preview    # sirve dist/ en http://localhost:4173 y en la red local
 npm test           # 19 tests: lógica del juego + simulación de un día completo (tests/day.test.ts)
-npm run cheatsheet # regenera docs/GABRIEL_SECRET_CHEAT_SHEET.md desde los datos de la app
+npm run cheatsheet # regenera las dos guías (Markdown + HTML) desde los datos de la app
 ```
 
 ### Publicar en Vercel (recomendado)

@@ -62,10 +62,10 @@ const H: Challenge[] = [
   },
   {
     id: 'h-impressions', name: 'El Imitador', tagline: 'Sin palabras. Solo talento (o algo parecido).', category: 'home', sub: 'Imitaciones',
-    episodes: [2, 5, 7], materials: ['La baraja "Mímica" de la app (Party Mode)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
+    episodes: [2, 5, 7], materials: ['La baraja "Mímica" de la app (Fiesta)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
     duration: 10, difficulty: 1,
     steps: [
-      'Abre Party Mode → baraja "Mímica" y roba una carta (sin que el otro la vea).',
+      'Abre Fiesta → baraja "Mímica" y roba una carta (sin que el otro la vea).',
       'Tienes 60 segundos para que el otro adivine solo con gestos y sonidos (sin palabras).',
       'Si adivina, ambos ganáis 1 punto: el que imita y el que adivina.',
       '5 rondas cada uno.',
@@ -163,7 +163,7 @@ const H: Challenge[] = [
     episodes: [2, 5, 7], materials: ['Temporizador'], mode: 'duel', players: '2 jugadores',
     duration: 10, difficulty: 1,
     steps: [
-      'Roba una tesis absurda de la baraja "Juicio Absurdo" (Party Mode) o inventadla.',
+      'Roba una tesis absurda de la baraja "Juicio Absurdo" (Fiesta) o inventadla.',
       'Tienes 60 segundos para defenderla con toda la seriedad de un abogado de película.',
       'El rival intenta no reírse. Si se ríe, punto para ti.',
       'Si eres tú quien se ríe mientras defiendes, punto para él/ella.',
@@ -185,7 +185,7 @@ const H: Challenge[] = [
   },
   {
     id: 'h-statue', name: 'La Estatua Parlante', tagline: 'A la pata coja mientras te interrogan.', category: 'home', sub: 'Equilibrio',
-    episodes: [2, 5], materials: ['Baraja "Preguntas Relámpago" (Party Mode)'], mode: 'duel', players: '2 jugadores a la vez',
+    episodes: [2, 5], materials: ['Baraja "Preguntas Relámpago" (Fiesta)'], mode: 'duel', players: '2 jugadores a la vez',
     duration: 5, difficulty: 2,
     steps: [
       'Los dos a la pata coja, frente a frente.',
@@ -226,10 +226,10 @@ const H: Challenge[] = [
 const C: Challenge[] = [
   {
     id: 'c-know', name: '¿Cuánto Me Conoces?', tagline: 'Respuestas en secreto. Verdades en voz alta.', category: 'couples', sub: 'Complicidad', intensity: 'sweet',
-    episodes: [2, 6], materials: ['Papel y 2 bolígrafos', 'Baraja "¿Cuánto me conoces?" (Couples Mode)'], mode: 'coop', players: '2 jugadores',
+    episodes: [2, 6], materials: ['Papel y 2 bolígrafos', 'Baraja "¿Cuánto me conoces?" (En pareja)'], mode: 'coop', players: '2 jugadores',
     duration: 15, difficulty: 1,
     steps: [
-      'Robad 10 preguntas de la baraja en Couples Mode.',
+      'Robad 10 preguntas de la baraja en En pareja.',
       'Para cada pregunta, los dos escribís en secreto: tu respuesta sobre ti y lo que crees que contestará el otro.',
       'Revelad a la vez. Coincidencia = acierto.',
     ],
@@ -265,7 +265,7 @@ const C: Challenge[] = [
     episodes: [6], materials: ['Lo que encontréis en casa', 'Temporizador'], mode: 'duel', players: '2 jugadores (por turnos)',
     duration: 30, difficulty: 2,
     steps: [
-      'Cada uno roba una temática en la baraja "Cita Improvisada" (Couples Mode).',
+      'Cada uno roba una temática en la baraja "Cita Improvisada" (En pareja).',
       'Tenéis 10 minutos para preparar una micro-cita de 5 minutos con esa temática usando solo lo que haya en casa.',
       'La cita se "vive" entera. Después el invitado puntúa: idea (1-5), ambientación (1-5), detalle romántico (1-5).',
     ],
@@ -277,7 +277,7 @@ const C: Challenge[] = [
     episodes: [6, 8], materials: ['Papel bonito', 'Bolígrafo'], mode: 'coop', players: '2 jugadores a la vez',
     duration: 10, difficulty: 1,
     steps: [
-      'Cada uno roba 3 palabras al azar de la baraja "Palabras Prohibidas" (Party Mode): deberán aparecer en la carta.',
+      'Cada uno roba 3 palabras al azar de la baraja "Palabras Prohibidas" (Fiesta): deberán aparecer en la carta.',
       '3 minutos para escribir una mini carta de amor al otro.',
       'Se leen en voz alta. Si las 3 palabras aparecen y la carta saca una sonrisa, superado.',
     ],
@@ -347,7 +347,7 @@ const C: Challenge[] = [
   },
   {
     id: 'c-truth', name: 'Verdades a Media Luz', tagline: 'Preguntas que normalmente no se preguntan.', category: 'couples', sub: 'Preguntas comprometidas', intensity: 'spicy',
-    episodes: [6], materials: ['Baraja "Verdad Picante" (Couples Mode)', 'Luz tenue'], mode: 'coop', players: '2 jugadores',
+    episodes: [6], materials: ['Baraja "Verdad Picante" (En pareja)', 'Luz tenue'], mode: 'coop', players: '2 jugadores',
     duration: 15, difficulty: 1,
     steps: [
       'Por turnos, robad una pregunta de la baraja "Verdad Picante".',
@@ -362,7 +362,7 @@ const C: Challenge[] = [
     episodes: [6, 8], materials: ['Lo que cada uno quiera preparar'], mode: 'coop', players: '2 jugadores',
     duration: 30, difficulty: 3,
     steps: [
-      'En el Episodio 3 o 4, cada uno roba en secreto un "encargo" de la baraja "Plan Secreto" (Couples Mode) usando la cortina de privacidad.',
+      'En el Episodio 3 o 4, cada uno roba en secreto un "encargo" de la baraja "Plan Secreto" (En pareja) usando la cortina de privacidad.',
       'Durante el día prepara su sorpresa sin que el otro se entere.',
       'En el Episodio 6 o en la Gran Final, se entregan las dos sorpresas.',
     ],
@@ -422,7 +422,7 @@ const K: Challenge[] = [
       'Quien gana la baza roba primero y sale en la siguiente. Al acabar el mazo se juegan las últimas cartas.',
     ],
     scoring: 'Se suman los puntos de las cartas ganadas (120 en total).', win: 'Más de 60 puntos.',
-    reward: { points: 15, coins: 30 }, rematch: 'Al mejor de 3 con el tracker de Series de Card Arena.',
+    reward: { points: 15, coins: 30 }, rematch: 'Al mejor de 3 con el tracker de Series de Cartas y dados.',
   },
   {
     id: 'k-war', name: 'Guerra con Apuestas', tagline: 'El juego más simple, ahora con farol.', category: 'cards', sub: 'Baraja de póker',
@@ -566,10 +566,10 @@ const K: Challenge[] = [
 const G: Challenge[] = [
   {
     id: 'g-champroulette', name: 'Ruleta de Campeones', tagline: 'El destino elige tu campeón. Tú pones las excusas.', category: 'gaming', sub: 'League of Legends',
-    episodes: [4], materials: ['League of Legends (PC)', 'La ruleta de campeones de Gaming Arena'], mode: 'duel', players: '2 jugadores (mismo equipo o rivales)',
+    episodes: [4], materials: ['League of Legends (PC)', 'La ruleta de campeones de Gaming'], mode: 'duel', players: '2 jugadores (mismo equipo o rivales)',
     duration: 40, difficulty: 2,
     steps: [
-      'En Gaming Arena, cada uno tira la Ruleta de Campeones y la Ruleta de Rol. Si no tenéis el campeón, volved a tirar.',
+      'En Gaming, cada uno tira la Ruleta de Campeones y la Ruleta de Rol. Si no tenéis el campeón, volved a tirar.',
       'Jugad una partida (ARAM o normal) juntos en el mismo equipo o en rivales en una personalizada.',
       'Gana el duelo quien acabe con mejor KDA ((K+A)/max(1,D)).',
     ],
@@ -578,10 +578,10 @@ const G: Challenge[] = [
   },
   {
     id: 'g-absurd', name: 'Partida de Reglas Absurdas', tagline: 'Una partida normal con una regla muy poco normal.', category: 'gaming', sub: 'League of Legends',
-    episodes: [4], materials: ['League of Legends (PC)', 'Baraja "Reglas Absurdas" (Gaming Arena)'], mode: 'duel', players: '2 jugadores',
+    episodes: [4], materials: ['League of Legends (PC)', 'Baraja "Reglas Absurdas" (Gaming)'], mode: 'duel', players: '2 jugadores',
     duration: 40, difficulty: 2,
     steps: [
-      'Cada uno roba en secreto una regla absurda de Gaming Arena (cortina de privacidad).',
+      'Cada uno roba en secreto una regla absurda de Gaming (cortina de privacidad).',
       'Juega la partida cumpliendo tu regla. El otro intenta descubrir cuál es.',
       'Al final, cada uno adivina la regla del otro.',
     ],
@@ -597,16 +597,16 @@ const G: Challenge[] = [
       'Condiciones de victoria: primera sangre, 100 súbditos o primera torre — lo que ocurra antes.',
       'Si solo tenéis un PC: cada uno juega contra bots (Práctica) y gana quien consigue antes 100 súbditos.',
     ],
-    scoring: 'Primera condición alcanzada.', win: 'Al mejor de 3 (usad Series en Card Arena).',
+    scoring: 'Primera condición alcanzada.', win: 'Al mejor de 3 (usad Series en Cartas y dados).',
     reward: { points: 25, coins: 40 }, rematch: 'Revancha con campeones elegidos por el rival.',
   },
   {
     id: 'g-oracle', name: 'El Oráculo de la Grieta', tagline: 'Predice la partida antes de jugarla.', category: 'gaming', sub: 'League of Legends',
-    episodes: [4], materials: ['Papel o Predicciones de Movie Night', 'Una partida de LoL'], mode: 'duel', players: '2 jugadores',
+    episodes: [4], materials: ['Papel o Predicciones de Noche de cine', 'Una partida de LoL'], mode: 'duel', players: '2 jugadores',
     duration: 5, difficulty: 1,
     steps: [
       'Antes de la partida, cada uno escribe 5 predicciones: duración (±3 min), quién hará más asesinatos, quién morirá más, quién conseguirá el primer dragón, quién ganará.',
-      'Bloqueadlas en Movie Night → Predicciones (sirven para cualquier evento).',
+      'Bloqueadlas en Noche de cine → Predicciones (sirven para cualquier evento).',
       'Al terminar, se marcan aciertos.',
     ],
     scoring: '1 punto por predicción acertada.', win: 'Más aciertos.',
@@ -650,7 +650,7 @@ const G: Challenge[] = [
   },
   {
     id: 'g-sf-hidden', name: 'Objetivo Oculto', tagline: 'Compañeros en el juego. Rivales en secreto.', category: 'gaming', sub: 'Split Fiction',
-    episodes: [4], materials: ['PS5', 'Split Fiction', 'Baraja "Objetivos Ocultos" (Gaming Arena)'], mode: 'duel', players: '2 jugadores',
+    episodes: [4], materials: ['PS5', 'Split Fiction', 'Baraja "Objetivos Ocultos" (Gaming)'], mode: 'duel', players: '2 jugadores',
     duration: 25, difficulty: 2,
     steps: [
       'Cada uno roba en secreto un objetivo oculto (cortina de privacidad).',
@@ -727,7 +727,7 @@ const G: Challenge[] = [
     steps: [
       'Partida local en pantalla dividida (Jugar → Exhibición/Partida local). El segundo mando pulsa Options para unirse.',
       '3 partidos de 5 minutos.',
-      'Registrad la serie en Card Arena → Series al mejor de 3.',
+      'Registrad la serie en Cartas y dados → Series al mejor de 3.',
     ],
     scoring: 'Partidos ganados.', win: 'Al mejor de 3.',
     reward: { points: 20, coins: 35 }, rematch: 'Revancha en modo Hoops o Snow Day si lo tenéis disponible.',
@@ -753,7 +753,7 @@ const P: Challenge[] = [
     duration: 20, difficulty: 2,
     steps: [
       'Triángulo de 6 vasos a cada extremo de la mesa, con un dedo de agua (o lo que queráis).',
-      'Por turnos, lanzáis. Si encestas, el rival retira ese vaso y roba una carta de "Verdad o Reto" (Party Mode) para cumplir.',
+      'Por turnos, lanzáis. Si encestas, el rival retira ese vaso y roba una carta de "Verdad o Reto" (Fiesta) para cumplir.',
       'Beber es OPCIONAL: el vaso se retira igual. Encestar dos seguidas = "fuego": el siguiente vale doble.',
     ],
     scoring: 'Gana quien elimina antes todos los vasos del rival.', win: 'Primero en eliminar los 6 vasos.',
@@ -761,7 +761,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-never', name: 'Yo Nunca: Edición Fichas', tagline: 'Diez fichas. Muchas confesiones.', category: 'party', sub: 'Never Have I Ever', drinks: true,
-    episodes: [5], materials: ['10 fichas por jugador', 'Baraja "Yo Nunca" (Party Mode)', 'Bebida opcional para brindar'], mode: 'duel', players: '2 jugadores',
+    episodes: [5], materials: ['10 fichas por jugador', 'Baraja "Yo Nunca" (Fiesta)', 'Bebida opcional para brindar'], mode: 'duel', players: '2 jugadores',
     duration: 15, difficulty: 1,
     steps: [
       'Por turnos, roba una carta "Yo nunca..." y léela.',
@@ -774,7 +774,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-likely', name: 'Más Probable que Tú', tagline: 'Señala a la de tres. Predice al otro.', category: 'party', sub: 'Most Likely To',
-    episodes: [5, 7], materials: ['Baraja "Quién es más probable" (Party Mode)'], mode: 'duel', players: '2 jugadores',
+    episodes: [5, 7], materials: ['Baraja "Quién es más probable" (Fiesta)'], mode: 'duel', players: '2 jugadores',
     duration: 10, difficulty: 1,
     steps: [
       'Leed la carta. Antes de señalar, cada uno PREDICE en secreto a quién señalará el otro (mano bajo la mesa: 1 dedo = a mí, 2 dedos = a ti).',
@@ -786,7 +786,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-dice', name: 'Dados del Destino', tagline: 'Verdad, reto o algo peor.', category: 'party', sub: 'Truth or Dare',
-    episodes: [5], materials: ['1 dado', 'Barajas "Verdad" y "Reto" (Party Mode)'], mode: 'duel', players: '2 jugadores',
+    episodes: [5], materials: ['1 dado', 'Barajas "Verdad" y "Reto" (Fiesta)'], mode: 'duel', players: '2 jugadores',
     duration: 15, difficulty: 1,
     steps: [
       'Tira el dado: 1-2 Verdad · 3-4 Reto · 5 Eliges tú · 6 El rival elige por ti.',
@@ -810,10 +810,10 @@ const P: Challenge[] = [
   },
   {
     id: 'p-cocktail', name: 'Ruleta de Cócteles', tagline: 'La ruleta elige. Tú mezclas. El otro juzga.', category: 'party', sub: 'Cocktail Roulette', drinks: true,
-    episodes: [5], materials: ['Bebidas disponibles (con y sin alcohol)', 'Hielo, fruta, vasos', 'Generador de cócteles (Party Mode)'], mode: 'duel', players: '2 jugadores',
+    episodes: [5], materials: ['Bebidas disponibles (con y sin alcohol)', 'Hielo, fruta, vasos', 'Generador de cócteles (Fiesta)'], mode: 'duel', players: '2 jugadores',
     duration: 20, difficulty: 2,
     steps: [
-      'Cada uno genera una combinación en Party Mode → Laboratorio (con o sin alcohol según vuestras preferencias).',
+      'Cada uno genera una combinación en Fiesta → Laboratorio (con o sin alcohol según vuestras preferencias).',
       'Tienes 5 minutos para preparar el cóctel o mocktail con esa combinación y bautizarlo.',
       'Se prueba y puntúa: sabor (1-5), presentación (1-5), nombre (1-5). Basta con un sorbo.',
     ],
@@ -846,7 +846,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-songs', name: 'Asociación Musical', tagline: 'Una palabra. Diez segundos. Canta.', category: 'party', sub: 'Song Association',
-    episodes: [5, 7], materials: ['Baraja "Asociación Musical" (Party Mode)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
+    episodes: [5, 7], materials: ['Baraja "Asociación Musical" (Fiesta)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
     duration: 10, difficulty: 2,
     steps: [
       'El rival saca una palabra de la baraja.',
@@ -858,7 +858,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-quick', name: 'Preguntas Relámpago', tagline: 'Treinta segundos. Prohibido decir "sí" o "no".', category: 'party', sub: 'Quick Questions',
-    episodes: [2, 5], materials: ['Baraja "Preguntas Relámpago" (Party Mode)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
+    episodes: [2, 5], materials: ['Baraja "Preguntas Relámpago" (Fiesta)', 'Temporizador'], mode: 'duel', players: '2 jugadores',
     duration: 6, difficulty: 2,
     steps: [
       'El rival te dispara preguntas de la baraja (o inventadas) durante 30 segundos.',
@@ -870,7 +870,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-cards', name: 'Cartas Contra Nosotros', tagline: 'Rellena el hueco. Hazme reír. Gana.', category: 'party', sub: 'Cards Against Each Other',
-    episodes: [5, 7], materials: ['Baraja "Huecos" (Party Mode)', 'Papeles y bolígrafo'], mode: 'duel', players: '2 jugadores',
+    episodes: [5, 7], materials: ['Baraja "Huecos" (Fiesta)', 'Papeles y bolígrafo'], mode: 'duel', players: '2 jugadores',
     duration: 15, difficulty: 1,
     steps: [
       'El juez lee una frase con hueco de la baraja.',
@@ -882,7 +882,7 @@ const P: Challenge[] = [
   },
   {
     id: 'p-prophet', name: 'El Profeta de la Fiesta', tagline: 'Predice la tarde antes de que pase.', category: 'party', sub: 'Prediction Game',
-    episodes: [5], materials: ['Predicciones (Movie Night)'], mode: 'duel', players: '2 jugadores',
+    episodes: [5], materials: ['Predicciones (Noche de cine)'], mode: 'duel', players: '2 jugadores',
     duration: 5, difficulty: 1,
     steps: [
       'Al empezar el Episodio 5, cada uno bloquea 5 predicciones sobre la tarde en la sección Predicciones ("Tatiana ganará el Pong", "Gabriel cantará Bad Bunny"...).',
@@ -896,7 +896,7 @@ const P: Challenge[] = [
 const M: Challenge[] = [
   {
     id: 'm-tw-oracle', name: 'Oráculo Vampírico', tagline: 'Predice la película antes de que te muerda.', category: 'movie', sub: 'Twilight',
-    episodes: [7], materials: ['Crepúsculo', 'Predicciones (Movie Night)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Crepúsculo', 'Predicciones (Noche de cine)'], mode: 'duel', players: '2 jugadores',
     duration: 120, difficulty: 1,
     steps: [
       'Antes de darle al play, cada uno bloquea 5 predicciones: "habrá una escena en el bosque de más de 2 minutos", "alguien mirará fijamente sin pestañear", "habrá una canción que Tatiana tararee"...',
@@ -908,10 +908,10 @@ const M: Challenge[] = [
   },
   {
     id: 'm-tw-bingo', name: 'Bingo Crepuscular', tagline: 'Miradas intensas, niebla y piel brillante.', category: 'movie', sub: 'Twilight',
-    episodes: [7], materials: ['Bingo de Movie Night (cartón Twilight)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Bingo de Noche de cine (cartón Twilight)'], mode: 'duel', players: '2 jugadores',
     duration: 120, difficulty: 1,
     steps: [
-      'Cada uno genera su cartón de Bingo Twilight en Movie Night (casillas distintas para cada uno).',
+      'Cada uno genera su cartón de Bingo Twilight en Noche de cine (casillas distintas para cada uno).',
       'Mientras veis la película, marcáis las situaciones cuando ocurren. Sin pausar.',
       'Quien complete primero una línea, grita "¡VAMPIRO!" y lo reclama en la app.',
     ],
@@ -944,7 +944,7 @@ const M: Challenge[] = [
   },
   {
     id: 'm-isla-detectives', name: 'Detectives de Parejas', tagline: 'Predice decisiones antes que la hoguera.', category: 'movie', sub: 'La isla de las tentaciones',
-    episodes: [7], materials: ['Un episodio cualquiera', 'Predicciones (Movie Night)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Un episodio cualquiera', 'Predicciones (Noche de cine)'], mode: 'duel', players: '2 jugadores',
     duration: 60, difficulty: 1,
     steps: [
       'En los primeros 5 minutos del episodio, cada uno bloquea 5 predicciones de comportamiento sobre lo que va a pasar en ESE episodio (quién llorará, quién se acercará a quién, quién pedirá ver imágenes...).',
@@ -956,10 +956,10 @@ const M: Challenge[] = [
   },
   {
     id: 'm-isla-bingo', name: 'Bingo del Drama', tagline: 'Lágrimas, miradas y "es que yo soy así".', category: 'movie', sub: 'La isla de las tentaciones',
-    episodes: [7], materials: ['Bingo de Movie Night (cartón Isla)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Bingo de Noche de cine (cartón Isla)'], mode: 'duel', players: '2 jugadores',
     duration: 60, difficulty: 1,
     steps: [
-      'Generad un cartón Isla cada uno en Movie Night.',
+      'Generad un cartón Isla cada uno en Noche de cine.',
       'Marcad las situaciones cuando ocurran.',
       'Primera línea = "¡HOGUERA!".',
     ],
@@ -992,7 +992,7 @@ const M: Challenge[] = [
   },
   {
     id: 'm-en-bingo', name: 'English Word Bingo', tagline: 'Escucha bien: cada palabra cuenta.', category: 'movie', sub: 'English Night',
-    episodes: [7], materials: ['Una película o serie en inglés', 'Bingo de Movie Night (cartón English)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Una película o serie en inglés', 'Bingo de Noche de cine (cartón English)'], mode: 'duel', players: '2 jugadores',
     duration: 90, difficulty: 2,
     steps: [
       'Generad un cartón English cada uno: son palabras y expresiones comunes en inglés.',
@@ -1004,7 +1004,7 @@ const M: Challenge[] = [
   },
   {
     id: 'm-en-forbidden', name: 'Forbidden Words', tagline: 'Tus palabras secretas. Su boca.', category: 'movie', sub: 'English Night',
-    episodes: [7], materials: ['Baraja "Forbidden Words" (Movie Night)', 'Película en inglés'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Baraja "Forbidden Words" (Noche de cine)', 'Película en inglés'], mode: 'duel', players: '2 jugadores',
     duration: 90, difficulty: 1,
     steps: [
       'Cada uno roba en secreto 3 palabras en inglés de la baraja.',
@@ -1028,7 +1028,7 @@ const M: Challenge[] = [
   },
   {
     id: 'm-en-accent', name: 'Accent Challenge', tagline: 'De Londres a Texas en una frase.', category: 'movie', sub: 'English Night',
-    episodes: [7], materials: ['Baraja "Acentos" (Movie Night)'], mode: 'duel', players: '2 jugadores',
+    episodes: [7], materials: ['Baraja "Acentos" (Noche de cine)'], mode: 'duel', players: '2 jugadores',
     duration: 10, difficulty: 2,
     steps: [
       'Roba un acento (British, Texan, Australian, Scottish, New York...) y una frase de la baraja "Translation Roulette".',

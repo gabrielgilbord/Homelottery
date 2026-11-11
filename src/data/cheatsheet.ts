@@ -82,9 +82,9 @@ export const HOST_TIMELINE = [
   { time: '09:30', what: 'EP 01 · Entrega bandeja + móvil. Operación Desayuno. No enseñes cajas ni ruletas.' },
   { time: '10:30', what: 'EP 02 · Pulsa "Siguiente episodio" en The Show. Se abre el Sobre del Calentamiento. 3-4 pruebas cortas (Caza Express, Memoria de Bandeja, Preguntas Relámpago, ¿Cuánto me conoces?). Primera Bronze Box y Ruleta Clásica.' },
   { time: '12:00', what: 'Pausa. Saca la mesa de cartas para después.' },
-  { time: '12:30', what: 'EP 03 · Torneo: crea una Serie al mejor de 3 (Escoba o Brisca) en Card Arena + Dados Mentirosos. Se abre la Silver Box. Reparte en privado el "Plan Secreto" (Couples → baraja Plan Secreto).' },
+  { time: '12:30', what: 'EP 03 · Torneo: crea una Serie al mejor de 3 (Escoba o Brisca) en Cartas y dados + Dados Mentirosos. Se abre la Silver Box. Reparte en privado el "Plan Secreto" (Couples → baraja Plan Secreto).' },
   { time: '14:00', what: 'Comida + siesta. Tiempo libre de verdad.' },
-  { time: '15:30', what: 'EP 04 · Gaming Arena: Ruleta de Campeones (LoL) o Split Fiction con Objetivo Oculto. Rocket League al mejor de 3. ARK solo si está actualizado. Gold Box disponible.' },
+  { time: '15:30', what: 'EP 04 · Gaming: Ruleta de Campeones (LoL) o Split Fiction con Objetivo Oculto. Rocket League al mejor de 3. ARK solo si está actualizado. Gold Box disponible.' },
   { time: '17:30', what: 'Merienda. Prepara la barra: hielo, vasos, mocktails, fruta, vasitos para el Sommelier Ciego.' },
   { time: '18:00', what: 'EP 05 · Party: Sobre de la Fiesta, Ruleta Dorada, Laboratorio de Cócteles, Pong de Vasos Libres, Yo Nunca. Diamond Box disponible.' },
   { time: '19:45', what: 'Prepara el rincón del EP 06: luz baja, velas LED, manta, aceite de masaje, playlist.' },
@@ -96,8 +96,8 @@ export const HOST_TIMELINE = [
 
 export const PLAN_B = [
   { q: 'ARK no termina de actualizar', a: 'No pasa nada: en el EP 04 jugad Split Fiction (Silencio Total + Objetivo Oculto) y Rocket League al mejor de 3. Las pruebas de ARK quedan para otro día.' },
-  { q: 'Un juego no funciona / no hay internet', a: 'Card Arena entero funciona sin conexión: Escoba, Dados Mentirosos, Hold\'em de salón. O Brawlhalla en local.' },
-  { q: 'No tenemos algún material', a: 'Cada prueba lista sus materiales: elige otra de la misma categoría con "Pasar / cambiar" → "Sustituir al azar". Sin dados: usa la app (Card Arena → Dados). Sin baraja: Carta al azar en Card Arena.' },
+  { q: 'Un juego no funciona / no hay internet', a: 'Cartas y dados entero funciona sin conexión: Escoba, Dados Mentirosos, Hold\'em de salón. O Brawlhalla en local.' },
+  { q: 'No tenemos algún material', a: 'Cada prueba lista sus materiales: elige otra de la misma categoría con "Pasar / cambiar" → "Sustituir al azar". Sin dados: usa la app (Cartas y dados → Dados). Sin baraja: Carta al azar en Cartas y dados.' },
   { q: 'Nos cansamos de una categoría', a: 'Salta de episodio en The Show (toca el episodio → "Saltar a este episodio") o usa "Prueba al azar" en Challenges filtrando por otra categoría.' },
   { q: 'Queremos cambiar el horario', a: 'El horario es solo orientativo. Los episodios se avanzan a mano: si vais tarde, juega 2 pruebas por episodio en lugar de 4.' },
   { q: 'No queremos seguir una prueba', a: '"Pasar / cambiar" en la prueba: no penaliza nunca. Si es romántica o picante, se pasa sin explicaciones.' },

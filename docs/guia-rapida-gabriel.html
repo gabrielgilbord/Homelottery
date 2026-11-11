@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2a101b">
+<title>Guía rápida · HOMELOTTERY</title>
+<style>
+:root{--ink:#171417;--wine:#2a101b;--burgundy:#501b2a;--cream:#f2e9d8;--paper:#fffaf0;--orange:#e27a50;--hot:#a8452a;--muted:#463a3c;--faint:#6b5c5a;--line:rgba(23,20,23,.14);--display:"Bodoni 72","Didot","Bodoni Moda","Bodoni MT",Georgia,serif;--ui:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,system-ui,sans-serif}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 var(--ui);-webkit-font-smoothing:antialiased}
+a{color:var(--hot)}
+header.mast{background:var(--wine);color:var(--cream);padding:calc(env(safe-area-inset-top) + 22px) max(20px,env(safe-area-inset-right)) 26px max(20px,env(safe-area-inset-left))}
+.wm{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:-.01em}
+.lamp{display:inline-block;margin-left:10px;padding:2px 8px;border-radius:4px;background:var(--orange);color:var(--ink);font:800 11px/1.6 var(--ui);letter-spacing:.12em;text-transform:uppercase;vertical-align:4px}
+header h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,11vw,72px);line-height:.92;letter-spacing:-.03em;margin:18px 0 8px}
+header .kicker{font:800 12px/1.3 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:#f0b28f}
+header p{margin:10px 0 0;max-width:60ch;color:rgba(242,233,216,.85)}
+nav.toc{position:sticky;top:0;z-index:5;display:flex;gap:6px;overflow-x:auto;padding:10px max(20px,env(safe-area-inset-left));background:var(--cream);border-bottom:2px solid var(--ink);scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:6px;color:var(--ink);text-decoration:none;font:600 14px/1 var(--ui);white-space:nowrap;background:var(--paper)}
+nav.toc a span{font-family:var(--display);font-weight:900;color:var(--hot)}
+main{max-width:860px;margin:0 auto;padding:8px max(20px,env(safe-area-inset-right)) 60px max(20px,env(safe-area-inset-left))}
+section{padding-top:28px}
+h2{display:flex;align-items:baseline;gap:12px;font-family:var(--display);font-weight:900;font-size:clamp(26px,7vw,40px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+h2 .n{color:var(--hot);font-size:.9em}
+h3{font:800 17px/1.3 var(--ui);margin:22px 0 8px}
+p{margin:0 0 12px;max-width:68ch}
+ol.steps{list-style:none;counter-reset:s;padding:0;margin:0 0 14px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--display);font-weight:900;font-size:22px;line-height:1.1;color:var(--hot)}
+ul{padding-left:20px;margin:0 0 14px}ul li{margin:6px 0}
+ul.check{list-style:none;padding:0}ul.check li{margin:0;border-bottom:1px solid var(--line)}
+ul.check label{display:flex;gap:12px;align-items:flex-start;padding:10px 0;cursor:pointer}
+ul.check input{width:22px;height:22px;margin:1px 0 0;flex-shrink:0;accent-color:var(--hot)}
+ul.check input:checked+span{color:var(--faint);text-decoration:line-through}
+.tw{overflow-x:auto;margin:0 calc(-1 * max(20px,env(safe-area-inset-left))) 16px;padding:0 max(20px,env(safe-area-inset-left));-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);min-width:min(100%,520px)}
+th{text-align:left;font:800 11.5px/1.3 var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--faint);padding:10px 10px 8px 0;border-bottom:1px solid var(--line)}
+td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+.note{margin:0 0 14px;padding:12px 14px;border-radius:8px;background:var(--paper);box-shadow:0 1px 0 var(--line) inset,0 0 0 1px var(--line)}
+.note.tip{background:#f6e3d3}.note.warn{background:#f3d7d0}.note.secret{background:var(--ink);color:var(--cream)}.note.secret strong{color:#ffb3a8}
+.note.example b{display:inline-block;margin-right:6px;padding:1px 6px;border-radius:3px;background:var(--burgundy);color:var(--cream);font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+code{font-size:.9em;background:var(--paper);padding:1px 4px;border-radius:3px}
+footer{max-width:860px;margin:0 auto;padding:0 20px 50px;color:var(--faint);font-size:13px}
+footer a{display:inline-block;margin-bottom:8px}
+@media print{nav.toc{display:none}header.mast{background:#fff;color:#000}.note.secret{background:#eee;color:#000}}
+</style>
+</head>
+<body>
+<header class="mast">
+<div class="wm">HOMELOTTERY<span class="lamp">Guía</span></div>
+<div class="kicker" style="margin-top:18px">Para Gabriel, mientras se juega</div>
+<h1>Guía rápida</h1>
+<p>Cómo funciona HOMELOTTERY en dos minutos. Sin spoilers: aquí no hay premios, mensajes ni claves.</p>
+</header>
+<nav class="toc" aria-label="Índice"><a href="#empezar"><span>01</span>Abrir y empezar el programa</a><a href="#inicio"><span>02</span>Qué hay en la pantalla principal</a><a href="#episodios"><span>03</span>Cómo funcionan los episodios</a><a href="#puntos"><span>04</span>Puntos y monedas</a><a href="#actividades"><span>05</span>Cómo se juega una actividad</a><a href="#ruletas"><span>06</span>Cómo funcionan las ruletas</a><a href="#cajas"><span>07</span>Cómo se abren las cajas misteriosas</a><a href="#sobres"><span>08</span>Cómo funcionan los sobres</a><a href="#premios"><span>09</span>Premios y logros</a><a href="#marcador"><span>10</span>El marcador Gabriel contra Tatiana</a><a href="#host"><span>11</span>Host Mode</a><a href="#guardado"><span>12</span>Cómo se guarda el progreso</a><a href="#tabla"><span>13</span>Consulta rápida</a></nav>
+<main>
+<aside class="note tip">Barra inferior: <strong>Inicio · Programa · Pruebas · Premios · Más</strong>. En <strong>Más</strong> está todo lo demás (Ruleta, Inventario, Marcador, Logros, Mis límites y Host Mode).</aside>
+<section id="empezar"><h2><span class="n">01</span>Abrir y empezar el programa</h2>
+<ol class="steps"><li><span>Abre <strong>homelottery.vercel.app</strong> en Safari. En el iPhone: Compartir → <strong>Añadir a pantalla de inicio</strong>, y juega siempre desde ese icono.</span></li><li><span>La primera vez aparece sola <strong>la Invitación</strong> (“Buenos días, Tatiana.”). Tatiana pulsa <strong>Descubrir mi sorpresa</strong>.</span></li><li><span><strong>Así se juega</strong>: ocho reglas rápidas. Botón <strong>Entendido. Quiero mi sobre</strong>.</span></li><li><span><strong>El primer sobre</strong>: se toca el sello, se lee la carta (+20 monedas para Tatiana) y <strong>Estoy preparada</strong>.</span></li><li><span><strong>Tus reglas, Tatiana</strong>: nivel romántico, competición, picante y alcohol. Botón <strong>Listo</strong>.</span></li><li><span><strong>Operación Desayuno</strong>: <strong>Empezar la misión</strong> abre la primera prueba. <strong>Ir al plató</strong> va directo a Inicio.</span></li></ol>
+<aside class="note ">Gabriel configura sus propios límites después, en privado: <strong>Más → Mis límites</strong>.</aside></section>
+<section id="inicio"><h2><span class="n">02</span>Qué hay en la pantalla principal</h2>
+<div class="tw"><table><thead><tr><th>Zona</th><th>Qué es</th><th>Qué se hace</th></tr></thead><tbody><tr><td>Cabecera con <strong>ON AIR</strong></td><td>El logo, la fecha y el episodio en emisión (número grande, título y horario). Las rayitas son los 8 episodios.</td><td>Solo mirar</td></tr><tr><td><strong>Marcador</strong> (placa granate)</td><td>Puntos de Gabriel y Tatiana, monedas de cada uno y quién lidera.</td><td>Tocar los puntos de la barra superior abre el Marcador completo</td></tr><tr><td><strong>Entrada naranja</strong></td><td>“Que empiece el show” o “Siguiente número”: la próxima prueba del episodio y lo que paga.</td><td>Tocarla abre la prueba</td></tr><tr><td><strong>Te espera</strong></td><td>Sobres listos para abrir, cajas gratis y límites sin configurar.</td><td>Tocar cada fila</td></tr><tr><td><strong>En este episodio</strong></td><td>Las pruebas del episodio, numeradas. Las jugadas dicen “Hecha”.</td><td>Tocar una para jugarla</td></tr><tr><td><strong>Premios</strong></td><td>Cajas disponibles, ruletas en juego, premios ganados y logros.</td><td>Cada casilla lleva a su pantalla</td></tr><tr><td><strong>Las secciones</strong></td><td>Gaming, Fiesta, En pareja, Noche de cine, Cartas y dados, Retos de casa.</td><td>Entrar en cada mundo</td></tr></tbody></table></div></section>
+<section id="episodios"><h2><span class="n">03</span>Cómo funcionan los episodios</h2>
+<p>El día está dividido en <strong>8 episodios</strong>. El episodio en emisión decide qué pruebas se proponen, qué cajas y ruletas están abiertas y qué sobres se abren.</p>
+<div class="tw"><table><thead><tr><th>Ep.</th><th>Hora</th><th>Título</th><th>Se abre</th></tr></thead><tbody><tr><td>01</td><td>09:30 – 10:30</td><td>Breakfast &amp; The Invitation</td><td>—</td></tr><tr><td>02</td><td>10:30 – 12:00</td><td>The Warm-Up</td><td>Bronze Box, Ruleta Clásica</td></tr><tr><td>03</td><td>12:30 – 14:00</td><td>The Duel</td><td>Silver Box</td></tr><tr><td>04</td><td>15:30 – 17:30</td><td>The Gaming Arena</td><td>Gold Box</td></tr><tr><td>05</td><td>18:00 – 20:00</td><td>The Afternoon Party</td><td>Diamond Box, Ruleta Dorada</td></tr><tr><td>06</td><td>20:00 – 21:15</td><td>The Couples Challenge</td><td>Ruleta de Medianoche</td></tr><tr><td>07</td><td>21:15 – 23:30</td><td>The Evening Show</td><td>—</td></tr><tr><td>08</td><td>23:30 – 00:15</td><td>The Grand Finale</td><td>Legendary Box, Ruleta Legendaria</td></tr></tbody></table></div>
+<ol class="steps"><li><span>Para ver la escaleta: barra inferior → <strong>Programa</strong>. Tocar un episodio muestra sus pruebas.</span></li><li><span>Para avanzar: <strong>Programa → Pasar al siguiente episodio</strong> y tocar otra vez para confirmar. Sale la cartela del nuevo episodio.</span></li><li><span>No hace falta jugar todas las pruebas: con dos a cuatro por episodio el día respira.</span></li></ol>
+<aside class="note tip">En el <strong>episodio 08 (Gran Final) los puntos y monedas de las pruebas valen el doble</strong>.</aside></section>
+<section id="puntos"><h2><span class="n">04</span>Puntos y monedas</h2>
+<div class="tw"><table><thead><tr><th></th><th>Para qué sirven</th><th>Cómo se ganan</th></tr></thead><tbody><tr><td><strong>Puntos</strong></td><td>Deciden quién gana el día. Son el marcador.</td><td>Ganando pruebas, con algunos eventos y premios.</td></tr><tr><td><strong>Monedas</strong></td><td>Se gastan en cajas, ruletas, subastas de cine y Doble o Nada.</td><td>Ganando o perdiendo pruebas (quien pierde cobra una consolación), sobres, logros, ruletas y cartas.</td></tr></tbody></table></div>
+<aside class="note example"><b>Ejemplo</b> <strong>Ruleta de Cócteles</strong> paga 20 puntos y 35 monedas. Si gana Tatiana: Tatiana +20 puntos y +35 monedas; Gabriel cobra +14 monedas de consolación (el 40 %, o el 60 % si alguien eligió competición “Relax”).</aside>
+<ul><li><strong>Empate</strong>: los dos cobran el 60 % de puntos y monedas.</li><li><strong>Pruebas en equipo</strong>: si se supera, los dos cobran todo; si no, los dos cobran la consolación.</li><li><strong>Racha</strong>: cada victoria seguida suma +5 monedas extra (hasta +20).</li><li><strong>Remontada</strong>: quien gana yendo más de 30 puntos por detrás cobra las monedas ×1,5.</li><li><strong>Gran Final</strong>: todo ×2. Ejemplo: El Triatlón Final da 80 puntos y 120 monedas a quien gane.</li></ul></section>
+<section id="actividades"><h2><span class="n">05</span>Cómo se juega una actividad</h2>
+<ol class="steps"><li><span>Abre la prueba (desde Inicio, <strong>Pruebas</strong> o el mundo correspondiente). Arriba: jugadores, duración, dificultad y recompensa.</span></li><li><span>Lee <strong>Materiales</strong> y <strong>Cómo se juega</strong>. Abajo están la puntuación, cómo se gana y la revancha.</span></li><li><span>Usa el <strong>Temporizador</strong> si hace falta.</span></li><li><span>Al acabar, en <strong>¿Quién ha ganado?</strong> pulsa <strong>Gana Gabriel</strong>, <strong>Gana Tatiana</strong> o <strong>Empate</strong>, y <strong>toca otra vez</strong> para confirmar. En las pruebas de equipo: <strong>Superado en equipo</strong> o <strong>No superado</strong>.</span></li><li><span>Sale el resultado con lo que cobra cada uno y atajos a <strong>Cajas</strong> y <strong>Ruleta</strong>.</span></li></ol>
+<aside class="note tip">¿No apetece? <strong>Pasar o cambiar</strong> → <strong>Sustituir al azar</strong> (otra prueba parecida) o <strong>Solo pasar</strong>. Sin penalización, nunca.</aside>
+<p><strong>Pruebas</strong> tiene las 84 pruebas con buscador, filtros por mundo y el botón <strong>Al azar</strong>.</p></section>
+<section id="ruletas"><h2><span class="n">06</span>Cómo funcionan las ruletas</h2>
+<ol class="steps"><li><span>Más → <strong>Ruleta</strong> (o Inicio → Premios → Ruletas en juego).</span></li><li><span>Elige la ruleta arriba y quién gira en <strong>Gira: Gabriel / Tatiana</strong>.</span></li><li><span>Pulsa <strong>Girar por N monedas</strong>. Al parar, sale un ticket con lo que ha tocado.</span></li><li><span>Si sale <strong>Doble o nada</strong>: elige cuánto te juegas (máx. 100) y <strong>Jugar</strong> (50 % de doblar) o <strong>Plantarse</strong>.</span></li></ol>
+<div class="tw"><table><thead><tr><th>Ruleta</th><th>Cuesta</th><th>Desde</th></tr></thead><tbody><tr><td>Ruleta Clásica</td><td>15 monedas</td><td>Episodio 02</td></tr><tr><td>Ruleta Dorada</td><td>40 monedas</td><td>Episodio 05</td></tr><tr><td>Ruleta de Medianoche</td><td>30 monedas</td><td>Episodio 06</td></tr><tr><td>Ruleta Legendaria</td><td>80 monedas</td><td>Episodio 08</td></tr></tbody></table></div>
+<p>Cada porción ocupa exactamente su probabilidad. Debajo de la rueda está la tabla de <strong>Probabilidades</strong>.</p></section>
+<section id="cajas"><h2><span class="n">07</span>Cómo se abren las cajas misteriosas</h2>
+<ol class="steps"><li><span>Barra inferior → <strong>Premios</strong>.</span></li><li><span>Elige quién abre en <strong>Abre: Gabriel / Tatiana</strong>. A la derecha se ven sus monedas y llaves.</span></li><li><span>Toca la caja. Con el modo un solo móvil activado pregunta: <strong>Delante de los dos</strong> o <strong>Solo para…</strong> (cortina: mantener pulsado para ver).</span></li><li><span>Se abre la caja y sale el certificado del premio. <strong>Guardar premio</strong>: queda en el Inventario.</span></li></ol>
+<div class="tw"><table><thead><tr><th>Caja</th><th>Cuesta</th><th>Desde</th></tr></thead><tbody><tr><td>Bronze Box</td><td>30 monedas</td><td>Episodio 02</td></tr><tr><td>Silver Box</td><td>60 monedas</td><td>Episodio 03</td></tr><tr><td>Gold Box</td><td>110 monedas</td><td>Episodio 04</td></tr><tr><td>Diamond Box</td><td>180 monedas</td><td>Episodio 05</td></tr><tr><td>Legendary Box</td><td>1 Llave Legendaria</td><td>Episodio 08</td></tr></tbody></table></div>
+<aside class="note ">El premio se sortea y se guarda al abrir: aunque se cierre la app, no cambia. Las cajas gratis (ganadas en ruletas o cartas) aparecen como “gratis”. La Legendary Box solo se abre con una Llave Legendaria. La más barata es la Bronze Box.</aside></section>
+<section id="sobres"><h2><span class="n">08</span>Cómo funcionan los sobres</h2>
+<ol class="steps"><li><span>Están en <strong>Programa → Sobres secretos</strong>: once sobres numerados.</span></li><li><span>Un sobre <strong>cerrado</strong> dice debajo cuándo se abre (por episodio, al completar pruebas o en situaciones especiales).</span></li><li><span>Cuando está <strong>listo</strong>, el lacre se mueve y aparece también en <strong>Inicio → Te espera</strong>. Tócalo para romper el sello.</span></li><li><span>Se abre, sale la carta y la recompensa se cobra sola. Los abiertos se pueden <strong>releer</strong>.</span></li></ol>
+<aside class="note ">Los sobres personales piden la cortina de privacidad: solo los lee su destinatario.</aside></section>
+<section id="premios"><h2><span class="n">09</span>Premios y logros</h2>
+<ul><li><strong>Premios</strong>: salen de cajas, ruletas y sobres. Se guardan en <strong>Más → Inventario → Premios ganados</strong>. Cuando se cumple uno, tocar <strong>Canjear</strong> (queda como “Canjeado”).</li><li><strong>Cartas especiales</strong> (10 tipos): Inventario → tocar la carta → <strong>Usar carta</strong> (toca otra vez). Algunas solo sirven en un momento concreto y lo explican.</li><li><strong>Misiones secretas</strong>: Inventario → <strong>Ver mis misiones en privado</strong> → <strong>Cumplida</strong> cuando se consiga.</li><li><strong>Logros</strong>: 21 por jugador. Se desbloquean solos y pagan al momento. Más → <strong>Logros</strong>.</li></ul></section>
+<section id="marcador"><h2><span class="n">10</span>El marcador Gabriel contra Tatiana</h2>
+<ol class="steps"><li><span>Toca los puntos de la barra superior (o Más → <strong>Marcador</strong>).</span></li><li><span>Arriba: puntos de cada uno y el sello de quien lidera con la ventaja.</span></li><li><span>Debajo: cara a cara de monedas, victorias, mejor racha, cajas, cartas y logros.</span></li><li><span><strong>Historial</strong>: todo lo que ha pasado, filtrable por <strong>Todo / Pruebas / Premios</strong>.</span></li></ol>
+<p>Gana el día quien tenga <strong>más puntos</strong> al final de la Gran Final.</p></section>
+<section id="host"><h2><span class="n">11</span>Host Mode</h2>
+<p>Es la sala de control de Gabriel: Más → <strong>Host Mode</strong>. Pide un PIN, se bloquea al salir y tras 5 minutos sin tocar nada.</p>
+<aside class="note warn">Tatiana: aquí están los spoilers. No entres.</aside></section>
+<section id="guardado"><h2><span class="n">12</span>Cómo se guarda el progreso</h2>
+<ul><li>Se guarda <strong>solo y al instante</strong> en el propio móvil. No hace falta pulsar nada.</li><li>Funciona <strong>sin conexión</strong> después de abrirla una vez con WiFi.</li><li>La partida vive en ese móvil y en esa dirección. En el iPhone, la app del icono guarda aparte de Safari: jugad siempre desde el icono.</li><li>Copia de seguridad: la hace Gabriel desde Host Mode.</li></ul></section>
+<section id="tabla"><h2><span class="n">13</span>Consulta rápida</h2>
+<div class="tw"><table><thead><tr><th>Quiero…</th><th>Tengo que pulsar…</th></tr></thead><tbody><tr><td>Empezar el concurso</td><td>Abrir la app → <strong>Descubrir mi sorpresa</strong> (sale sola la primera vez)</td></tr><tr><td>Ver los episodios</td><td>Barra inferior → <strong>Programa</strong></td></tr><tr><td>Jugar la siguiente prueba</td><td><strong>Inicio</strong> → la entrada naranja</td></tr><tr><td>Registrar quién gana</td><td>En la prueba: <strong>Gana Gabriel / Gana Tatiana / Empate</strong>, y otra vez para confirmar</td></tr><tr><td>Saltarme una prueba</td><td>En la prueba: <strong>Pasar o cambiar</strong></td></tr><tr><td>Abrir una ruleta</td><td><strong>Más → Ruleta</strong> → elegir ruleta y quién gira → <strong>Girar</strong></td></tr><tr><td>Abrir una caja</td><td>Barra inferior → <strong>Premios</strong> → elegir quién abre → tocar la caja</td></tr><tr><td>Abrir un sobre</td><td><strong>Programa → Sobres secretos</strong> → tocar el sobre listo</td></tr><tr><td>Ver o canjear premios</td><td><strong>Más → Inventario</strong> → <strong>Canjear</strong></td></tr><tr><td>Usar una carta</td><td><strong>Más → Inventario</strong> → tocar la carta → <strong>Usar carta</strong></td></tr><tr><td>Ver el marcador</td><td>Tocar los puntos de la barra superior</td></tr><tr><td>Cambiar mis límites</td><td><strong>Más → Mis límites</strong> → <strong>Abrir mis ajustes</strong></td></tr><tr><td>Activar sonidos</td><td><strong>Más → Mis límites → Sonidos del show</strong></td></tr><tr><td>Consultar mis controles privados</td><td><strong>Más → Host Mode</strong> → PIN</td></tr><tr><td>Pasar de episodio</td><td><strong>Programa → Pasar al siguiente episodio</strong> (dos toques)</td></tr></tbody></table></div></section>
+</main>
+<footer>Generado desde los datos de la app (npm run cheatsheet). Sin spoilers.</footer>
+<script>
+/* checklist ticks are remembered on this device only */
+document.querySelectorAll('ul.check input').forEach(function (c) { var k = 'hlguide:' + c.dataset.k; try { c.checked = localStorage.getItem(k) === '1'; } catch (e) {} c.addEventListener('change', function () { try { localStorage.setItem(k, c.checked ? '1' : '0'); } catch (e) {} }); });
+</script>
+</body>
+</html>

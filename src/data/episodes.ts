@@ -31,13 +31,13 @@ export const EPISODES: Episode[] = [
     n: 3, code: 'EP 03', title: 'The Duel', subtitle: 'Cartas, dados, habilidad y apuestas ficticias.', time: '12:30 – 14:00',
     mood: 'Competitivo · Casino', categories: ['cards', 'home'], picks: ['k-escoba', 'k-liardice', 'k-holdem', 'k-pig', 'h-chef', 'h-taste'], theme: 'cards',
     playerNote: 'Torneo de cartas al mejor de tres y algún duelo de habilidad. Se desbloquea la Silver Box.',
-    hostNote: 'Monta la mesa de cartas. Abre una Serie al mejor de 3 en Card Arena. Reparte el encargo del "Plan Secreto" (Couples Mode → baraja privada) antes de comer.',
+    hostNote: 'Monta la mesa de cartas. Abre una Serie al mejor de 3 en Cartas y dados. Reparte el encargo del "Plan Secreto" (En pareja → baraja privada) antes de comer.',
   },
   {
     n: 4, code: 'EP 04', title: 'The Gaming Arena', subtitle: 'League of Legends, Split Fiction, ARK y juegos gratuitos.', time: '15:30 – 17:30',
     mood: 'Gamer · Neón', categories: ['gaming'], picks: ['g-champroulette', 'g-sf-silence', 'g-sf-hidden', 'g-rocket', 'g-ark-gather', 'g-brawl'], theme: 'gaming',
     playerNote: 'Después de comer y descansar: consolas y PC. Se desbloquea la Gold Box.',
-    hostNote: 'Comprueba que ARK terminó de actualizar. Si no: Split Fiction + Rocket League. Usa las barajas privadas de Gaming Arena con la cortina de privacidad.',
+    hostNote: 'Comprueba que ARK terminó de actualizar. Si no: Split Fiction + Rocket League. Usa las barajas privadas de Gaming con la cortina de privacidad.',
   },
   {
     n: 5, code: 'EP 05', title: 'The Afternoon Party', subtitle: 'Cócteles, pruebas de sabor y ruleta dorada.', time: '18:00 – 20:00',
@@ -75,7 +75,7 @@ export const CATEGORIES: Record<CategoryId, { name: string; short: string; theme
   home: { name: 'Retos de casa', short: 'Casa', theme: 'home', desc: 'Memoria, equilibrio, cocina, puntería y competiciones absurdas.' },
   couples: { name: 'En pareja', short: 'Pareja', theme: 'couples', desc: 'Complicidad, confianza, romance y retos picantes, en tres niveles: Sweet, Spicy y Legendary.' },
   cards: { name: 'Cartas y dados', short: 'Cartas', theme: 'cards', desc: 'Baraja española, póker, dados, monedas y papel.' },
-  gaming: { name: 'Gaming Arena', short: 'Gaming', theme: 'gaming', desc: 'League of Legends, Split Fiction, ARK y free-to-play de PS.' },
+  gaming: { name: 'Gaming', short: 'Gaming', theme: 'gaming', desc: 'League of Legends, Split Fiction, ARK y free-to-play de PS.' },
   party: { name: 'Fiesta', short: 'Fiesta', theme: 'party', desc: 'Juegos de fiesta con bebidas opcionales. Nunca obligatorio beber.' },
   movie: { name: 'Noche de cine', short: 'Cine', theme: 'movie', desc: 'Twilight, La isla de las tentaciones y English Night.' },
 };
