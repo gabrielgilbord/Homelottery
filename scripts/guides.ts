@@ -507,3 +507,133 @@ document.querySelectorAll('ul.check input').forEach(function (c) { var k = 'hlgu
 </html>
 `;
 }
+
+/* =====================================================================
+   3 · RULEBOOK + SHOPPING LIST
+   Rules of every challenge (exactly what the app shows) and the complete
+   shopping list. The prize section of the list is marked secret.
+   ===================================================================== */
+import { DECKS } from '../src/data/decks';
+import { COCKTAIL, LOTTERY_ITEMS } from '../src/data/gaming';
+import { CATEGORIES } from '../src/data/episodes';
+import type { CategoryId } from '../src/types';
+
+const ORDER: CategoryId[] = ['home', 'couples', 'cards', 'gaming', 'party', 'movie'];
+const MODE: Record<string, string> = { duel: 'Duelo', coop: 'En equipo' };
+const DIFF = ['', 'Fácil', 'Media', 'Difícil'];
+const BONUS: Record<string, string> = { card: 'una carta especial', key: 'una Llave Legendaria', 'box-bronze': 'una Bronze Box gratis', 'box-silver': 'una Silver Box gratis', 'box-gold': 'una Gold Box gratis', 'box-diamond': 'una Diamond Box gratis' };
+
+export function rulebook(): Doc {
+  const physical = BOXES.flatMap((b) => b.entries.map((e) => ({ b, p: prizeById(e.prizeId)! }))).filter(({ p }) => !/^(Automático|Nada|Ninguna)/.test(p.prep));
+  const mats = new Map<string, string[]>();
+  for (const c of CHALLENGES) for (const m of c.materials) mats.set(m, [...(mats.get(m) || []), c.name]);
+  const snacks = LOTTERY_ITEMS.find((x) => x.id === 'snacks')!.options;
+
+  const challengeBlocks = (cat: CategoryId): Block[] => CHALLENGES.filter((c) => c.category === cat).flatMap((c): Block[] => {
+    const meta = [
+      MODE[c.mode] || c.mode, c.players, `${c.duration} min`, `dificultad ${DIFF[c.difficulty].toLowerCase()}`,
+      `paga ${c.reward.points} puntos y ${c.reward.coins} monedas${c.reward.bonus ? ` + ${BONUS[c.reward.bonus] || 'sorpresa'}` : ''}`,
+      `episodio${c.episodes.length > 1 ? 's' : ''} ${c.episodes.map(ep2).join(', ')}`,
+      c.intensity ? `nivel ${c.intensity === 'sweet' ? 'Sweet' : c.intensity === 'spicy' ? 'Spicy' : 'Legendary'}` : '',
+      c.drinks ? 'bebida opcional' : '',
+    ].filter(Boolean);
+    return [
+      { h3: `${c.name}${c.sub ? ` · ${c.sub}` : ''}` },
+      { p: c.tagline },
+      { p: meta.map((m) => `**${m}**`).join(' · ') },
+      ...(c.requires ? [{ note: c.requires, tone: 'warn' } as Block] : []),
+      { p: `**Materiales:** ${c.materials.join(', ')}.` },
+      { ol: c.steps },
+      { table: { head: ['Puntuación', 'Victoria', 'Revancha'], rows: [[c.scoring, c.win, c.rematch]] } },
+    ];
+  });
+
+  return {
+    title: 'Reglamento y lista de la compra',
+    kicker: 'Para Gabriel. La sección de premios es secreta',
+    subtitle: `Las reglas oficiales de las ${CHALLENGES.length} pruebas y de todas las mecánicas del show, tal como aparecen en la app, y todo lo que hay que tener en casa.`,
+    secret: false,
+    intro: [
+      { note: '**Regla de oro:** cualquier prueba se puede pasar o cambiar, sin penalización y sin explicaciones. Se juega siempre al nivel más suave de los dos. Beber nunca es obligatorio ni un castigo.', tone: 'tip' },
+      { note: 'La última sección (“Para los premios”) revela premios: sáltala si Tatiana está mirando.', tone: 'warn' },
+    ],
+    sections: [
+      { id: 'reglas', title: 'Reglas generales del show', blocks: [
+        { h3: 'Resultados de una prueba' },
+        { table: { head: ['Resultado', 'Quién cobra'], rows: [
+          ['Gana uno (duelo)', 'El ganador: puntos y monedas completos. El que pierde: 40 % de las monedas (60 % si alguien eligió competición “Relax”).'],
+          ['Empate', 'Los dos: 60 % de puntos y monedas.'],
+          ['Superado en equipo', 'Los dos: recompensa completa (y el extra de la prueba, si lo tiene).'],
+          ['No superado en equipo', 'Los dos: la consolación de monedas.'],
+          ['Pasar o cambiar', 'Nadie pierde nada. Queda anotado en el historial.'],
+        ] } },
+        { ul: [
+          '**Racha:** +5 monedas por cada victoria seguida anterior (hasta +20).',
+          '**Remontada:** quien gana yendo más de 30 puntos por detrás cobra las monedas ×1,5.',
+          '**Gran Final (EP 08):** puntos y monedas de las pruebas ×2.',
+          '**Multiplicadores** (x2, x3, Happy Hour, Double Trouble): valen para la siguiente prueba que se registre y se gastan.',
+          'Gana el día quien tenga **más puntos** al final de la Gran Final.',
+        ] },
+        { h3: 'Cartas especiales' },
+        { table: { head: ['Carta', 'Regla'], rows: Object.values(CARDS).map((c) => [`**${c.name}**`, c.rules]) } },
+        { p: 'Se usan en **Más → Inventario** → tocar la carta → **Usar carta** (dos toques).' },
+        { h3: 'Ruletas' },
+        { table: { head: ['Ruleta', 'Cuesta', 'Desde', 'Porciones'], rows: WHEELS.map((w) => { const tot = w.segments.reduce((a, s) => a + s.weight, 0); return [w.name, `${w.cost} monedas`, `EP ${ep2(w.unlockEpisode)}`, w.segments.map((s) => `${s.label} ${pct(s.weight / tot)}`).join(', ')]; }) } },
+        { ul: [
+          '**Doble o nada:** apuestas lo que quieras (máximo 100 monedas, nunca más de las que tienes). 50 % de doblarlo. Puedes plantarte.',
+          '**Robo:** se lleva monedas del otro; un Shield lo bloquea (y se gasta).',
+          `**Evento:** uno de estos al azar: ${EVENTS.map((e) => `${e.title} (${e.text.replace(/\s*\(.*\)/, '')})`).join(' ')}`,
+        ] },
+        { h3: 'Cajas misteriosas' },
+        { table: { head: ['Caja', 'Cuesta', 'Desde'], rows: BOXES.map((b) => [b.name, b.costLabel, `EP ${ep2(b.unlockEpisode)}`]) } },
+        { ul: ['El premio se sortea y se guarda al abrir: no cambia aunque se cierre la app.', 'Los premios únicos solo salen una vez en todo el día. Los atrevidos solo existen si los dos lo activáis.', 'Cuando se cumple un premio: Inventario → **Canjear**.'] },
+        { h3: 'Sobres secretos' },
+        { table: { head: ['Nº', 'Sobre', 'Cuándo se abre'], rows: ENVELOPES.filter((e) => !e.hostOnly).map((e) => [ep2(ENVELOPES.indexOf(e) + 1), e.name, e.condition]) } },
+        { h3: 'Noche de cine' },
+        { ul: [
+          `**Subasta (Movie Lottery):** se subasta ${LOTTERY_ITEMS.map((i) => i.name.toLowerCase()).join(', ')}. Cada uno **sella su puja** en privado; gana la más alta y solo paga quien gana. Si empatan, decide el azar.`,
+          '**Bingo:** cada uno genera su cartón de 4×4. Al hacer línea (fila, columna o diagonal) se canta: **+15 puntos y +30 monedas**, una vez por cartón.',
+          '**Predicciones:** se escriben y se **sellan** antes de ver; al resolverlas, cada acierto da **+3 puntos y +10 monedas**.',
+        ] },
+        { h3: 'Cartas y dados' },
+        { ul: ['**Series al mejor de 3, 5 o 7:** se apunta cada partida ganada; quien gana la serie cobra **+15 monedas**.', 'Herramientas en la mesa: dados (1 a 5), moneda y carta al azar de baraja española o de póker.'] },
+        { h3: 'Barajas de la app' },
+        { table: { head: ['Mundo', 'Baraja', 'Cómo se usa'], rows: DECKS.map((d) => [({ party: 'Fiesta', couples: 'En pareja', gaming: 'Gaming', movie: 'Noche de cine', home: 'Casa' } as Record<string, string>)[d.section], `**${d.name}**${d.private ? ' (privada)' : ''}`, d.hint]) } },
+        { p: 'Las barajas privadas se roban tras la cortina: solo las ve quien roba.' },
+      ] },
+      ...ORDER.map((cat): Section => ({ id: 'p-' + cat, title: `${CATEGORIES[cat].name} (${CHALLENGES.filter((c) => c.category === cat).length} pruebas)`, blocks: [{ p: CATEGORIES[cat].desc }, ...challengeBlocks(cat)] })),
+      { id: 'compra', title: 'Lista de la compra', blocks: [
+        { note: 'Marca lo que ya tienes en casa. Las casillas se recuerdan en este móvil.', tone: 'tip' },
+        { h3: 'Desayuno (Episodio 01)' },
+        { check: ['Huevos (fritos para el desayuno)', 'Pan para tostadas', 'Zumo o naranjas', 'Café', 'Fruta para cortar', 'Mermelada o miel (para la cata a ciegas)', 'Una flor o una nota “Episodio 01” para la bandeja (opcional)', 'Bandeja y servilleta'] },
+        { h3: 'Material de juego' },
+        { check: [
+          'Baraja española de 40 cartas', 'Baraja de póker', 'Dados: 5 por jugador para Dados Mentirosos (o 3 si no hay); al menos 1 para el resto', 'Monedas (para lanzar y como fichas)',
+          'Fichas: unas 60 (garbanzos, legos, gominolas o M&Ms)', 'Folios, papel cuadriculado y papel bonito para la carta', '2 bolígrafos de colores distintos y rotuladores', 'Antifaz o pañuelo',
+          '12 vasos (6 por jugador) + 2 vasos opacos', 'Pelota de ping-pong (o bola de papel de aluminio)', '2 cucharas soperas + 2 huevos duros, limones o mandarinas', 'Bandeja + paño + 15 objetos pequeños de casa',
+          'Palillos chinos o pinzas + 2 cuencos', 'Calcetines hechos bola + un cesto o caja', 'Cojines (obstáculos) y cinta o un objeto como diana', 'Una bolsa opaca por jugador', 'Pan y lo que haya en la nevera (MasterTostada)',
+          '6 especias o sabores en vasitos: canela, pimentón, orégano, cacao, café, limón (El Paladar de Oro)', 'Cucharillas', 'Un libro abierto como muro (Hundir la Flota)',
+        ] },
+        { h3: 'Consolas y juegos' },
+        { check: ['PS5 + 2 mandos cargados', 'Split Fiction instalado', 'ARK actualizado (si no: Plan B)', 'Rocket League y Brawlhalla descargados (gratis)', 'League of Legends en PC (mejor en 2 PCs)', 'Cuentas PSN si queréis jugar online', 'Película o serie en inglés, Crepúsculo y un episodio de La isla de las tentaciones'] },
+        { h3: 'Fiesta y cócteles (alcohol siempre opcional)' },
+        { check: [
+          'Hielo', 'Vasitos para catas (5 bebidas distintas numeradas para El Sommelier Ciego)', `Sin alcohol: ${COCKTAIL.baseNoAlcohol.join(', ')}`, `Para mezclar: ${COCKTAIL.mixer.join(', ')}`, `Decoración: ${COCKTAIL.garnish.filter((g) => !g.includes('imaginaria')).join(', ')}`,
+          `Con alcohol (solo si los dos lo queréis): ${COCKTAIL.baseAlcohol.join(', ')}`, 'Snacks y algo para untar o espolvorear: miel, especias, chocolate, sal (Ingrediente Misterioso)', 'Agua y refrescos siempre en la mesa',
+        ] },
+        { h3: 'Noche de cine' },
+        { check: [...snacks, 'Manta y cojines'] },
+        { h3: 'Ambiente' },
+        { check: ['Altavoz o tele con música y vuestra canción', 'Velas LED o luces bajas', 'Aceite o crema de masaje + toalla', 'Sobres de papel (si quieres versión física de los sobres)'] },
+        { h3: 'Del Cheat Sheet: comprar si falta' },
+        { check: MATERIALS.buy.filter((m) => !/premio/i.test(m)) },
+        { h3: 'Para los premios (secreto)' },
+        { note: 'Esto revela premios de las cajas. Prepáralo y escóndelo antes de empezar.', tone: 'secret' },
+        { check: [...physical.map(({ b, p }) => `**${p.title}** (${b.name}): ${p.prep}`), ...MATERIALS.buy.filter((m) => /premio/i.test(m))] },
+        { h3: 'Comprobación: qué pide cada prueba' },
+        { table: { head: ['Material', 'Lo usan'], rows: [...mats].sort((a, b) => b[1].length - a[1].length).map(([m, v]) => [m, v.join(', ')]) } },
+      ] },
+    ],
+    footer: `Generado desde los datos de la app (npm run cheatsheet): ${CHALLENGES.length} pruebas, ${DECKS.length} barajas, ${mats.size} materiales distintos.`,
+  };
+}

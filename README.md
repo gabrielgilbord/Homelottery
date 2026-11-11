@@ -8,8 +8,9 @@ Un concurso de un día entero en una web app pensada para el móvil: 8 episodios
 |---|---|---|
 | [Guía rápida](docs/GUIA_RAPIDA_GABRIEL.md) | Cómo funciona todo, en dos minutos. **Sin spoilers.** | [guia-rapida-gabriel.html](docs/guia-rapida-gabriel.html) |
 | [Cheat Sheet secreto](docs/GABRIEL_SECRET_CHEAT_SHEET.md) | Preparación, PIN, controles de anfitrión, premios, sobres, cronología y plan B. **Confidencial: no abrir delante de Tatiana.** | [gabriel-secret-cheat-sheet.html](docs/gabriel-secret-cheat-sheet.html) |
+| [Reglamento y lista de la compra](docs/REGLAMENTO_Y_COMPRA.md) | Reglas de las 84 pruebas y de todas las mecánicas, y la compra completa. **La última sección (premios) es secreta.** | [reglamento-y-compra.html](docs/reglamento-y-compra.html) |
 
-Los cuatro archivos se generan desde los datos del juego con `npm run cheatsheet`, así que siempre coinciden con la app. La versión interactiva del Cheat Sheet, con su checklist, está en la app: Más → Host Mode → Cheat Sheet.
+Los seis archivos se generan desde los datos del juego con `npm run cheatsheet`, así que siempre coinciden con la app. La versión interactiva del Cheat Sheet, con su checklist, está en la app: Más → Host Mode → Cheat Sheet.
 
 ## Ejecutar
 
