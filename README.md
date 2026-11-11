@@ -31,6 +31,10 @@ Alternativa por terminal: `npx vercel` (preview) y `npx vercel --prod` (producci
 ### Red local (sin publicar)
 `npm run build && npm run preview` en el ordenador y abre `http://<IP-del-ordenador>:4173` en el móvil, con la misma WiFi.
 
+**Sin conexión:** el Service Worker (generado en cada build) precachea todos los archivos en la primera visita. Después la app abre sin internet, con fuentes, iconos y estilos incluidos.
+
+**iPhone:** la app añadida a la pantalla de inicio tiene su propio almacenamiento, separado de Safari. Configura el PIN y las preferencias **dentro de la app del icono** y juega siempre desde ahí. Ábrela una vez desde el icono con WiFi para que quede instalada sin conexión.
+
 **Importante:** la partida se guarda en el navegador (localStorage) del dispositivo y de *esa* URL. Usad siempre el mismo móvil y la misma dirección. Copia de seguridad: Host Mode → Ajustes → Exportar partida.
 
 ## Qué incluye

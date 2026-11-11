@@ -7,15 +7,15 @@
 - [ ] **20:30** · Revisa la lista "Comprar si falta" (sección Materiales). Baraja, pelotas, hielo, snacks, mascarillas.
 - [ ] **21:00** · PS5: lanza la actualización de ARK y la de Split Fiction, y descarga Rocket League. Si sobra espacio, Brawlhalla. Deja la consola en modo reposo con descargas activas.
 - [ ] **21:15** · PC: abre el cliente de League of Legends, deja que parchee y comprueba que las dos cuentas inician sesión.
-- [ ] **21:30** · Móvil: abre la URL de HOMELOTTERY, Compartir → Añadir a pantalla de inicio. Ábrela una vez desde el icono con WiFi.
-- [ ] **21:40** · Host Mode: crea el PIN. En Preferencias, configura tus límites en privado.
+- [ ] **21:30** · iPhone: abre la URL en Safari → Compartir → Añadir a pantalla de inicio. Después ábrela DESDE EL ICONO con WiFi y espera 10 segundos: así queda guardada para funcionar sin internet.
+- [ ] **21:40** · Dentro de la app del icono (no en Safari: iOS guarda los datos por separado): crea el PIN en Host Mode y configura tus límites en Preferencias. Mañana se juega siempre desde el icono.
 - [ ] **21:50** · Host Mode → Premios: cambia las pistas de "Tesoro de chocolate" y "Regalo escondido". Host Mode → Sobres: escribe tu mensaje en el Sobre Secreto de Gabriel.
 - [ ] **22:00** · Escribe a mano la carta para Tatiana (premio legendario "La Carta Secreta") y guárdala en un sobre cerrado.
 - [ ] **22:20** · Esconde la chocolatina, el detalle pequeño y el regalo principal. Apunta cada escondite en Host Mode → Control → Notas privadas.
 - [ ] **22:40** · Monta la zona de juego: barajas, dados, papel, bolis, vasos, pelota, antifaz, aceite de masaje.
 - [ ] **22:50** · Pon a cargar el móvil, los dos mandos, el altavoz y las velas LED.
 - [ ] **23:00** · Desayuno: deja a mano bandeja, café, zumo o naranjas, huevos, pan, fruta y los 3 bocados sorpresa de la cata.
-- [ ] **23:10** · Host Mode → Ajustes → Reiniciar partida conservando PIN y textos. La app queda en "Buenos días, Tatiana". Bloquea el móvil.
+- [ ] **23:10** · Host Mode → Ajustes → Reiniciar partida conservando PIN y textos. La app queda en "Buenos días, Tatiana". Prueba rápida: pon el modo avión, cierra la app y ábrela desde el icono; debe abrir. Quita el modo avión y bloquea el móvil.
 - [ ] **23:15** · Mira el progreso de ARK antes de dormir. Si no va a terminar, no pasa nada: Plan B ya está pensado.
 
 ### Detalle por tipo de tarea
