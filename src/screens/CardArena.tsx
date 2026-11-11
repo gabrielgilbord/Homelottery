@@ -27,7 +27,7 @@ function DiceTool() {
   };
   return (
     <div className="tool">
-      <div className="split"><span className="eyebrow">Dados</span><Seg value={n} onChange={(v) => { setN(v); setVals(Array.from({ length: +v }, () => 6)); }} label="Número de dados" options={['1', '2', '3', '5'].map((x) => ({ v: x, label: x }))} /></div>
+      <div className="split"><span className="label">Dados</span><Seg value={n} onChange={(v) => { setN(v); setVals(Array.from({ length: +v }, () => 6)); }} label="Número de dados" options={['1', '2', '3', '5'].map((x) => ({ v: x, label: x }))} /></div>
       <div className="cluster" style={{ minHeight: 60 }}>{vals.map((v, i) => <Die key={i} v={v} rolling={rolling} />)}</div>
       <div className="split"><span className="small muted">Total <b className="num" style={{ color: 'var(--ivory)' }}>{vals.reduce((a, b) => a + b, 0)}</b></span><button className="btn accent sm" onClick={roll} disabled={rolling}><Icon name="dice" size={14} />Tirar</button></div>
     </div>
@@ -44,12 +44,12 @@ function CoinTool() {
   };
   return (
     <div className="tool">
-      <span className="eyebrow">Moneda</span>
+      <span className="label">Moneda</span>
       <div className="cluster" style={{ ['--gap' as string]: 'var(--s-4)', minHeight: 64 }}>
         <div className={'coin' + (flip ? ' flip' : '')} aria-hidden>H</div>
-        <div className="h2" aria-live="polite">{flip ? '…' : res ? (res === 'CARA' ? 'Cara' : 'Cruz') : '—'}</div>
+        <div className="h2" aria-live="polite">{flip ? '…' : res ? (res === 'CARA' ? 'Cara' : 'Cruz') : 'Sin lanzar'}</div>
       </div>
-      <div className="split"><span className="xs mono faint">{log.join(' ') || 'Sin lanzamientos'}</span><button className="btn accent sm" onClick={go} disabled={flip}>Lanzar</button></div>
+      <div className="split"><span className="small faint num">{log.length ? `Últimos: ${log.join(' ')}` : 'Sin lanzamientos'}</span><button className="btn accent sm" onClick={go} disabled={flip}>Lanzar</button></div>
     </div>
   );
 }
@@ -66,7 +66,7 @@ function CardDrawTool() {
   const red = shown && /[♥♦]|Copas|Oros/.test(shown.s);
   return (
     <div className="tool">
-      <div className="split"><span className="eyebrow">Carta al azar</span><Seg value={kind} onChange={(k) => { setKind(k); setDeck(build(k)); setShown(null); }} label="Baraja" options={[{ v: 'poker', label: 'Póker' }, { v: 'spanish', label: 'Española' }]} /></div>
+      <div className="split"><span className="label">Carta al azar</span><Seg value={kind} onChange={(k) => { setKind(k); setDeck(build(k)); setShown(null); }} label="Baraja" options={[{ v: 'poker', label: 'Póker' }, { v: 'spanish', label: 'Española' }]} /></div>
       <div className="cluster" style={{ minHeight: 106 }}>
         {shown ? (
           <div key={shown.k} className={'pcard' + (red ? ' red' : '')} aria-live="polite" aria-label={`${shown.r} de ${shown.s}`}>
@@ -77,7 +77,7 @@ function CardDrawTool() {
         ) : <span className="small faint">Roba una carta.</span>}
         {shown && kind === 'spanish' && <span className="h4">{shown.r} de {shown.s}</span>}
       </div>
-      <div className="split"><span className="xs mono faint">{deck.length} en el mazo</span><button className="btn accent sm" onClick={draw}>Robar</button></div>
+      <div className="split"><span className="small faint num">{deck.length} en el mazo</span><button className="btn accent sm" onClick={draw}>Robar</button></div>
     </div>
   );
 }
@@ -98,7 +98,7 @@ function SeriesTool() {
       {s.series.length === 0 && <Empty icon="trophy">Sin series todavía. Crea una para llevar un torneo al mejor de tres.</Empty>}
       {s.series.map((se) => (
         <div key={se.uid} className="surface stack">
-          <div className="split"><span className="h4">{se.name}</span><span className="eyebrow">Al mejor de {se.bestOf}</span></div>
+          <div className="split"><span className="h4">{se.name}</span><span className="small faint">Al mejor de {se.bestOf}</span></div>
           <div className="series">
             {PLAYERS.map((p, i) => {
               const btn = (
@@ -125,7 +125,7 @@ export default function CardArena() {
     <div>
       <PageHead eyebrow="Arena" title="Card Arena" sub="Duelos de cartas, dados y papel pensados para dos. Casi todos empiezan en menos de dos minutos." />
       <div className="felt"><div className="grid-auto" style={{ ['--min' as string]: '240px' }}><DiceTool /><CoinTool /><CardDrawTool /></div></div>
-      <Section title="Series y torneos" eyebrow="Marcador al mejor de N"><SeriesTool /></Section>
+      <Section title="Series y torneos" eyebrow="Torneos al mejor de 3, 5 o 7"><SeriesTool /></Section>
       <Section title="Baraja española"><ChallengeList list={list.filter((c) => c.sub === 'Baraja española')} /></Section>
       <Section title="Baraja de póker"><ChallengeList list={list.filter((c) => /póker|Faroleo|Velocidad|Memoria/.test(c.sub || ''))} /></Section>
       <Section title="Dados, monedas y papel"><ChallengeList list={list.filter((c) => /Dados|Monedas|Papel/.test(c.sub || ''))} /></Section>

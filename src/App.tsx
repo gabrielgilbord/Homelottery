@@ -3,6 +3,7 @@ import { useRoute, go } from './lib/router';
 import { useGame, leader } from './state/store';
 import { Icon } from './components/Icon';
 import { AnimatedNumber, Modal, Toaster } from './components/ui';
+import { Wordmark } from './components/Logo';
 import { challengeById } from './data/challenges';
 import { EPISODES } from './data/episodes';
 import type { CategoryId } from './types';
@@ -111,12 +112,12 @@ export default function App() {
       <div className="shell">
         <nav className="rail" aria-label="Secciones">
           <button className="brand" onClick={() => go('home')} aria-label="Ir al inicio">
-            <div className="wordmark">Home<i>lottery</i></div>
-            <div className="wordmark-sub">Gabriel × Tatiana</div>
+            <Wordmark />
+            <div className="label" style={{ marginTop: 6 }}>Gabriel y Tatiana</div>
           </button>
           {NAV_GROUPS.map((g) => (
             <div key={g.title} className="group">
-              <div className="eyebrow">{g.title}</div>
+              <div className="label">{g.title}</div>
               {g.items.map((n) => (
                 <button key={n.id} className="navlink" data-world={n.world} style={{ ['--dot' as string]: 'var(--accent)' }} aria-current={current(n.id) ? 'page' : undefined} onClick={() => go(n.id)}>
                   <Icon name={n.icon} size={18} />{n.label}<span className="ndot" />
@@ -128,12 +129,12 @@ export default function App() {
 
         <header className="topbar no-print">
           <button className="brand" onClick={() => go('home')} aria-label="Ir al inicio">
-            <div><div className="wordmark" style={{ fontSize: 22 }}>Home<i>lottery</i></div></div>
+            <Wordmark />
           </button>
           <div className="status">
             <span className="live-dot" />
-            <span className="eyebrow" style={{ color: 'var(--ivory-2)' }}>Episodio {String(s.episode).padStart(2, '0')}</span>
-            <span className="small muted" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ep.title}</span>
+            <span>Episodio {s.episode} de 8</span>
+            <b style={{ color: 'var(--ivory)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ep.title}</b>
           </div>
           <button className="scorepill" onClick={() => go('leaderboard')} aria-label={`Marcador: Gabriel ${s.players.gabriel.points}, Tatiana ${s.players.tatiana.points}`}>
             <span className={'s' + (lead === 'gabriel' ? ' lead' : '')}><span className="avatar sm gabriel">G</span><AnimatedNumber value={s.players.gabriel.points} /></span>
@@ -149,17 +150,17 @@ export default function App() {
         <nav className="bottomnav no-print" aria-label="Navegación principal">
           {BOTTOM.map((id) => { const n = ALL.find((x) => x.id === id)!; return (
             <button key={id} className="navbtn" aria-current={current(id) ? 'page' : undefined} onClick={() => go(id)}>
-              <Icon name={n.icon} size={22} />{n.label.replace('Mystery ', '')}
+              <span className="ni"><Icon name={n.icon} size={21} /></span>{n.label.replace('Mystery ', '')}
             </button>
           ); })}
-          <button className="navbtn" aria-current={menu ? 'page' : undefined} aria-haspopup="dialog" onClick={() => setMenu(true)}><Icon name="menu" size={22} />Más</button>
+          <button className="navbtn" aria-current={menu ? 'page' : undefined} aria-haspopup="dialog" onClick={() => setMenu(true)}><span className="ni"><Icon name="menu" size={21} /></span>Más</button>
         </nav>
       </div>
 
-      <Modal open={menu} onClose={() => setMenu(false)} eyebrow="Homelottery" title="Todas las secciones">
+      <Modal open={menu} onClose={() => setMenu(false)} title="Todas las secciones">
         {NAV_GROUPS.map((g) => (
           <div key={g.title} className="menu-group">
-            <div className="eyebrow">{g.title}</div>
+            <div className="label">{g.title}</div>
             <div className="menu-grid">
               {g.items.map((n) => (
                 <button key={n.id} className="menu-tile" data-world={n.world} aria-current={current(n.id) ? 'page' : undefined} onClick={() => { setMenu(false); go(n.id); }}>
@@ -174,9 +175,8 @@ export default function App() {
       {epCard && (
         <div className={'ep-card' + (epCard === 8 ? ' finale' : '')} aria-live="polite">
           <div>
-            <div className="ep-n">{epCard === 8 ? 'LA GRAN FINAL' : `EPISODIO ${String(epCard).padStart(2, '0')} DE 08`}</div>
+            <div className="ep-n">{epCard === 8 ? 'Llega la Gran Final' : `Episodio ${epCard} de 8`}</div>
             <div className="ep-t">{EPISODES[epCard - 1].title}</div>
-            <div className="ep-line" />
           </div>
         </div>
       )}

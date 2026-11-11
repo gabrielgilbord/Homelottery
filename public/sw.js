@@ -1,5 +1,5 @@
 // Offline cache: network-first for navigation, cache-first for built assets.
-const CACHE = 'homelottery-v1';
+const CACHE = 'homelottery-v2';
 self.addEventListener('install', (e) => { self.skipWaiting(); });
 self.addEventListener('activate', (e) => { e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch', (e) => {

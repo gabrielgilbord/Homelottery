@@ -31,14 +31,14 @@ export default function Inventory() {
 
   return (
     <div>
-      <PageHead eyebrow="Inventario" title={<>Lo que tiene <span className={'italic pname ' + who} style={{ fontWeight: 400 }}>{PLAYER_NAME[who]}</span></>} sub="Cartas, llaves, cajas gratis, misiones secretas y todos los premios ganados." />
+      <PageHead eyebrow="Inventario" title="Inventario" sub="Cartas, llaves, cajas gratis, misiones secretas y todos los premios ganados." />
       <PlayerSwitch value={who} onChange={(p) => { setWho(p); setMissionsOpen(false); }} label="Ver" />
 
       <div className="ledger" style={{ marginTop: 'var(--s-6)' }}>
-        <div><div className="eyebrow">Monedas</div><div className="v value-text"><AnimatedNumber value={P.coins} /></div></div>
-        <div><div className="eyebrow">Puntos</div><div className="v"><AnimatedNumber value={P.points} /></div></div>
-        <div><div className="eyebrow">Llaves</div><div className="v">{P.keys}</div></div>
-        <div><div className="eyebrow">Cajas gratis</div><div className="v">{freeCount}</div></div>
+        <div><div className="label">Monedas</div><div className="v value-text"><AnimatedNumber value={P.coins} /></div></div>
+        <div><div className="label">Puntos</div><div className="v"><AnimatedNumber value={P.points} /></div></div>
+        <div><div className="label">Llaves</div><div className="v">{P.keys}</div></div>
+        <div><div className="label">Cajas gratis</div><div className="v">{freeCount}</div></div>
       </div>
       {(P.doubleArmed || P.multiplier > 1) && <p className="small value-text" style={{ marginTop: 'var(--s-3)' }}>Activo: {P.doubleArmed ? 'Double Trouble ' : ''}{P.multiplier > 1 ? `multiplicador x${P.multiplier}` : ''} · se gasta en la próxima prueba.</p>}
 
@@ -72,7 +72,7 @@ export default function Inventory() {
             {prizes.map((r) => (
               <div key={r.uid} className="row-item" style={{ alignItems: 'flex-start', opacity: r.redeemed ? 0.5 : 1 }}>
                 <span className="grow stack" style={{ ['--gap' as string]: '4px' }}>
-                  <span className="xs mono faint">{SRC[r.box] || r.box} · {fmtTime(r.at)}</span>
+                  <span className="meta"><span>{SRC[r.box] || r.box}</span><span>{fmtTime(r.at)}</span></span>
                   <span className="h4">{r.title}</span>
                   <span className="small muted" style={{ whiteSpace: 'pre-line' }}>{r.text}</span>
                 </span>
@@ -97,7 +97,7 @@ export default function Inventory() {
       </Modal>
 
       <Modal open={!!out && curtain === null} onClose={() => setOut(null)} eyebrow="Carta usada" title="Resultado">
-        {out && <div className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}><p>{out.text}</p>{out.mission && <div className="surface"><div className="eyebrow accent">Tu misión secreta</div><p className="h4" style={{ marginTop: 8 }}>{out.mission}</p></div>}<button className="btn primary block" onClick={() => setOut(null)}>Entendido</button></div>}
+        {out && <div className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}><p>{out.text}</p>{out.mission && <div className="surface"><p className="label accent">Tu misión secreta</p><p className="h4" style={{ marginTop: 8 }}>{out.mission}</p></div>}<button className="btn primary block" onClick={() => setOut(null)}>Entendido</button></div>}
       </Modal>
 
       <Curtain open={curtain !== null} to={who} label={curtain === 'missionResult' ? 'Tu misión secreta está lista.' : 'Vas a ver tus misiones secretas.'} onCancel={() => { setCurtain(null); setOut(null); }}

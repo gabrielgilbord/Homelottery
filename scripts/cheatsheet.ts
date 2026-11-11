@@ -1,6 +1,6 @@
 // Generates docs/GABRIEL_SECRET_CHEAT_SHEET.md from the same data the app uses.  Run: npm run cheatsheet
 import { writeFileSync } from 'node:fs';
-import { TONIGHT, MATERIALS, BREAKFAST, HOST_TIMELINE, PLAN_B, TOMORROW, PRESENTER_TIPS } from '../src/data/cheatsheet';
+import { TONIGHT, TONIGHT_TIMELINE, MATERIALS, BREAKFAST, HOST_TIMELINE, PLAN_B, TOMORROW, PRESENTER_TIPS } from '../src/data/cheatsheet';
 import { GAMES } from '../src/data/gaming';
 import { BOXES, prizeById, PRIZE_FOR, WHEELS, ENVELOPES } from '../src/data/rewards';
 import { EPISODES } from '../src/data/episodes';
@@ -13,8 +13,14 @@ w('**CONFIDENTIAL — DO NOT SHOW TATIANA**');
 w();
 w('> Versión imprimible. La versión interactiva (con checklist que se guarda) está en la app → Host Mode → Cheat Sheet.');
 w();
-w('## A. Preparación esta noche');
-for (const g of TONIGHT) { w(`### ${g.title}`); for (const i of g.items) w(`- [ ] ${i.text}`); w(); }
+w('## A. Esta noche, en orden');
+for (const t of TONIGHT_TIMELINE) w(`- [ ] **${t.time}** · ${t.what}`);
+w();
+w('### Detalle por tipo de tarea');
+for (const g of TONIGHT) { w(`#### ${g.title}`); for (const i of g.items) w(`- ${i.text}`); w(); }
+w('## A2. Mañana, en orden');
+for (const t of HOST_TIMELINE) w(`- [ ] **${t.time}** · ${t.what}`);
+w();
 w('## B. Descargas y videojuegos');
 w('| Juego | Prioridad | Plataforma | Precio | Tamaño | PS Plus | Multijugador | Requisitos | Enlace oficial |');
 w('|---|---|---|---|---|---|---|---|---|');
@@ -34,7 +40,10 @@ for (const t of HOST_TIMELINE) w(`- **${t.time}** — ${t.what}`);
 w();
 for (const e of EPISODES) w(`- **${e.code} · ${e.title}** (${e.time}): ${e.hostNote}`);
 w();
-w('## F. Premios secretos');
+w('## F. Premios físicos que preparar');
+for (const b of BOXES) for (const e of b.entries) { const p = prizeById(e.prizeId)!; if (!/^(Automático|Nada|Ninguna)/.test(p.prep)) w(`- [ ] **${p.title}** (${b.name}): ${p.prep}`); }
+w();
+w('## F2. Catálogo completo de premios');
 w('Las probabilidades base están abajo. La app las ajusta en directo: los premios únicos ya entregados desaparecen, los premios atrevidos solo existen si los dos tenéis activado el modo picante, y los premios personales solo le pueden tocar a su destinatario.');
 for (const b of BOXES) {
   const tot = b.entries.reduce((a, e) => a + e.weight, 0);

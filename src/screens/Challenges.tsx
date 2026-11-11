@@ -9,6 +9,7 @@ import { pick } from '../lib/random';
 import { celebrate } from '../lib/celebrate';
 import type { CategoryId, Challenge, GameState } from '../types';
 import { INTENSITY_LABEL, PLAYERS, PLAYER_NAME } from '../types';
+import { WORLD_ICON } from './Home';
 
 export function allowed(s: GameState, c: Challenge) {
   return categoryAllowed(s, c.category) && intensityAllowed(s, c.intensity);
@@ -23,23 +24,20 @@ export function ChallengeCard({ c }: { c: Challenge }) {
   const ok = allowed(s, c);
   const done = s.completed[c.id] || 0;
   return (
-    <button className="ccard" data-world={CATEGORIES[c.category].theme} aria-disabled={!ok} onClick={() => go('challenge', c.id)}>
-      <div className="ctop">
-        <span className="cat">{c.sub || CATEGORIES[c.category].short}</span>
-        <span className="cluster" style={{ ['--gap' as string]: '6px' }}>
+    <button className="crow" data-world={CATEGORIES[c.category].theme} aria-disabled={!ok} onClick={() => go('challenge', c.id)}>
+      <span className="ci" aria-hidden><Icon name={WORLD_ICON[c.category]} size={20} />{done > 0 && <span className="done"><Icon name="check" size={11} stroke={3} /></span>}</span>
+      <span style={{ minWidth: 0 }}>
+        <span className="ct" style={{ display: 'block' }}>{c.name}</span>
+        <span className="cs">{c.tagline}</span>
+        <span className="meta">
+          <span>{c.sub || CATEGORIES[c.category].short}</span>
+          <span><Icon name="timer" size={13} />{c.duration} min</span>
+          <span>{c.mode === 'coop' ? 'En equipo' : 'Duelo'}</span>
           {c.intensity && <span className={'tag ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
-          {done > 0 && <span className="tag ok"><Icon name="check" size={11} />{done > 1 ? `x${done}` : 'Jugada'}</span>}
-          {!ok && <span className="tag"><Icon name="lock" size={11} />Límite</span>}
+          {!ok && <span><Icon name="lock" size={12} />Fuera de límites</span>}
         </span>
-      </div>
-      <div className="ctitle">{c.name}</div>
-      <div className="ctag">{c.tagline}</div>
-      <div className="cmeta">
-        <span><Icon name="timer" size={13} />{c.duration}′</span>
-        <span><Icon name={c.mode === 'coop' ? 'users' : 'bolt'} size={13} />{c.mode === 'coop' ? 'Equipo' : 'Duelo'}</span>
-        <Pips n={c.difficulty} />
-        <span className="reward"><Icon name="coin" size={13} />{c.reward.coins} · {c.reward.points} pts</span>
-      </div>
+      </span>
+      <span className="cr"><span className="coins" style={{ display: 'block' }}>+{c.reward.coins}</span><span className="pts">{c.reward.points} pts</span></span>
     </button>
   );
 }
@@ -74,21 +72,21 @@ export default function Challenges() {
 
   return (
     <div>
-      <PageHead eyebrow="Biblioteca de pruebas" title="Challenges" sub={`${CHALLENGES.length} pruebas en seis mundos. ${played} jugadas hasta ahora.`}
+      <PageHead title="Challenges" sub={`${CHALLENGES.length} pruebas en seis mundos. Lleváis ${played} jugadas.`}
         aside={<button className="btn primary" onClick={randomPick}><Icon name="dice" size={16} />Al azar</button>} />
       <div className="filters">
-        <label className="search"><Icon name="target" size={16} /><span className="sr-only">Buscar prueba</span><input className="input" placeholder="Buscar una prueba" value={q} onChange={(e) => setQ(e.target.value)} /></label>
+        <label className="search"><Icon name="target" size={18} /><span className="sr-only">Buscar prueba</span><input className="input" placeholder="Buscar una prueba" value={q} onChange={(e) => setQ(e.target.value)} /></label>
         <div className="hscroll">
-          <button className={'chip' + (cat === 'all' ? ' on' : '')} onClick={() => setCat('all')}>Todas · {CHALLENGES.length}</button>
+          <button className={'chip' + (cat === 'all' ? ' on' : '')} onClick={() => setCat('all')}>Todas <span className="faint num">{CHALLENGES.length}</span></button>
           {(Object.keys(CATEGORIES) as CategoryId[]).map((c) => (
             <button key={c} data-world={CATEGORIES[c].theme} className={'chip' + (cat === c ? ' on' : '')} onClick={() => setCat(c)}>
-              <span className="dot" />{CATEGORIES[c].short} · {CHALLENGES.filter((x) => x.category === c).length}
+              <span className="dot" />{CATEGORIES[c].short} <span className="faint num">{CHALLENGES.filter((x) => x.category === c).length}</span>
             </button>
           ))}
         </div>
-        <Seg<Filter> value={f} onChange={setF} label="Filtro" options={[{ v: 'all', label: 'Todas' }, { v: 'todo', label: 'Sin jugar' }, { v: 'quick', label: '≤ 10 min' }, { v: 'coop', label: 'Equipo' }]} />
+        <Seg<Filter> block value={f} onChange={setF} label="Filtro" options={[{ v: 'all', label: 'Todas' }, { v: 'todo', label: 'Sin jugar' }, { v: 'quick', label: '≤ 10 min' }, { v: 'coop', label: 'Equipo' }]} />
       </div>
-      <div className="eyebrow" style={{ marginBottom: 'var(--s-3)' }}>{list.length} resultados</div>
+      <p className="small faint" style={{ marginBottom: 'var(--s-2)' }}>{list.length} {list.length === 1 ? 'prueba' : 'pruebas'}</p>
       <ChallengeList list={list} />
     </div>
   );
@@ -115,15 +113,13 @@ export function ChallengeDetail({ id }: { id: string }) {
     <div>
       <button className="btn quiet sm" onClick={() => (history.length > 1 ? history.back() : go('challenges'))} style={{ marginBottom: 'var(--s-4)', marginLeft: -12 }}><Icon name="back" size={16} />Volver</button>
       <header className="detail-hero">
-        <div className="cluster">
-          <span className="eyebrow accent">{CATEGORIES[c.category].name} · {c.sub}</span>
-          {c.intensity && <span className={'tag ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
-          {done > 0 && <span className="tag ok">Jugada {done}×</span>}
-        </div>
+        <span className="world">{CATEGORIES[c.category].name}, {c.sub?.toLowerCase()}</span>
         <h1 className="h1">{c.name}</h1>
         <p className="lead">{c.tagline}</p>
         <div className="cluster">
-          {c.drinks && <span className="tag">Bebida opcional · funciona con agua</span>}
+          {c.intensity && <span className={'tag ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
+          {done > 0 && <span className="tag ok">Jugada {done} {done === 1 ? 'vez' : 'veces'}</span>}
+          {c.drinks && <span className="tag">Bebida opcional, también con agua</span>}
           {c.requires && <span className="tag accent">Requiere {c.requires}</span>}
           {!ok && <span className="tag" style={{ ['--tone' as string]: 'var(--danger)' }}>Fuera de vuestros límites</span>}
         </div>
@@ -133,13 +129,13 @@ export function ChallengeDetail({ id }: { id: string }) {
         <div><dt>Jugadores</dt><dd>{c.players}</dd></div>
         <div><dt>Duración</dt><dd>{c.duration} min</dd></div>
         <div><dt>Dificultad</dt><dd><Pips n={c.difficulty} /></dd></div>
-        <div><dt>Recompensa</dt><dd className="value-text">{c.reward.points} pts · {c.reward.coins} monedas{c.reward.bonus ? ' + sorpresa' : ''}</dd></div>
+        <div><dt>Recompensa</dt><dd className="value-text">{c.reward.coins} monedas</dd><dd className="small faint">{c.reward.points} puntos{c.reward.bonus ? ' y sorpresa' : ''}</dd></div>
       </dl>
 
       <div className="detail-grid section" style={{ marginTop: 'var(--s-8)' }}>
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-8)' }}>
           <section>
-            <div className="eyebrow" style={{ marginBottom: 'var(--s-3)' }}>Materiales</div>
+            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>Materiales</h2>
             <div className="cluster">{c.materials.map((m) => <span key={m} className="chip">{m}</span>)}</div>
           </section>
           <section>
@@ -147,23 +143,23 @@ export function ChallengeDetail({ id }: { id: string }) {
             <ol className="steps">{c.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
           </section>
           <section className="rules3">
-            <div><span className="eyebrow">Puntuación</span><span className="small">{c.scoring}</span></div>
-            <div><span className="eyebrow">Victoria</span><span className="small">{c.win}</span></div>
-            <div><span className="eyebrow">Revancha</span><span className="small">{c.rematch}</span></div>
-            <div><span className="eyebrow">Premio</span><span className="small">{c.mode === 'coop' ? 'Si lo superáis, los dos cobráis la recompensa completa.' : 'Quien gana cobra la recompensa. Quien pierde, una consolación.'}{c.reward.bonus ? ' Además hay un premio sorpresa.' : ''}{s.episode === 8 ? ' Gran Final: puntos x2.' : ''}</span></div>
+            <div><span>Puntuación</span><span className="small">{c.scoring}</span></div>
+            <div><span>Victoria</span><span className="small">{c.win}</span></div>
+            <div><span>Revancha</span><span className="small">{c.rematch}</span></div>
+            <div><span>Premio</span><span className="small">{c.mode === 'coop' ? 'Si lo superáis, los dos cobráis la recompensa completa.' : 'Quien gana cobra la recompensa. Quien pierde, una consolación.'}{c.reward.bonus ? ' Además hay un premio sorpresa.' : ''}{s.episode === 8 ? ' Gran Final: puntos x2.' : ''}</span></div>
           </section>
         </div>
 
         <aside className="detail-aside stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
-          <div className="surface"><div className="eyebrow" style={{ marginBottom: 'var(--s-4)' }}>Temporizador</div><Timer seconds={c.duration <= 5 ? 60 : Math.min(600, c.duration * 60)} /></div>
+          <div className="surface"><h2 className="h3" style={{ marginBottom: 'var(--s-4)' }}>Temporizador</h2><Timer seconds={c.duration <= 5 ? 60 : Math.min(600, c.duration * 60)} /></div>
           <div className="surface result-panel">
-            <div className="split"><span className="eyebrow">Resultado</span><span className="xs faint">Doble toque para confirmar</span></div>
+            <div className="split"><h2 className="h3">¿Quién ha ganado?</h2><span className="small faint">Toca dos veces</span></div>
             {mods.length > 0 && <div className="small value-text">{mods.map((p) => `${PLAYER_NAME[p]}: ${s.players[p].doubleArmed ? 'Double Trouble' : ''}${s.players[p].multiplier > 1 ? ` x${s.players[p].multiplier}` : ''}`).join(' · ')}</div>}
             {c.mode === 'duel' ? (
               <>
                 {PLAYERS.map((p) => (
                   <ConfirmButton key={p} className={'winner-btn ' + p} onConfirm={() => register(p)} confirmText={<><span>¿Confirmas que gana {PLAYER_NAME[p]}?</span><Icon name="check" size={18} /></>}>
-                    <span className="cluster"><span className={'avatar sm ' + p}>{PLAYER_NAME[p][0]}</span>Gana {PLAYER_NAME[p]}</span><Icon name="trophy" size={18} />
+                    <span className="cluster" style={{ ['--gap' as string]: '10px' }}><span className={'avatar ' + p}>{PLAYER_NAME[p][0]}</span>Gana {PLAYER_NAME[p]}</span><Icon name="trophy" size={18} />
                   </ConfirmButton>
                 ))}
                 <div className="grid-2">
@@ -182,7 +178,7 @@ export function ChallengeDetail({ id }: { id: string }) {
                 </div>
               </>
             )}
-            <p className="xs faint">Pasar una prueba nunca resta nada.</p>
+            <p className="small faint">Pasar una prueba nunca resta nada.</p>
           </div>
         </aside>
       </div>
@@ -191,8 +187,9 @@ export function ChallengeDetail({ id }: { id: string }) {
         {result && (
           <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
             <div className="result-hero">
-              <span className="eyebrow accent">{c.name}</span>
-              <h2 className="h2">{result.headline}</h2>
+              <Icon name="trophy" size={28} style={{ color: 'var(--brass)' }} />
+              <h2 className="h1">{result.headline}</h2>
+              <span className="small faint">{c.name}</span>
             </div>
             <div>{result.lines.map((l, i) => <div key={i} className="result-line"><span>{l}</span></div>)}</div>
             <div className="grid-2">
@@ -210,7 +207,7 @@ export function ChallengeDetail({ id }: { id: string }) {
           <div className="list">
             {alternatives.slice(0, 4).map((a) => (
               <button key={a.id} className="row-item" onClick={() => { skipChallenge(c.id); setSwapOpen(false); go('challenge', a.id); }}>
-                <span className="grow"><span className="h5" style={{ display: 'block' }}>{a.name}</span><span className="xs faint">{a.tagline}</span></span>
+                <span className="grow"><span className="h5" style={{ display: 'block' }}>{a.name}</span><span className="small faint">{a.tagline}</span></span>
                 <Icon name="chevron" size={18} className="chev" />
               </button>
             ))}

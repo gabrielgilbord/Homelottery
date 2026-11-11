@@ -36,15 +36,16 @@ export default function Show() {
 
   return (
     <div>
-      <PageHead eyebrow={`Episodio ${String(s.episode).padStart(2, '0')} · ${cur.time}`} title={cur.title} sub={cur.playerNote}>
+      <PageHead title={cur.title} sub={cur.playerNote}>
+        <div className="cluster" style={{ fontSize: 'var(--t-sm)', fontWeight: 600 }}><span className="live-dot" />Episodio {s.episode} de 8, {cur.time.replace(' – ', ' a ')}</div>
         <div className="cluster">
           {cur.categories.map((c) => <span key={c} className="chip" data-world={CATEGORIES[c].theme}><span className="dot" />{CATEGORIES[c].short}</span>)}
         </div>
-        <div className="cluster" style={{ marginTop: 'var(--s-2)' }}>
-          <button className="btn primary" onClick={() => setOpenEp(cur.n)}>Pruebas del episodio</button>
+        <div className="home-actions" style={{ marginTop: 'var(--s-2)' }}>
+          <button className="btn primary lg" onClick={() => setOpenEp(cur.n)}><span className="t">Pruebas del episodio</span><Icon name="chevron" size={18} /></button>
           {s.episode < 8 && (
-            <ConfirmButton className="btn ghost" onConfirm={() => setEpisode(s.episode + 1)} confirmText={`Empezar el episodio ${String(s.episode + 1).padStart(2, '0')}`}>
-              Siguiente episodio<Icon name="chevron" size={16} />
+            <ConfirmButton className="btn ghost lg" onConfirm={() => setEpisode(s.episode + 1)} confirmText={`Toca otra vez: empieza el episodio ${s.episode + 1}`}>
+              Pasar al siguiente episodio
             </ConfirmButton>
           )}
         </div>
@@ -56,14 +57,14 @@ export default function Show() {
             const opened = s.envelopesOpened.includes(e.id);
             const avail = envelopeAvailable(s, e.id);
             return (
-              <div key={e.id} className={'env' + (avail && !opened ? ' ready' : '') + (!avail && !opened ? ' locked' : '')}>
+              <div key={e.id} className={'env' + (avail && !opened ? ' ready' : '') + (!avail && !opened ? ' locked' : '') + (opened ? ' opened' : '')}>
                 <div className="split">
                   <span className="seal" aria-hidden>{opened ? <Icon name="check" size={16} /> : avail ? 'G' : <Icon name="lock" size={14} />}</span>
-                  <span className="eyebrow">{opened ? 'Abierto' : avail ? 'Disponible' : 'Bloqueado'}</span>
+                  <span className="small" style={{ fontWeight: 600 }}>{opened ? 'Abierto' : avail ? 'Listo' : 'Cerrado'}</span>
                 </div>
                 <div className="stack grow" style={{ ['--gap' as string]: '4px' }}>
                   <h3 className="h4">{e.name}</h3>
-                  <p className="xs faint">{opened ? e.reward : avail ? 'Ábrelo ahora.' : e.condition}</p>
+                  <p className="small faint">{opened ? e.reward : avail ? 'Rompe el sello cuando queráis.' : e.condition}</p>
                 </div>
                 {avail && !opened && <button className="btn value sm" onClick={() => tryOpen(e)}>Romper el sello</button>}
                 {opened && <button className="btn quiet sm" onClick={() => setEnv({ def: e, message: s.host.envelopeOverrides[e.id] || e.message, reward: e.reward })}>Releer</button>}
@@ -83,13 +84,13 @@ export default function Show() {
                 <button className={'run ' + st} onClick={() => setOpenEp(e.n)} aria-current={st === 'now' ? 'step' : undefined}>
                   <span className="rn">{String(e.n).padStart(2, '0')}</span>
                   <span className="stack" style={{ ['--gap' as string]: '2px' }}>
-                    <span className="cluster"><span className="xs mono faint">{e.time}</span>{st === 'now' && <span className="tag live"><span className="live-dot" style={{ width: 5, height: 5, boxShadow: 'none' }} />En emisión</span>}{st === 'past' && <span className="tag ok">Emitido</span>}</span>
+                    <span className="cluster"><span className="small faint num">{e.time}</span>{st === 'now' && <span className="tag live"><span className="live-dot" style={{ width: 5, height: 5, boxShadow: 'none' }} />En emisión</span>}{st === 'past' && <span className="tag ok">Emitido</span>}</span>
                     <span className="h4">{e.title}</span>
                     <span className="small faint">{e.subtitle}</span>
                   </span>
                   <Icon name="chevron" size={18} className="faint" />
                 </button>
-                {br && <div className="run-break">{br.time} · {br.label}</div>}
+                {br && <div className="run-break">{br.label}, {br.time}</div>}
               </div>
             );
           })}
@@ -97,7 +98,7 @@ export default function Show() {
         <p className="small faint" style={{ marginTop: 'var(--s-4)' }}>No hace falta jugar todas las pruebas de un episodio. Con dos o cuatro el día respira.</p>
       </Section>
 
-      <Modal open={openEp !== null} onClose={() => setOpenEp(null)} eyebrow={openEp ? `Episodio ${String(openEp).padStart(2, '0')}` : ''} title={openEp ? EPISODES[openEp - 1].title : ''}>
+      <Modal open={openEp !== null} onClose={() => setOpenEp(null)} eyebrow={openEp ? `Episodio ${openEp} de 8` : ''} title={openEp ? EPISODES[openEp - 1].title : ''}>
         {openEp && (() => {
           const e = EPISODES[openEp - 1];
           return (
@@ -107,7 +108,7 @@ export default function Show() {
                 {e.picks.map((id) => { const c = challengeById(id)!; return (
                   <button key={id} className="row-item" data-world={CATEGORIES[c.category].theme} onClick={() => { setOpenEp(null); go('challenge', id); }}>
                     <span className="lead-icon"><Icon name={s.completed[id] ? 'check' : 'target'} size={18} /></span>
-                    <span className="grow"><span className="h5" style={{ display: 'block' }}>{c.name}</span><span className="xs faint mono">{c.sub} · {c.duration} min · {c.mode === 'coop' ? 'equipo' : 'duelo'}</span></span>
+                    <span className="grow"><span className="h5" style={{ display: 'block' }}>{c.name}</span><span className="meta"><span>{c.sub}</span><span>{c.duration} min</span><span>{c.mode === 'coop' ? 'En equipo' : 'Duelo'}</span></span></span>
                     <Icon name="chevron" size={18} className="chev" />
                   </button>
                 ); })}
@@ -124,7 +125,7 @@ export default function Show() {
         {env && (
           <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
             <div className="letter">{env.message}</div>
-            <div className="split"><span className="eyebrow">Recompensa</span><b className="small value-text" style={{ textAlign: 'right' }}>{env.reward}</b></div>
+            <div className="split"><span className="label">Recompensa</span><b className="small value-text" style={{ textAlign: 'right' }}>{env.reward}</b></div>
             <button className="btn primary block" onClick={() => setEnv(null)}>Cerrar el sobre</button>
           </div>
         )}

@@ -8,6 +8,7 @@ import type { BoxTier, PlayerId, PrizeRecord } from '../types';
 import { PLAYER_NAME } from '../types';
 
 const RARITY: Record<BoxTier, string> = { bronze: 'Común', silver: 'Poco común', gold: 'Rara', diamond: 'Épica', legendary: 'Legendaria' };
+const PRIZE_RARITY: Record<BoxTier, string> = { bronze: 'Premio común', silver: 'Premio poco común', gold: 'Premio raro', diamond: 'Premio épico', legendary: 'Premio legendario' };
 
 export function Box3D({ tier, color, state, size }: { tier: BoxTier; color: string; state: 'idle' | 'locked' | 'charging' | 'open' | 'still'; size?: 'lg' }) {
   return (
@@ -51,7 +52,7 @@ export default function Boxes() {
   return (
     <div>
       <PageHead eyebrow="La cámara acorazada" title="Mystery Boxes" sub="Lo que hay dentro no se enseña hasta que se abre. Lo que sale queda registrado para siempre."
-        aside={<div className="stack" style={{ alignItems: 'flex-end', ['--gap' as string]: '4px' }}><span className="eyebrow">{PLAYER_NAME[who]}</span><span className="h3 num value-text">{P.coins}</span><span className="xs faint mono">{P.keys} llave{P.keys === 1 ? '' : 's'}</span></div>} />
+        aside={<div className="stack" style={{ alignItems: 'flex-end', ['--gap' as string]: '2px' }}><span className="label">{PLAYER_NAME[who]}</span><span className="h3 num value-text">{P.coins}</span><span className="xs faint mono">{P.keys} llave{P.keys === 1 ? '' : 's'}</span></div>} />
       <div style={{ marginBottom: 'var(--s-5)' }}><PlayerSwitch value={who} onChange={setWho} label="Abre" /></div>
 
       <div className="vault stagger">
@@ -61,12 +62,12 @@ export default function Boxes() {
           const free = P.freeBoxes[b.tier] || 0;
           return (
             <button key={b.tier} className={'vault-item' + (b.tier === 'legendary' ? ' legend' : '')} style={{ ['--box' as string]: b.color } as CSSProperties} aria-disabled={locked || !c.ok} onClick={() => (locked ? toast(b.name, `Se desbloquea en el episodio 0${b.unlockEpisode}`, 'info') : onTap(b.tier))}>
-              {locked && <span className="lockbadge"><Icon name="lock" size={11} />EP 0{b.unlockEpisode}</span>}
+              {locked && <span className="lockbadge"><Icon name="lock" size={12} /></span>}
               {free > 0 && <span className="tag value free">{free} gratis</span>}
               <Box3D tier={b.tier} color={b.color} state={locked ? 'locked' : c.ok ? 'idle' : 'still'} />
-              <span className="eyebrow" style={{ color: locked ? undefined : b.color }}>{RARITY[b.tier]}</span>
+              <span className="small" style={{ color: locked ? 'var(--ivory-3)' : b.color, fontWeight: 600 }}>{RARITY[b.tier]}</span>
               <span className={'vname' + (b.tier === 'legendary' && !locked ? ' legend-text' : '')}>{b.name.replace(' Box', '')}</span>
-              <span className="xs faint mono">{locked ? 'Bloqueada' : c.free ? 'Gratis' : b.costLabel}</span>
+              <span className="small faint num">{locked ? `Episodio ${b.unlockEpisode}` : c.free ? 'Gratis' : b.costLabel}</span>
             </button>
           );
         })}
@@ -74,10 +75,10 @@ export default function Boxes() {
 
       <Section title="Reglas de la cámara">
         <div className="rules3">
-          <div><span className="eyebrow">Sorteo</span><span className="small muted">Cada caja tiene su tabla de premios con probabilidades fijas. Se sortea con aleatoriedad criptográfica del dispositivo.</span></div>
-          <div><span className="eyebrow">Únicos</span><span className="small muted">Los premios únicos solo pueden salir una vez en todo el día. Los atrevidos solo existen si los dos lo habéis activado.</span></div>
-          <div><span className="eyebrow">Registro</span><span className="small muted">El premio se guarda al abrir: aunque se cierre la app, no cambia. Queda en el inventario.</span></div>
-          <div><span className="eyebrow">Legendaria</span><span className="small muted">Solo en la Gran Final y con Llave Legendaria. Habrá llaves para los dos.</span></div>
+          <div><span>Sorteo</span><span className="small muted">Cada caja tiene su tabla de premios con probabilidades fijas. Se sortea con aleatoriedad criptográfica del dispositivo.</span></div>
+          <div><span>Únicos</span><span className="small muted">Los premios únicos solo pueden salir una vez en todo el día. Los atrevidos solo existen si los dos lo habéis activado.</span></div>
+          <div><span>Registro</span><span className="small muted">El premio se guarda al abrir: aunque se cierre la app, no cambia. Queda en el inventario.</span></div>
+          <div><span>Legendaria</span><span className="small muted">Solo en la Gran Final y con Llave Legendaria. Habrá llaves para los dos.</span></div>
         </div>
       </Section>
 
@@ -93,17 +94,17 @@ export default function Boxes() {
       {stage && box && (
         <div className={'reveal-stage' + (stage.phase === 'open' ? ' opened' : '')} style={{ ['--box' as string]: box.color } as CSSProperties} role="dialog" aria-modal="true" aria-label={`Abriendo ${box.name}`}>
           <div className="rays" />
-          <div className="eyebrow" style={{ color: box.color, position: 'relative' }}>{box.name} · {PLAYER_NAME[who]}</div>
+          <div className="small" style={{ color: box.color, position: 'relative', fontWeight: 700 }}>{box.name} de {PLAYER_NAME[who]}</div>
           <div className="box-stage" style={{ position: 'relative', height: 230, paddingTop: 50, display: 'grid', placeItems: 'center' }}>
             <Box3D tier={stage.tier} color={box.color} state={stage.phase === 'charging' ? 'charging' : 'open'} size="lg" />
           </div>
-          {stage.phase === 'charging' && <p className="eyebrow" style={{ position: 'relative' }}>Abriendo…</p>}
+          {stage.phase === 'charging' && <p className="small faint" style={{ position: 'relative' }}>Abriendo…</p>}
           {stage.phase === 'open' && (
             <div className={'prize-card' + (stage.tier === 'legendary' ? ' legend' : '')}>
-              <span className="eyebrow" style={{ color: box.color }}>{RARITY[stage.tier]} · Has ganado</span>
+              <span className="rarity">{PRIZE_RARITY[stage.tier]}</span>
               <h2 className={'h2' + (stage.tier === 'legendary' ? ' legend-text' : '')}>{stage.rec.title}</h2>
               <p className="muted" style={{ whiteSpace: 'pre-line' }}>{stage.rec.text}</p>
-              <p className="xs faint">Guardado en el inventario de {PLAYER_NAME[who]}{stage.priv ? '. Puedes contarlo cuando quieras.' : '.'}</p>
+              <p className="small faint">Guardado en el inventario de {PLAYER_NAME[who]}{stage.priv ? '. Puedes contarlo cuando quieras.' : '.'}</p>
               <button className="btn primary block" onClick={() => setStage(null)} autoFocus>Guardar premio</button>
             </div>
           )}

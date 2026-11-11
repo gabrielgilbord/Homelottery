@@ -1,128 +1,129 @@
 /* =====================================================================
    HOMELOTTERY DESIGN SYSTEM · TOKENS
-   Direction: "Velvet Broadcast" — a private late-night show.
-   Ink & wine surfaces, ivory type, champagne reserved for VALUE
-   (coins, prizes, rewards). Each section owns one functional accent.
-   Deliberately single-theme (dark): it is a stage, not a document.
+   Direction: "Late Show en casa" — a private TV show taped in the living room.
+   Material: studio velvet (a real wine ground, not tinted black), warm
+   stage light, ivory lettering, brass reserved for VALUE (coins, prizes).
+   One bold place per screen; everything else quiet.
+   Deliberately single-theme: the show is lit for one stage.
    ===================================================================== */
 :root {
   color-scheme: dark;
 
-  /* ---- Neutrals (ink with a wine bias, never pure grey) ---- */
-  --ink-0: #0b0809;          /* stage / page */
-  --ink-1: #120e10;          /* raised band */
-  --ink-2: #191416;          /* surface */
-  --ink-3: #221b1e;          /* surface hover / input */
-  --ink-4: #2d2428;          /* pressed / track */
-  --line: rgba(243, 232, 220, 0.08);
-  --line-2: rgba(243, 232, 220, 0.14);
-  --line-3: rgba(243, 232, 220, 0.24);
+  /* ---- Velvet ground & surfaces ---- */
+  --velvet-0: #1a0b12;   /* stage ground */
+  --velvet-1: #22111a;   /* band / panel */
+  --velvet-2: #2b1621;   /* raised surface */
+  --velvet-3: #361d2a;   /* hover / input */
+  --velvet-4: #452534;   /* track / pressed */
+  --curtain: #4a1426;    /* curtain folds */
+  --line: rgba(255, 233, 219, 0.09);
+  --line-2: rgba(255, 233, 219, 0.16);
+  --line-3: rgba(255, 233, 219, 0.28);
+  --scrim: rgba(14, 5, 9, 0.78);
 
-  /* ---- Type colors ---- */
-  --ivory: #f3ebe1;          /* primary text  ~16:1 on ink-0 */
-  --ivory-2: #c9bfb5;        /* secondary     ~10:1 */
-  --ivory-3: #91857d;        /* tertiary      ~5.3:1 — minimum for small text */
-  --ivory-4: #5e5450;        /* disabled / decorative only */
+  /* ---- Lettering ---- */
+  --ivory: #f7ecdf;      /* 15.9:1 on velvet-0 */
+  --ivory-2: #d6c4b6;    /* 10.6:1 */
+  --ivory-3: #a8928a;    /* 6.1:1  — smallest text */
+  --ivory-4: #6f5a5c;    /* disabled / decorative only */
+  --spot: #fff3dc;       /* stage light */
 
-  /* ---- Brand ---- */
-  --wine: #7a1e3a;
-  --wine-2: #9e2a4d;
-  --wine-3: #c94a6f;
-  --champagne: #e6cc98;      /* VALUE ONLY: coins, rewards, legendary */
-  --champagne-2: #b89a62;
+  /* ---- Value & signals ---- */
+  --brass: #d9b46a;      /* coins, prizes, rewards — never decoration */
+  --brass-2: #a8833f;
+  --on-air: #ff5b4a;
+  --success: #7fd0a6;
+  --danger: #ff7d70;
+  --warning: #ffbf5e;
 
-  /* ---- Semantic ---- */
-  --success: #7cc8a2;
-  --danger: #f07c72;
-  --warning: #f0b45a;
-  --live: #ff5d55;
+  /* ---- Players (always with initial + side, never colour alone) ---- */
+  --gabriel: #9cc2ff;
+  --tatiana: #ff9fbb;
 
-  /* ---- Players (also distinguished by initial + side, never color alone) ---- */
-  --gabriel: #9fb4ff;
-  --tatiana: #f59ab4;
+  /* ---- Worlds: one functional accent each ---- */
+  --w-home: #f7ecdf;
+  --w-gaming: #5bd7ff;
+  --w-cards: #63c59a;
+  --w-party: #ff8552;
+  --w-couples: #f27a9b;
+  --w-movie: #ffbe55;
+  --w-boxes: #d9b46a;
+  --w-roulette: #ff5b4a;
+  --w-host: #a7b4c2;
+  --accent: var(--w-home);
+  --on-accent: #1a0b12;
 
-  /* ---- Section accents (functional, one per world) ---- */
-  --c-home: #e9dcc8;
-  --c-show: #e9dcc8;
-  --c-gaming: #9d86ff;
-  --c-cards: #5fbf93;
-  --c-party: #ff7d5c;
-  --c-couples: #ec7396;
-  --c-movie: #68c4e6;
-  --c-boxes: var(--champagne);
-  --c-roulette: #ef5a5f;
-  --c-host: #9bb0c4;
-  --accent: var(--c-home);   /* overridden per section via [data-world] */
-
-  /* ---- Typography ---- */
-  --f-display: 'Instrument Serif', 'Iowan Old Style', 'Times New Roman', serif;
+  /* ---- Type ---- */
+  --f-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', 'Arial Narrow', system-ui, sans-serif;
   --f-ui: 'Geist Sans', 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --f-mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --f-digits: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace; /* timers only */
 
-  /* fluid type scale (min @360px → max @1280px) */
-  --t-micro: 0.6875rem;                               /* 11  mono labels only */
-  --t-xs: 0.75rem;                                    /* 12 */
-  --t-sm: 0.8125rem;                                  /* 13 */
-  --t-base: 0.9375rem;                                /* 15 */
-  --t-md: 1.0625rem;                                  /* 17 */
-  --t-lg: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem); /* 19 → 22 */
-  --t-xl: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);       /* 24 → 32 */
-  --t-2xl: clamp(2rem, 1.5rem + 2.4vw, 3.25rem);      /* 32 → 52 */
-  --t-3xl: clamp(2.6rem, 1.8rem + 4vw, 4.75rem);      /* 42 → 76 */
-  --t-score: clamp(3.25rem, 2.2rem + 5vw, 6rem);      /* 52 → 96 */
+  /* scale: minor third on mobile, opening up with the viewport */
+  --t-xs: 0.75rem;                                      /* 12 · fine print only */
+  --t-sm: 0.8125rem;                                    /* 13 · labels, meta */
+  --t-base: 0.9375rem;                                  /* 15 · body */
+  --t-md: 1.0625rem;                                    /* 17 · row titles */
+  --t-lg: 1.3125rem;                                    /* 21 · card titles */
+  --t-xl: clamp(1.625rem, 1.35rem + 1.2vw, 2.125rem);   /* 26→34 · section */
+  --t-2xl: clamp(2.125rem, 1.6rem + 2.6vw, 3.5rem);     /* 34→56 · page */
+  --t-3xl: clamp(2.75rem, 1.9rem + 4.4vw, 5.25rem);     /* 44→84 · stage */
+  --t-score: clamp(3.5rem, 2.4rem + 5.5vw, 6.5rem);     /* 56→104 · scorebug */
 
-  /* ---- Space (4px base) ---- */
+  /* ---- Space (4px grid) ---- */
   --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 20px;
   --s-6: 24px; --s-7: 32px; --s-8: 40px; --s-9: 56px; --s-10: 72px;
-  --gutter: max(16px, env(safe-area-inset-left, 0px));
-  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --gutter: max(20px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(20px, env(safe-area-inset-right, 0px));
 
-  /* ---- Radii ---- */
-  --r-xs: 6px; --r-sm: 10px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-pill: 999px;
+  /* ---- Radii (by role, not one-size-fits-all) ---- */
+  --r-xs: 6px;    /* tags */
+  --r-sm: 10px;   /* chips, inputs, small controls */
+  --r-md: 14px;   /* buttons, rows with fill */
+  --r-lg: 20px;   /* surfaces */
+  --r-xl: 28px;   /* stage, sheets */
+  --r-pill: 999px;
 
-  /* ---- Elevation ---- */
-  --e-0: none;
-  --e-1: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 8px 24px -16px rgba(0, 0, 0, 0.9);
-  --e-2: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 24px 60px -24px rgba(0, 0, 0, 0.95);
-  --e-3: 0 40px 120px -30px rgba(0, 0, 0, 1);
+  /* ---- Elevation (offset + soft blur, warm) ---- */
+  --e-1: 0 1px 0 rgba(255, 240, 225, 0.04) inset, 0 6px 18px -10px rgba(8, 2, 5, 0.8);
+  --e-2: 0 1px 0 rgba(255, 240, 225, 0.06) inset, 0 18px 40px -18px rgba(8, 2, 5, 0.9);
+  --e-3: 0 30px 80px -24px rgba(8, 2, 5, 0.95);
 
   /* ---- Touch ---- */
   --tap: 44px;
   --tap-lg: 52px;
 
-  /* ---- Motion ---- */
-  --d-instant: 90ms;
-  --d-fast: 160ms;
-  --d-base: 260ms;
-  --d-slow: 460ms;
-  --d-epic: 900ms;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-spring: cubic-bezier(0.34, 1.45, 0.55, 1);
+  /* ---- Motion (Emil Kowalski curves; UI under 300ms) ---- */
+  --d-press: 120ms;
+  --d-fast: 180ms;
+  --d-base: 240ms;
+  --d-sheet: 380ms;
+  --d-reveal: 640ms;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.55, 1);   /* celebrations only */
   --ease-anticipate: cubic-bezier(0.5, -0.4, 0.3, 1.3);
 
   /* ---- Layout ---- */
-  --rail-w: 252px;
-  --content-max: 1120px;
+  --rail-w: 248px;
+  --content-max: 1080px;
   --bar-h: 56px;
   --nav-h: 64px;
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
 
-  /* ---- Signature gradient: used ONLY for legendary moments ---- */
-  --legend: linear-gradient(115deg, #f2d7a0 0%, #f59ab4 35%, #b9a3ff 65%, #8fd9f2 100%);
+  /* ---- Legendary foil: a MATERIAL for legendary objects, never on text ---- */
+  --foil: linear-gradient(115deg, #f2d7a0 0%, #ff9fbb 35%, #b9d7ff 70%, #f2d7a0 100%);
 }
 
-/* Breakpoints (mirrored in components): 600px large phone / small tablet,
-   900px desktop shell with side rail, 1280px wide. */
+/* Breakpoints (mirrored in components): 600 two-column · 900 desktop shell with rail · 1280 wide */
 
-[data-world='home'], [data-world='show'] { --accent: var(--c-home); }
-[data-world='gaming'] { --accent: var(--c-gaming); }
-[data-world='cards'] { --accent: var(--c-cards); }
-[data-world='party'] { --accent: var(--c-party); }
-[data-world='couples'] { --accent: var(--c-couples); }
-[data-world='movie'] { --accent: var(--c-movie); }
-[data-world='boxes'] { --accent: var(--c-boxes); }
-[data-world='roulette'] { --accent: var(--c-roulette); }
-[data-world='host'] { --accent: var(--c-host); }
-[data-world='legend'] { --accent: var(--champagne); }
+[data-world='home'], [data-world='show'] { --accent: var(--w-home); }
+[data-world='gaming'] { --accent: var(--w-gaming); }
+[data-world='cards'] { --accent: var(--w-cards); }
+[data-world='party'] { --accent: var(--w-party); }
+[data-world='couples'] { --accent: var(--w-couples); }
+[data-world='movie'] { --accent: var(--w-movie); }
+[data-world='boxes'], [data-world='legend'] { --accent: var(--w-boxes); }
+[data-world='roulette'] { --accent: var(--w-roulette); }
+[data-world='host'] { --accent: var(--w-host); }

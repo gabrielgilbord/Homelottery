@@ -9,7 +9,7 @@ export default function Achievements() {
   const count = (p: string) => ACHIEVEMENTS.filter((a) => s.achievements[`${a.id}:${p}`]).length;
   return (
     <div>
-      <PageHead eyebrow="Logros" title="Achievements" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno paga su recompensa en cuanto se consigue.`}>
+      <PageHead title="Logros" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno paga su recompensa en cuanto se consigue.`}>
         <div className="cluster" style={{ ['--gap' as string]: 'var(--s-5)' }}>{PLAYERS.map((p) => <span key={p} className="stack" style={{ ['--gap' as string]: '2px' }}><span className={'pname small ' + p}>{PLAYER_NAME[p]}</span><span className="h3 num">{count(p)}<span className="faint">/{ACHIEVEMENTS.length}</span></span></span>)}</div>
       </PageHead>
       <div className="list">
@@ -21,7 +21,7 @@ export default function Achievements() {
               <span className="lead-icon" style={!got.length ? { color: 'var(--ivory-4)', background: 'var(--ink-2)' } : undefined}><Icon name={got.length ? a.glyph : 'lock'} size={18} /></span>
               <span className="grow stack" style={{ ['--gap' as string]: '2px' }}>
                 <span className="h5" style={{ color: got.length ? 'var(--ivory)' : 'var(--ivory-2)' }}>{a.name}</span>
-                <span className="xs faint">{a.desc} · <span className="value-text">{reward}</span></span>
+                <span className="small faint">{a.desc} <span className="value-text">Premio: {reward}.</span></span>
               </span>
               <span className="cluster" style={{ ['--gap' as string]: '4px', flexShrink: 0 }}>{got.map((p) => <span key={p} className={'avatar sm ' + p} title={PLAYER_NAME[p]}>{PLAYER_NAME[p][0]}</span>)}</span>
             </div>

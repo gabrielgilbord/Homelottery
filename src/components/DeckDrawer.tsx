@@ -5,40 +5,63 @@ import { Icon } from './Icon';
 import { Curtain, PlayerSwitch } from './ui';
 import type { PlayerId } from '../types';
 
-/** A deck of prompts drawn without repetition, filtered by the couple's shared intensity. Private decks use the curtain. */
-export function DeckDrawer({ deckId }: { deckId: string; compact?: boolean }) {
+/**
+ * One card stage for several prompt decks: pick a deck, deal a card.
+ * Cards come without repetition and respect the couple's shared intensity.
+ * Private decks deal behind the privacy curtain on a shared phone.
+ */
+export function DeckStage({ deckIds }: { deckIds: string[] }) {
   const s = useGame();
-  const deck = DECKS.find((d) => d.id === deckId)!;
-  const [card, setCard] = useState<{ text: string; remaining: number; k: number } | null>(null);
+  const decks = deckIds.map((id) => DECKS.find((d) => d.id === id)!).filter(Boolean);
+  const [deckId, setDeckId] = useState(decks[0].id);
+  const [card, setCard] = useState<{ text: string; remaining: number; k: number; deck: string } | null>(null);
   const [hidden, setHidden] = useState(false);
   const [who, setWho] = useState<PlayerId>('tatiana');
   const [curtain, setCurtain] = useState(false);
+  const deck = decks.find((d) => d.id === deckId)!;
   const total = deck.cards.filter((c) => intensityAllowed(s, c.intensity)).length;
+  const shown = card && card.deck === deckId ? card : null;
 
-  const draw = () => { const r = drawDeck(deckId); if (r) { setCard({ ...r, k: Date.now() }); setHidden(false); } };
+  const draw = () => { const r = drawDeck(deckId); if (r) { setCard({ ...r, k: Date.now(), deck: deckId }); setHidden(false); try { navigator.vibrate?.(12); } catch { /* noop */ } } };
   const onDraw = () => { if (deck.private && s.sharedScreen) setCurtain(true); else draw(); };
 
   return (
-    <div className="deck">
-      <div className="split top">
-        <div className="stack" style={{ ['--gap' as string]: '4px' }}>
-          <h3 className="h4">{deck.name}</h3>
-          <p className="xs faint">{deck.hint}</p>
+    <div className="deck-stage">
+      {decks.length > 1 && (
+        <div className="deck-tabs" role="tablist" aria-label="Barajas">
+          {decks.map((d) => (
+            <button key={d.id} role="tab" aria-selected={d.id === deckId} className={'chip' + (d.id === deckId ? ' on' : '')} onClick={() => { setDeckId(d.id); setHidden(false); }}>
+              {d.private && <Icon name="eyeoff" size={13} />}{d.name}
+            </button>
+          ))}
         </div>
-        <span className="cluster" style={{ ['--gap' as string]: '6px', flexShrink: 0 }}>
-          {deck.private && <span className="tag accent"><Icon name="eyeoff" size={11} />Privada</span>}
-          <span className="tag">{total}</span>
-        </span>
-      </div>
+      )}
+      {shown && !hidden ? (
+        <div key={shown.k} className="prompt-card dealt" aria-live="polite">
+          <div className="pc-deck"><span>{deck.name}</span><span>{shown.remaining > 0 ? `quedan ${shown.remaining}` : 'se baraja de nuevo'}</span></div>
+          <div className="pc-text">{shown.text}</div>
+          <div className="pc-foot">{deck.hint}</div>
+        </div>
+      ) : shown && hidden ? (
+        <button className="prompt-hidden" onClick={() => setHidden(false)}><span className="cluster"><Icon name="eye" size={18} />Volver a mostrar</span></button>
+      ) : (
+        <div className="prompt-card">
+          <div className="pc-deck"><span>{deck.name}</span><span>{total} cartas</span></div>
+          <div className="pc-text idle">{deck.private ? 'Carta secreta. Solo la ve quien la roba.' : 'Roba una carta para empezar.'}</div>
+          <div className="pc-foot">{deck.hint}</div>
+        </div>
+      )}
       {deck.private && s.sharedScreen && <PlayerSwitch value={who} onChange={setWho} label="Roba" />}
-      {card && (hidden
-        ? <button className="btn ghost" onClick={() => setHidden(false)}><Icon name="eye" size={16} />Volver a mostrar</button>
-        : <div key={card.k} className="prompt" aria-live="polite">{card.text}<div className="p-meta">{card.remaining > 0 ? `Quedan ${card.remaining} sin salir` : 'Última carta · el mazo se baraja'}</div></div>)}
-      <div className="cluster">
-        <button className="btn accent" onClick={onDraw}><Icon name="cards" size={16} />{card ? 'Otra carta' : 'Robar carta'}</button>
-        {card && deck.private && !hidden && <button className="btn quiet" onClick={() => setHidden(true)}><Icon name="eyeoff" size={16} />Ocultar</button>}
+      <div className={shown && deck.private && !hidden ? 'grid-2' : 'stack'}>
+        <button className="btn accent lg block" onClick={onDraw}><Icon name="cards" size={18} />{shown ? 'Otra carta' : 'Robar carta'}</button>
+        {shown && deck.private && !hidden && <button className="btn ghost lg" onClick={() => setHidden(true)}><Icon name="eyeoff" size={18} />Ocultar</button>}
       </div>
-      <Curtain open={curtain} to={who} label={`Carta secreta de “${deck.name}”.`} onCancel={() => setCurtain(false)} onReveal={() => { setCurtain(false); draw(); }} />
+      <Curtain open={curtain} to={who} label={`Carta secreta de ${deck.name}.`} onCancel={() => setCurtain(false)} onReveal={() => { setCurtain(false); draw(); }} />
     </div>
   );
+}
+
+/** Single-deck convenience wrapper. */
+export function DeckDrawer({ deckId }: { deckId: string; compact?: boolean }) {
+  return <DeckStage deckIds={[deckId]} />;
 }

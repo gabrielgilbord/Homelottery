@@ -4,7 +4,7 @@ import { BINGO_POOLS } from '../data/decks';
 import { LOTTERY_ITEMS, MOVIE_PICKS } from '../data/gaming';
 import { ChallengeList } from './Challenges';
 import { ConfirmButton, Curtain, Empty, Modal, PlayerSwitch, Section, Seg } from '../components/ui';
-import { DeckDrawer } from '../components/DeckDrawer';
+import { DeckStage } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
 import { celebrate } from '../lib/celebrate';
 import {
@@ -21,9 +21,9 @@ export default function Movie() {
     <div>
       <header className="cinema-head">
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-3)', maxWidth: 640 }}>
-          <span className="eyebrow accent">Movie & Series Night · Episodio 07</span>
-          <h1 className="h1">Movie <span className="italic">Night</span></h1>
-          <p className="lead">Un concurso con palomitas. Todo está pensado para no tener que pausar.</p>
+          <div className="marquee" aria-hidden>{Array.from({ length: 12 }, (_, i) => <i key={i} />)}</div>
+          <h1 className="h1">Movie Night</h1>
+          <p className="lead">Un concurso con palomitas. La película se gana en subasta y todo se juega sin pausar.</p>
         </div>
       </header>
       <div style={{ marginBottom: 'var(--s-6)' }}>
@@ -46,15 +46,15 @@ function Lottery() {
   const [active, setActive] = useState<string | null>(null);
   return (
     <section>
-      <div className="section-head"><div className="stack" style={{ ['--gap' as string]: '6px' }}><span className="eyebrow">Subastas a sobre cerrado</span><h2 className="h3">The Movie Lottery</h2></div></div>
+      <div className="section-head"><h2 className="h2">The Movie Lottery</h2></div>
       <p className="small muted prose" style={{ marginBottom: 'var(--s-5)' }}>Cada decisión de la noche se subasta. Cada uno puja en secreto. La puja más alta gana y paga sus monedas; el otro no paga nada. Si hay empate, decide el azar.</p>
-      <div className="grid-auto" style={{ ['--min' as string]: '260px' }}>
+      <div style={{ borderTop: '1px solid var(--line)' }}>
         {LOTTERY_ITEMS.map((it) => {
           const lot = s.lottery[it.id];
           const golden = PLAYERS.filter((p) => s.prizes.some((r) => r.prizeId === 's-moviepick' && r.player === p && !r.redeemed));
           return (
             <div key={it.id} className={'lot' + (lot?.winner ? ' won' : '')}>
-              <div className="split"><span className="h4">{it.name}</span>{lot?.winner ? <span className={'pname small ' + lot.winner}>{PLAYER_NAME[lot.winner]}</span> : <span className="eyebrow">Sin subastar</span>}</div>
+              <div className="split"><span className="h4">{it.name}</span>{lot?.winner ? <span className={'pname small ' + lot.winner}>{PLAYER_NAME[lot.winner]}</span> : <span className="small faint">Sin subastar</span>}</div>
               {!lot && (
                 <div className="cluster">
                   <button className="btn accent sm" onClick={() => setActive(it.id)}><Icon name="coin" size={14} />Subastar</button>
@@ -154,14 +154,14 @@ function Bingo() {
         <>
           <div className="bingo" style={{ maxWidth: 520 }}>{card.cells.map((c, i) => <button key={i} className={card.marked[i] ? 'on' : ''} aria-pressed={card.marked[i]} onClick={() => toggleBingo(pool, who, i)}>{c}</button>)}</div>
           <div className="cluster">
-            {card.claimed ? <span className="tag ok">Línea cantada · +15 pts · +30 monedas</span> : (
+            {card.claimed ? <span className="tag ok">Línea cantada: +15 pts y +30 monedas</span> : (
               <button className="btn accent lg" disabled={!line} onClick={() => { if (claimBingo(pool, who)) { celebrate(2); toast(BINGO_POOLS[pool].shout, `${PLAYER_NAME[who]} canta línea · +15 pts · +30 monedas`, 'gold'); } }}>Cantar {BINGO_POOLS[pool].shout}</button>
             )}
             <ConfirmButton className="btn quiet sm" onConfirm={() => newBingo(pool, who)} confirmText="¿Cartón nuevo?">Cartón nuevo</ConfirmButton>
           </div>
         </>
       )}
-      <p className="xs faint prose">Cada cartón es distinto y aleatorio. Las casillas son situaciones genéricas: ninguna afirma lo que pasa en un episodio concreto.</p>
+      <p className="small faint prose">Cada cartón es distinto y aleatorio. Las casillas son situaciones genéricas: ninguna afirma lo que pasa en un episodio concreto.</p>
     </section>
   );
 }
@@ -214,7 +214,7 @@ function LiveCounter() {
       <div className="split"><p className="small muted prose">Botones grandes para tocar a ciegas sin pausar. Al final, registrad el ganador de la prueba.</p><ConfirmButton className="btn quiet sm" onConfirm={() => setC({})} confirmText="¿A cero?">Reiniciar</ConfirmButton></div>
       {rows.map((r) => (
         <div key={r.id} className="stack" style={{ ['--gap' as string]: 'var(--s-2)' }}>
-          <span className="eyebrow">{r.label}</span>
+          <h3 className="h4">{r.label}</h3>
           <div className="grid-2">
             {PLAYERS.map((p) => (
               <div key={p} className="stack" style={{ ['--gap' as string]: '6px' }}>
@@ -238,7 +238,7 @@ function Modes() {
   return (
     <>
       <section>
-        <div className="eyebrow" style={{ marginBottom: 'var(--s-3)' }}>Cómo jugar sin pausar</div>
+        <h2 className="h2" style={{ marginBottom: 'var(--s-3)' }}>Cómo jugar sin pausar</h2>
         <ol className="steps">
           <li><span><b>Antes del play.</b> <span className="muted">Movie Lottery, cartones de Bingo, predicciones selladas y palabras prohibidas.</span></span></li>
           <li><span><b>Durante.</b> <span className="muted">Solo se marcan casillas y se toca el marcador en vivo.</span></span></li>
@@ -249,19 +249,19 @@ function Modes() {
       <Section title="La isla de las tentaciones" eyebrow="The Couples Detectives"><ChallengeList list={list.filter((c) => c.sub === 'La isla de las tentaciones')} /></Section>
       <Section title="English Night" eyebrow="Películas y series en inglés"><ChallengeList list={list.filter((c) => c.sub === 'English Night')} /></Section>
       <Section title="Barajas de English Night">
-        <div className="grid-auto" style={{ ['--min' as string]: '260px' }}><DeckDrawer deckId="forbidden" /><DeckDrawer deckId="translate" /><DeckDrawer deckId="accents" /></div>
+        <DeckStage deckIds={['forbidden', 'translate', 'accents']} />
       </Section>
       <Section title="Cartelera propuesta" eyebrow="Para elegir en la Lottery">
-        <div className="grid-auto" style={{ ['--min' as string]: '150px' }}>
+        <div className="poster-grid">
           {MOVIE_PICKS.map((m, i) => (
             <div key={m.title} className="poster" style={{ ['--pbg' as string]: POSTER_BG[i % POSTER_BG.length] } as CSSProperties}>
-              <span className="eyebrow accent" style={{ marginBottom: 6 }}>{m.lang}</span>
+              <span className="small accent-text" style={{ fontWeight: 600 }}>{m.lang}</span>
               <span className="pt">{m.title}</span>
-              <span className="xs muted" style={{ marginTop: 6 }}>{m.why}</span>
+              <span className="small muted">{m.why}</span>
             </div>
           ))}
         </div>
-        <p className="xs faint" style={{ marginTop: 'var(--s-4)' }}>No sabemos qué plataformas tenéis contratadas: consultad <a href="https://www.justwatch.com/es" target="_blank" rel="noreferrer">JustWatch España</a>.</p>
+        <p className="small faint" style={{ marginTop: 'var(--s-4)' }}>No sabemos qué plataformas tenéis contratadas: consultad <a href="https://www.justwatch.com/es" target="_blank" rel="noreferrer">JustWatch España</a>.</p>
       </Section>
     </>
   );

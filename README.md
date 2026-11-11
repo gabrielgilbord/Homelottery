@@ -14,13 +14,22 @@ npm install
 npm run dev        # desarrollo: abre la URL "Network" desde el móvil (misma WiFi)
 npm run build      # genera dist/ (web estática)
 npm run preview    # sirve dist/ en http://localhost:4173 y en la red local
-npm test           # tests de la lógica del juego (economía, cajas, ruletas, cartas, sobres…)
+npm test           # 19 tests: lógica del juego + simulación de un día completo (tests/day.test.ts)
 npm run cheatsheet # regenera docs/GABRIEL_SECRET_CHEAT_SHEET.md desde los datos de la app
 ```
 
-### Llevarlo al móvil (elige una)
-1. **Hosting estático (recomendado):** sube `dist/` a Vercel, Netlify o GitHub Pages. `base: './'` ya funciona en subcarpetas. Abre la URL en el móvil → Compartir → *Añadir a pantalla de inicio*. Tras la primera visita funciona sin conexión (service worker).
-2. **Red local:** `npm run build && npm run preview` en el ordenador y abre `http://<IP-del-ordenador>:4173` en el móvil (misma WiFi). El ordenador debe seguir encendido.
+### Publicar en Vercel (recomendado)
+El proyecto ya incluye `vercel.json`: Vite, `npm ci`, `npm run build`, salida `dist/`, `sw.js` sin caché, assets inmutables y `noindex`. Como la navegación usa `#/rutas`, no hacen falta reescrituras.
+
+1. Entra en vercel.com → **Add New… → Project** → importa `gabrielgilbord/Homelottery`.
+2. **Branch:** elige `claude/homelottery-couples-game-if533j` (o haz merge a `main` antes).
+3. No toques nada más: Vercel detecta Vite y lee `vercel.json`. Pulsa **Deploy**.
+4. Abre la URL `*.vercel.app` en el iPhone → Compartir → **Añadir a pantalla de inicio**. Ábrela una vez con WiFi para que quede disponible sin conexión.
+
+Alternativa por terminal: `npx vercel` (preview) y `npx vercel --prod` (producción).
+
+### Red local (sin publicar)
+`npm run build && npm run preview` en el ordenador y abre `http://<IP-del-ordenador>:4173` en el móvil, con la misma WiFi.
 
 **Importante:** la partida se guarda en el navegador (localStorage) del dispositivo y de *esa* URL. Usad siempre el mismo móvil y la misma dirección. Copia de seguridad: Host Mode → Ajustes → Exportar partida.
 
@@ -47,7 +56,7 @@ npm run cheatsheet # regenera docs/GABRIEL_SECRET_CHEAT_SHEET.md desde los datos
 - Estado en `src/state/store.ts` (store externo + `useSyncExternalStore`), autoguardado en `localStorage` con migración de versiones.
 - Aleatoriedad con `crypto.getRandomValues` (`src/lib/random.ts`).
 - Contenido en `src/data/*` (pruebas, barajas, premios, episodios, juegos, cheat sheet).
-- Design System "Velvet Broadcast" en `src/styles/` (tokens, base, componentes, shell, pantallas) con acento por mundo (`data-world`), fuentes empaquetadas (Instrument Serif, Geist Sans, Geist Mono) e iconos SVG propios. Ver `docs/DESIGN_SYSTEM.md` y `docs/DESIGN_AUDIT.md`.
+- Design System "Late Show en casa" en `src/styles/` (tokens, base, componentes, shell, pantallas) con acento por mundo (`data-world`), fuentes empaquetadas (Bricolage Grotesque, Geist Sans, Geist Mono) e iconos SVG propios. Ver `docs/DESIGN_SYSTEM.md` y `docs/DESIGN_AUDIT.md`.
 
 ## Privacidad (un solo móvil)
 - El **modo pantalla compartida** (activo por defecto) muestra una cortina de *mantener para revelar* antes de enseñar contenido privado: misiones secretas, cartas privadas, pujas, sobres personales, ajustes de límites y cajas abiertas en privado.

@@ -1,7 +1,7 @@
 import { CHALLENGES } from '../data/challenges';
 import { ChallengeList } from './Challenges';
 import { PageHead, Section } from '../components/ui';
-import { DeckDrawer } from '../components/DeckDrawer';
+import { DeckStage } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
 import { useGame, sharedIntensity } from '../state/store';
 import { INTENSITY_LABEL, INTENSITY_ORDER, PLAYERS, PLAYER_NAME } from '../types';
@@ -16,32 +16,27 @@ export default function Couples() {
   const list = CHALLENGES.filter((c) => c.category === 'couples');
   return (
     <div>
-      <PageHead eyebrow="Arena" title={<>Couples <span className="italic">Mode</span></>} sub="Siempre al nivel más suave de los dos y siempre con derecho a pasar. Las recompensas románticas no se anuncian: se descubren." />
+      <PageHead title="Couples Mode" sub="Siempre al nivel más suave de los dos, y siempre con derecho a pasar. Las recompensas románticas no se anuncian: se descubren." />
 
       <section className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
-        <div className="split"><span className="eyebrow">Nivel común activo</span><button className="btn quiet sm" onClick={() => go('prefs')}><Icon name="sliders" size={14} />Mis límites</button></div>
+        <div className="split"><span className="label">Nivel que se juega hoy</span><button className="btn quiet sm" onClick={() => go('prefs')}><Icon name="sliders" size={14} />Mis límites</button></div>
         <div className="intensity" role="list">
           {INTENSITY_ORDER.map((i, k) => (
-            <div key={i} role="listitem" className={k <= li ? 'on' : ''} aria-current={k === li ? 'true' : undefined}>
+            <div key={i} role="listitem" className={(k <= li ? 'on' : '') + (k === li ? ' current' : '')} aria-current={k === li ? 'true' : undefined}>
               <div className="il">{INTENSITY_LABEL[i]}</div>
-              <div className="xs" style={{ marginTop: 6 }}>{DESC[i]}</div>
+              <div className="xs" style={{ marginTop: 4 }}>{DESC[i]}</div>
             </div>
           ))}
         </div>
-        <p className="xs faint">{PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${s.prefs[p].configured ? 'configurado' : 'pendiente'}`).join(' · ')}. Los límites individuales son privados.</p>
+        <p className="small faint">{PLAYERS.every((p) => s.prefs[p].configured) ? 'Los dos habéis configurado vuestros límites.' : `Falta que ${PLAYERS.filter((p) => !s.prefs[p].configured).map((p) => PLAYER_NAME[p]).join(' y ')} configure sus límites.`} Los de cada uno son privados.</p>
       </section>
 
       <Section title="Barajas de pareja">
-        <div className="grid-auto" style={{ ['--min' as string]: '300px' }}>
-          <DeckDrawer deckId="know" />
-          <DeckDrawer deckId="datetheme" />
-          <DeckDrawer deckId="secretplan" />
-          {level !== 'sweet' && <DeckDrawer deckId="truth-spicy" />}
-        </div>
+        <DeckStage deckIds={level !== 'sweet' ? ['know', 'truth-spicy', 'datetheme', 'secretplan'] : ['know', 'datetheme', 'secretplan']} />
       </Section>
 
       {INTENSITY_ORDER.map((i) => (
-        <Section key={i} title={INTENSITY_LABEL[i]} eyebrow={DESC[i]} aside={<span className={'tag ' + i}>{list.filter((c) => c.intensity === i).length}</span>}>
+        <Section key={i} title={INTENSITY_LABEL[i]} eyebrow={DESC[i]} aside={<span className={'tag ' + i}>{list.filter((c) => c.intensity === i).length} pruebas</span>}>
           <ChallengeList list={list.filter((c) => c.intensity === i)} />
         </Section>
       ))}

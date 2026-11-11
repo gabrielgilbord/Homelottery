@@ -18,8 +18,8 @@ export default function Prefs() {
     <div>
       <PageHead eyebrow="Preferencias y límites" title="Vuestras reglas" sub="Cada uno configura lo suyo en privado. El juego usa siempre el nivel más suave de los dos y nunca enseña los límites del otro." />
       <div className="ledger">
-        <div><div className="eyebrow">Nivel común</div><div className="v accent-text">{INTENSITY_LABEL[sharedIntensity(s)]}</div></div>
-        <div className="stack" style={{ ['--gap' as string]: '8px' }}><div className="eyebrow">Un solo móvil</div><div className="cluster"><Toggle on={s.sharedScreen} onChange={setShared} label="Modo un solo móvil" /><span className="xs faint">Cortinas de privacidad</span></div></div>
+        <div><div className="label">Nivel que se juega</div><div className="v accent-text">{INTENSITY_LABEL[sharedIntensity(s)]}</div></div>
+        <div className="stack" style={{ ['--gap' as string]: '8px' }}><div className="label">Un solo móvil</div><div className="cluster"><Toggle on={s.sharedScreen} onChange={setShared} label="Modo un solo móvil" /><span className="xs faint">Cortinas de privacidad</span></div></div>
       </div>
 
       <Section title="Ajustes personales">

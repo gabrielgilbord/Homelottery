@@ -24,9 +24,11 @@ export function NameSpinner({ items, label, button = 'Girar' }: { items: string[
   };
   return (
     <div className={'slot ' + state}>
-      <div className="eyebrow">{label}</div>
-      <div className="slot-val" aria-live="polite">{val || '—'}</div>
-      <button className="btn sm" onClick={spin} disabled={state === 'spinning'}><Icon name="dice" size={14} />{button}</button>
+      <div className="slot-text">
+        <span className="label">{label}</span>
+        <span className="slot-val" aria-live="polite">{val || 'Sin sortear'}</span>
+      </div>
+      <button className="btn" onClick={spin} disabled={state === 'spinning'} aria-label={button}><Icon name="dice" size={16} />Girar</button>
     </div>
   );
 }

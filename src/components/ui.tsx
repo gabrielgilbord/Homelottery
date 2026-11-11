@@ -4,16 +4,15 @@ import type { CardType, PlayerId } from '../types';
 import { PLAYERS, PLAYER_NAME } from '../types';
 import { CARDS } from '../data/rewards';
 import { onToast, type Toast } from '../state/store';
+import { LogoMark } from './Logo';
 
 /* ---------------- Page & section heads ---------------- */
-export function PageHead({ eyebrow, title, sub, children, aside }: { eyebrow: ReactNode; title: ReactNode; sub?: ReactNode; children?: ReactNode; aside?: ReactNode }) {
+/** Page header. The heading carries its own weight: no eyebrow above it. */
+export function PageHead({ title, sub, children, aside }: { eyebrow?: ReactNode; title: ReactNode; sub?: ReactNode; children?: ReactNode; aside?: ReactNode }) {
   return (
     <header className="page-head">
       <div className="split top">
-        <div className="stack" style={{ ['--gap' as string]: 'var(--s-3)' }}>
-          <div className="eyebrow accent">{eyebrow}</div>
-          <h1 className="h1">{title}</h1>
-        </div>
+        <h1 className="h1">{title}</h1>
         {aside}
       </div>
       {sub && <p className="lead">{sub}</p>}
@@ -26,9 +25,9 @@ export function Section({ title, eyebrow, aside, children, id }: { title: ReactN
   return (
     <section className="section" id={id}>
       <div className="section-head">
-        <div className="stack" style={{ ['--gap' as string]: '6px' }}>
-          {eyebrow && <div className="eyebrow">{eyebrow}</div>}
-          <h2 className="h3">{title}</h2>
+        <div className="stack" style={{ ['--gap' as string]: '4px' }}>
+          <h2 className="h2">{title}</h2>
+          {eyebrow && <p className="small faint caption">{eyebrow}</p>}
         </div>
         {aside}
       </div>
@@ -55,9 +54,9 @@ export function Modal({ open, onClose, title, eyebrow, children, wide, dismissab
       <div className={'sheet' + (wide ? ' wide' : '')} role="dialog" aria-modal="true" tabIndex={-1} ref={ref} onClick={(e) => e.stopPropagation()}>
         {(title || eyebrow || dismissable) && (
           <div className="sheet-head">
-            <div className="stack" style={{ ['--gap' as string]: '6px' }}>
-              {eyebrow && <div className="eyebrow accent">{eyebrow}</div>}
-              {title && <h2 className="h3">{title}</h2>}
+            <div className="stack" style={{ ['--gap' as string]: '4px' }}>
+              {title && <h2 className="h2">{title}</h2>}
+              {eyebrow && <p className="small faint">{eyebrow}</p>}
             </div>
             {dismissable && <button className="btn icon ghost sm" onClick={onClose} aria-label="Cerrar"><Icon name="close" size={18} /></button>}
           </div>
@@ -90,13 +89,12 @@ export function Curtain({ open, to, label, onReveal, onCancel }: { open: boolean
   const C = 2 * Math.PI * 70;
   return (
     <div className="curtain" role="dialog" aria-modal="true" aria-label={`Pantalla privada para ${name}`}>
-      <div className="eyebrow" style={{ color: 'var(--ivory-2)' }}>Pantalla privada</div>
-      <h2 className="h2">Solo para <span className="italic">{name}</span></h2>
+      <h2 className="h1">Solo para {name}</h2>
       <p className="muted" style={{ maxWidth: 320 }}>{label || 'Pasa el móvil. La otra persona mira hacia otro lado.'}</p>
       <button className="hold" onPointerDown={begin} onPointerUp={end} onPointerLeave={end} onPointerCancel={end} onContextMenu={(e) => e.preventDefault()}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onReveal(); }} aria-label="Mantén pulsado para revelar">
         <svg className="ring" viewBox="0 0 150 150" aria-hidden><circle cx="75" cy="75" r="70" fill="none" stroke="rgba(243,235,225,.12)" strokeWidth="3" /><circle cx="75" cy="75" r="70" fill="none" stroke="var(--ivory)" strokeWidth="3" strokeDasharray={C} strokeDashoffset={C * (1 - p)} strokeLinecap="round" /></svg>
-        <span className="stack" style={{ alignItems: 'center', ['--gap' as string]: '8px' }}><Icon name="eye" size={24} />MANTÉN</span>
+        <span className="stack" style={{ alignItems: 'center', ['--gap' as string]: '6px' }}><Icon name="eye" size={24} />Mantén pulsado</span>
       </button>
       <button className="btn quiet sm" onClick={onCancel}>Cancelar</button>
     </div>
@@ -107,7 +105,7 @@ export function Curtain({ open, to, label, onReveal, onCancel }: { open: boolean
 export function PlayerSwitch({ value, onChange, label }: { value: PlayerId; onChange: (p: PlayerId) => void; label?: string }) {
   return (
     <div className="cluster">
-      {label && <span className="eyebrow">{label}</span>}
+      {label && <span className="label">{label}</span>}
       <div className="seg players" role="radiogroup" aria-label={label || 'Jugador'}>
         {PLAYERS.map((p) => (
           <button key={p} data-p={p} className={value === p ? 'on' : ''} onClick={() => onChange(p)} role="radio" aria-checked={value === p}>{PLAYER_NAME[p]}</button>
@@ -171,7 +169,7 @@ export function Timer({ seconds: initial = 60 }: { seconds?: number }) {
   return (
     <div className="timer">
       <div className={'timer-ring' + (left === 0 ? ' alarm' : '')} role="timer" aria-label={`${mm}:${ss}`}>
-        <svg viewBox="0 0 100 100" aria-hidden><circle cx="50" cy="50" r="46" fill="none" stroke="var(--ink-4)" strokeWidth="3" /><circle cx="50" cy="50" r="46" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - left / total)} style={{ transition: 'stroke-dashoffset .25s linear' }} /></svg>
+        <svg viewBox="0 0 100 100" aria-hidden><circle cx="50" cy="50" r="46" fill="none" stroke="var(--velvet-4)" strokeWidth="3" /><circle cx="50" cy="50" r="46" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeDasharray={C} strokeDashoffset={C * (1 - left / total)} style={{ transition: 'stroke-dashoffset .25s linear' }} /></svg>
         <div className="t-digits">{mm}:{ss}</div>
       </div>
       <div className="stack grow">
@@ -181,7 +179,7 @@ export function Timer({ seconds: initial = 60 }: { seconds?: number }) {
         </div>
         <div className="cluster" style={{ ['--gap' as string]: '6px' }}>
           {presets.map((p) => (
-            <button key={p} className={'chip' + (total === p ? ' on' : '')} onClick={() => { setRun(false); setTotal(p); setLeft(p); }}>{p < 60 ? `${p}s` : `${p / 60}m`}</button>
+            <button key={p} className={'chip' + (total === p ? ' on' : '')} onClick={() => { setRun(false); setTotal(p); setLeft(p); }}>{p < 60 ? `${p} s` : `${p / 60} min`}</button>
           ))}
         </div>
       </div>
@@ -206,7 +204,7 @@ export function Toaster() {
   const [items, setItems] = useState<Toast[]>([]);
   useEffect(() => onToast(function show(t) {
     // never cover a reveal moment: wait until the stage closes
-    if (document.querySelector('.reveal-stage, .ep-card')) { setTimeout(() => show(t), 600); return; }
+    if (document.querySelector('.reveal-stage, .ep-card, .overlay, .curtain')) { setTimeout(() => show(t), 600); return; }
     setItems((x) => [...x.slice(-2), t]);
     setTimeout(() => setItems((x) => x.filter((i) => i.id !== t.id)), 4200);
   }), []);
@@ -258,7 +256,7 @@ export function MysteryCard({ type, onClick }: { type: CardType; onClick?: () =>
   const style = { ['--tone' as string]: d.tone } as CSSProperties;
   const inner = (
     <>
-      <div className="m-top">HOMELOTTERY</div>
+      <div className="m-top"><LogoMark size={16} /></div>
       <div className="m-glyph"><Icon name={d.glyph} size={22} /></div>
       <div className="stack" style={{ ['--gap' as string]: '4px' }}><div className="m-name">{d.name}</div><div className="m-short">{d.short}</div></div>
     </>

@@ -5,6 +5,7 @@ import { go } from '../lib/router';
 import { ENVELOPES } from '../data/rewards';
 import { Seg, Toggle } from '../components/ui';
 import { celebrate } from '../lib/celebrate';
+import { Wordmark } from '../components/Logo';
 import type { Intensity } from '../types';
 
 const d = (s: number) => ({ animationDelay: s + 's' }) as CSSProperties;
@@ -31,21 +32,19 @@ export default function Intro() {
     <div className="intro" data-world="couples">
       {step === 0 && (
         <div className="intro-inner seq" key="s0">
-          <span className="eyebrow" style={d(0.2)}>Una producción de Gabriel</span>
-          <p className="intro-line" style={{ ...d(0.7), fontSize: 'clamp(2rem, 1.4rem + 3vw, 2.75rem)' }}>Buenos días, <span className="italic">Tatiana.</span></p>
-          <p className="intro-line muted" style={d(1.5)}>Hoy Gabriel ha preparado algo para ti.</p>
-          <p className="intro-line muted" style={d(2.3)}>Pero hay una pequeña condición…</p>
-          <p className="intro-line italic" style={d(3.1)}>Hoy no vas a poder decidirlo todo.</p>
-          <div className="intro-list" style={d(3.9)}>
-            <span>Habrá desafíos.</span><span>Habrá apuestas.</span><span>Habrá sorpresas.</span><span>Habrá premios que todavía no conoces.</span>
+          <p className="intro-big" style={d(0.4)}>Buenos días, Tatiana.</p>
+          <p className="intro-line" style={d(1.3)}>Hoy Gabriel ha preparado algo para ti. Pero hay una pequeña condición…</p>
+          <p className="intro-line" style={{ ...d(2.3), color: 'var(--ivory)', fontWeight: 600 }}>Hoy no vas a poder decidirlo todo.</p>
+          <div className="intro-list" style={d(3.1)}>
+            <div>Habrá <span>desafíos</span>.</div><div>Habrá <span>apuestas</span>.</div><div>Habrá <span>sorpresas</span>.</div><div>Y premios que todavía no conoces.</div>
           </div>
-          <p className="intro-line muted" style={d(4.9)}>Y puede que hoy descubras que tienes un pequeño rival en casa.</p>
-          <div className="stack" style={{ ...d(5.9), ['--gap' as string]: 'var(--s-3)', marginTop: 'var(--s-4)' } as CSSProperties}>
-            <span className="eyebrow">Bienvenida a…</span>
-            <div className="intro-logo">Home<i>lottery</i></div>
-            <span className="eyebrow" style={{ color: 'var(--ivory-2)' }}>Gabriel × Tatiana · The Couples Edition</span>
+          <p className="intro-line" style={d(4.2)}>Y puede que hoy descubras que tienes un pequeño rival en casa.</p>
+          <div className="stack" style={{ ...d(5.2), ['--gap' as string]: 'var(--s-3)', marginTop: 'var(--s-4)' } as CSSProperties}>
+            <span className="intro-line">Bienvenida a</span>
+            <Wordmark size="lg" />
+            <span className="intro-line" style={{ color: 'var(--ivory)' }}>Gabriel y Tatiana, the Couples Edition</span>
           </div>
-          <div style={{ ...d(6.8), marginTop: 'var(--s-5)' }}>
+          <div style={{ ...d(6.2), marginTop: 'var(--s-5)' }}>
             <button className="btn value lg block" onClick={() => next(1)}>Descubrir mi sorpresa</button>
           </div>
         </div>
@@ -53,8 +52,7 @@ export default function Intro() {
 
       {step === 1 && (
         <div className="intro-inner seq" key="s1">
-          <span className="eyebrow accent" style={d(0.1)}>Las reglas del show</span>
-          <h1 className="h1" style={d(0.25)}>Así se juega</h1>
+          <h1 className="h1" style={d(0.1)}>Así se juega</h1>
           <div style={d(0.5)}>
             {RULES.map((r) => (
               <div key={r.t} className="rule-row">
@@ -69,8 +67,7 @@ export default function Intro() {
 
       {step === 2 && (
         <div className="intro-inner seq" key="s2" style={{ textAlign: 'center' }}>
-          <span className="eyebrow accent" style={d(0.1)}>Sobre número uno</span>
-          <h1 className="h1" style={d(0.25)}>The First <span className="italic">Envelope</span></h1>
+          <h1 className="h1" style={d(0.1)}>El primer sobre</h1>
           {!envOpen ? (
             <div style={d(0.5)}>
               <button className="seal-env" onClick={() => { openEnvelope('env-first'); setEnvOpen(true); celebrate(1); }} aria-label="Romper el sello y abrir el sobre">
@@ -81,7 +78,7 @@ export default function Intro() {
           ) : (
             <div className="stack" style={{ ['--gap' as string]: 'var(--s-4)', textAlign: 'left' }}>
               <div className="letter">{letter}</div>
-              <p className="small value-text" style={{ textAlign: 'center' }}>+20 monedas de bienvenida para Tatiana</p>
+              <p className="small value-text" style={{ textAlign: 'center', fontWeight: 600 }}>+20 monedas de bienvenida para Tatiana</p>
               <button className="btn value lg block" onClick={() => next(3)}>Estoy preparada</button>
             </div>
           )}
@@ -92,9 +89,8 @@ export default function Intro() {
 
       {step === 4 && (
         <div className="intro-inner seq" key="s4">
-          <span className="eyebrow accent" style={d(0.1)}>Episodio 01 · Misión de bienvenida</span>
-          <h1 className="h1" style={d(0.25)}>Operación <span className="italic">Desayuno</span></h1>
-          <p className="lead" style={d(0.45)}>Tres rondas. Ocho minutos. Una bandeja.</p>
+          <h1 className="h1" style={d(0.1)}>Operación Desayuno</h1>
+          <p className="lead" style={d(0.3)}>Tu misión de bienvenida: tres rondas, ocho minutos y una bandeja.</p>
           <ol className="steps" style={d(0.65)}>
             <li><span><b>Cata a ciegas.</b> <span className="muted">Ojos cerrados: Gabriel te da a probar tres bocados. Adivina qué son.</span></span></li>
             <li><span><b>El brindis.</b> <span className="muted">Con el zumo o el café, predice quién ganará la primera prueba del día.</span></span></li>
@@ -116,8 +112,7 @@ function QuickPrefs({ onDone }: { onDone: () => void }) {
   const set = (patch: Partial<typeof t>) => updatePrefs('tatiana', { ...patch, configured: true });
   return (
     <div className="intro-inner seq" key="s3">
-      <span className="eyebrow accent" style={d(0.1)}>Antes de empezar</span>
-      <h1 className="h1" style={d(0.25)}>Tus reglas, <span className="italic">Tatiana</span></h1>
+      <h1 className="h1" style={d(0.1)}>Tus reglas, Tatiana</h1>
       <p className="muted" style={d(0.4)}>Se juega siempre al nivel más suave de los dos. Puedes cambiarlo cuando quieras.</p>
       <div className="stack" style={{ ...d(0.6), ['--gap' as string]: 'var(--s-5)' } as CSSProperties}>
         <label className="field">Nivel romántico máximo
@@ -133,7 +128,7 @@ function QuickPrefs({ onDone }: { onDone: () => void }) {
       </div>
       <div className="stack" style={d(0.85)}>
         <button className="btn value lg block" onClick={() => { set({}); onDone(); }}>Listo</button>
-        <p className="xs faint" style={{ textAlign: 'center' }}>Gabriel configurará los suyos en privado. Nadie ve los límites del otro.</p>
+        <p className="small faint" style={{ textAlign: 'center' }}>Gabriel configurará los suyos en privado. Nadie ve los límites del otro.</p>
       </div>
     </div>
   );

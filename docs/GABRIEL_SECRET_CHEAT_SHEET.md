@@ -3,44 +3,76 @@
 
 > Versión imprimible. La versión interactiva (con checklist que se guarda) está en la app → Host Mode → Cheat Sheet.
 
-## A. Preparación esta noche
-### Actualizar y descargar (déjalo corriendo antes de dormir)
-- [ ] PS5: abrir ARK: Survival Ascended y dejar que descargue la actualización. Comprobar espacio libre en el SSD (Ajustes → Almacenamiento). Si no cabe, borra algo que no vayáis a jugar.
-- [ ] PS5: abrir Split Fiction para que baje el parche pendiente.
-- [ ] PS5: descargar Rocket League (gratis). Iniciarlo una vez para vincular la cuenta Epic y pasar las pantallas iniciales.
-- [ ] PS5 (opcional): descargar Brawlhalla (gratis) si hay espacio.
-- [ ] PC: abrir el cliente de League of Legends, dejar que parchee e iniciar sesión con las dos cuentas para comprobar que funcionan.
-- [ ] PS5: aplicar la actualización del sistema si la pide (Ajustes → Sistema → Software del sistema).
+## A. Esta noche, en orden
+- [ ] **20:30** · Revisa la lista "Comprar si falta" (sección Materiales). Baraja, pelotas, hielo, snacks, mascarillas.
+- [ ] **21:00** · PS5: lanza la actualización de ARK y la de Split Fiction, y descarga Rocket League. Si sobra espacio, Brawlhalla. Deja la consola en modo reposo con descargas activas.
+- [ ] **21:15** · PC: abre el cliente de League of Legends, deja que parchee y comprueba que las dos cuentas inician sesión.
+- [ ] **21:30** · Móvil: abre la URL de HOMELOTTERY, Compartir → Añadir a pantalla de inicio. Ábrela una vez desde el icono con WiFi.
+- [ ] **21:40** · Host Mode: crea el PIN. En Preferencias, configura tus límites en privado.
+- [ ] **21:50** · Host Mode → Premios: cambia las pistas de "Tesoro de chocolate" y "Regalo escondido". Host Mode → Sobres: escribe tu mensaje en el Sobre Secreto de Gabriel.
+- [ ] **22:00** · Escribe a mano la carta para Tatiana (premio legendario "La Carta Secreta") y guárdala en un sobre cerrado.
+- [ ] **22:20** · Esconde la chocolatina, el detalle pequeño y el regalo principal. Apunta cada escondite en Host Mode → Control → Notas privadas.
+- [ ] **22:40** · Monta la zona de juego: barajas, dados, papel, bolis, vasos, pelota, antifaz, aceite de masaje.
+- [ ] **22:50** · Pon a cargar el móvil, los dos mandos, el altavoz y las velas LED.
+- [ ] **23:00** · Desayuno: deja a mano bandeja, café, zumo o naranjas, huevos, pan, fruta y los 3 bocados sorpresa de la cata.
+- [ ] **23:10** · Host Mode → Ajustes → Reiniciar partida conservando PIN y textos. La app queda en "Buenos días, Tatiana". Bloquea el móvil.
+- [ ] **23:15** · Mira el progreso de ARK antes de dormir. Si no va a terminar, no pasa nada: Plan B ya está pensado.
 
-### Dejar cargando
-- [ ] Tu móvil al 100% (es la consola del concurso).
-- [ ] Los 2 mandos de PS5.
-- [ ] Altavoz Bluetooth (si lo usáis).
-- [ ] Velas LED o luces para el Episodio 06.
+### Detalle por tipo de tarea
+#### Actualizar y descargar (déjalo corriendo antes de dormir)
+- PS5: abrir ARK: Survival Ascended y dejar que descargue la actualización. Comprobar espacio libre en el SSD (Ajustes → Almacenamiento). Si no cabe, borra algo que no vayáis a jugar.
+- PS5: abrir Split Fiction para que baje el parche pendiente.
+- PS5: descargar Rocket League (gratis). Iniciarlo una vez para vincular la cuenta Epic y pasar las pantallas iniciales.
+- PS5 (opcional): descargar Brawlhalla (gratis) si hay espacio.
+- PC: abrir el cliente de League of Legends, dejar que parchee e iniciar sesión con las dos cuentas para comprobar que funcionan.
+- PS5: aplicar la actualización del sistema si la pide (Ajustes → Sistema → Software del sistema).
 
-### Comprobar en HOMELOTTERY
-- [ ] Crear el PIN de anfitrión (Host Mode). No lo apuntes en el móvil.
-- [ ] Configurar TUS límites en Preferencias (en privado).
-- [ ] Host → Premios: escribir las pistas reales del "Tesoro de chocolate" y del "Regalo escondido" según dónde los escondas.
-- [ ] Host → Sobres: reescribir el "Sobre Secreto de Gabriel" con tu mensaje personal.
-- [ ] Añadir HOMELOTTERY a la pantalla de inicio del móvil (Compartir → Añadir a inicio) y abrirla una vez con WiFi para que quede guardada sin conexión.
-- [ ] Si has estado probando: Host → Ajustes → Reiniciar partida (conservando PIN y textos). Así mañana arranca en la Invitación.
-- [ ] Dejar la app abierta en la pantalla de Invitación y bloquear el móvil.
+#### Dejar cargando
+- Tu móvil al 100% (es la consola del concurso).
+- Los 2 mandos de PS5.
+- Altavoz Bluetooth (si lo usáis).
+- Velas LED o luces para el Episodio 06.
 
-### Esconder y preparar premios
-- [ ] Escribir la carta a mano para Tatiana (premio legendario "La Carta Secreta"). Sobre cerrado.
-- [ ] Si tienes un regalo principal: envolverlo y esconderlo (premio legendario "El Regalo Legendario").
-- [ ] Esconder una chocolatina (Bronze: "Tesoro de chocolate").
-- [ ] Esconder un detalle pequeño (Gold: "Regalo escondido"). Si no hay, edita el texto del premio por un vale.
-- [ ] Opcional: corona de papel/cartón para la ceremonia final.
+#### Comprobar en HOMELOTTERY
+- Crear el PIN de anfitrión (Host Mode). No lo apuntes en el móvil.
+- Configurar TUS límites en Preferencias (en privado).
+- Host → Premios: escribir las pistas reales del "Tesoro de chocolate" y del "Regalo escondido" según dónde los escondas.
+- Host → Sobres: reescribir el "Sobre Secreto de Gabriel" con tu mensaje personal.
+- Añadir HOMELOTTERY a la pantalla de inicio del móvil (Compartir → Añadir a inicio) y abrirla una vez con WiFi para que quede guardada sin conexión.
+- Si has estado probando: Host → Ajustes → Reiniciar partida (conservando PIN y textos). Así mañana arranca en la Invitación.
+- Dejar la app abierta en la pantalla de Invitación y bloquear el móvil.
 
-### Comida y bebida
-- [ ] Huevos, pan para tostadas, zumo (o naranjas), café, fruta, mantequilla/aceite.
-- [ ] Snacks para la tarde y la peli: palomitas, chocolate, frutos secos, nachos.
-- [ ] Bebidas SIN alcohol: agua con gas, tónica, refrescos, zumos, limón/lima, hielo. Imprescindible.
-- [ ] Las bebidas con alcohol que ya tengáis (opcionales, nunca obligatorias).
-- [ ] Para El Paladar de Oro: canela, pimentón, orégano, cacao, café, limón.
-- [ ] Plan de cena (o app de comida a domicilio) — puede tocar el premio "La cena es tuya".
+#### Esconder y preparar premios
+- Escribir la carta a mano para Tatiana (premio legendario "La Carta Secreta"). Sobre cerrado.
+- Si tienes un regalo principal: envolverlo y esconderlo (premio legendario "El Regalo Legendario").
+- Esconder una chocolatina (Bronze: "Tesoro de chocolate").
+- Esconder un detalle pequeño (Gold: "Regalo escondido"). Si no hay, edita el texto del premio por un vale.
+- Opcional: corona de papel/cartón para la ceremonia final.
+
+#### Comida y bebida
+- Huevos, pan para tostadas, zumo (o naranjas), café, fruta, mantequilla/aceite.
+- Snacks para la tarde y la peli: palomitas, chocolate, frutos secos, nachos.
+- Bebidas SIN alcohol: agua con gas, tónica, refrescos, zumos, limón/lima, hielo. Imprescindible.
+- Las bebidas con alcohol que ya tengáis (opcionales, nunca obligatorias).
+- Para El Paladar de Oro: canela, pimentón, orégano, cacao, café, limón.
+- Plan de cena (o app de comida a domicilio) — puede tocar el premio "La cena es tuya".
+
+## A2. Mañana, en orden
+- [ ] **08:45** · Despierta antes. Comprueba que ARK terminó. Móvil en No molestar, app en la Invitación.
+- [ ] **09:00** · Desayuno: prepara la bandeja y los 3 bocados de la cata.
+- [ ] **09:30** · EP 01 · Entrega bandeja + móvil. Operación Desayuno. No enseñes cajas ni ruletas.
+- [ ] **10:30** · EP 02 · Pulsa "Siguiente episodio" en The Show. Se abre el Sobre del Calentamiento. 3-4 pruebas cortas (Caza Express, Memoria de Bandeja, Preguntas Relámpago, ¿Cuánto me conoces?). Primera Bronze Box y Ruleta Clásica.
+- [ ] **12:00** · Pausa. Saca la mesa de cartas para después.
+- [ ] **12:30** · EP 03 · Torneo: crea una Serie al mejor de 3 (Escoba o Brisca) en Card Arena + Dados Mentirosos. Se abre la Silver Box. Reparte en privado el "Plan Secreto" (Couples → baraja Plan Secreto).
+- [ ] **14:00** · Comida + siesta. Tiempo libre de verdad.
+- [ ] **15:30** · EP 04 · Gaming Arena: Ruleta de Campeones (LoL) o Split Fiction con Objetivo Oculto. Rocket League al mejor de 3. ARK solo si está actualizado. Gold Box disponible.
+- [ ] **17:30** · Merienda. Prepara la barra: hielo, vasos, mocktails, fruta, vasitos para el Sommelier Ciego.
+- [ ] **18:00** · EP 05 · Party: Sobre de la Fiesta, Ruleta Dorada, Laboratorio de Cócteles, Pong de Vasos Libres, Yo Nunca. Diamond Box disponible.
+- [ ] **19:45** · Prepara el rincón del EP 06: luz baja, velas LED, manta, aceite de masaje, playlist.
+- [ ] **20:00** · EP 06 · Couples: Cita Improvisada, Masaje de Estrellas, Mensaje en la Espalda. Ruleta de Medianoche. Cena ligera.
+- [ ] **21:15** · EP 07 · Sobre del Cine (+40 monedas cada uno) → Movie Lottery → cartones de Bingo y predicciones selladas → play. Snacks listos.
+- [ ] **23:30** · EP 08 · Sobre de la Gran Final (1 llave para cada uno). Triatlón Final (puntos x2). Ruleta Legendaria. Legendary Boxes al final. Ten la carta y el regalo a mano.
+- [ ] **00:00** · Ceremonia: lee el marcador, corona al campeón, abre "La Última Carta" y El Último Baile.
 
 ## B. Descargas y videojuegos
 | Juego | Prioridad | Plataforma | Precio | Tamaño | PS Plus | Multijugador | Requisitos | Enlace oficial |
@@ -121,7 +153,24 @@ Fuentes: fichas oficiales de PlayStation (ARK: pantalla dividida local para 2; B
 - **EP 07 · The Evening Show** (21:15 – 23:30): Antes de la peli: Movie Lottery (subastas). Generad los cartones de Bingo y bloquead predicciones. Snacks listos.
 - **EP 08 · The Grand Finale** (23:30 – 00:15): Ten preparados los premios legendarios físicos (carta y regalo). Abrid las Legendary Boxes al final. Ceremonia: lee el marcador en voz alta, corona al campeón y abre La Última Carta.
 
-## F. Premios secretos
+## F. Premios físicos que preparar
+- [ ] **Snack a domicilio** (Bronze Box): Ten snacks en casa (patatas, chocolate, frutos secos).
+- [ ] **DJ Oficial** (Bronze Box): Altavoz o tele con Spotify/YouTube listo.
+- [ ] **Tesoro de chocolate** (Bronze Box): Esconde una chocolatina. Edita la pista en Host Mode → Premios si la escondes en otro sitio.
+- [ ] **Evento: Pista de baile** (Bronze Box): Música preparada.
+- [ ] **Masaje de 10 minutos** (Silver Box): Ten crema o aceite a mano.
+- [ ] **Postre sorpresa** (Silver Box): Ten helado, chocolate o fruta en casa.
+- [ ] **Sesión de fotos absurda** (Silver Box): Móvil con batería.
+- [ ] **La cena es tuya** (Gold Box): Ten a mano una app de comida a domicilio o ingredientes base.
+- [ ] **Masaje de 20 minutos** (Gold Box): Aceite, toalla, playlist relajante.
+- [ ] **Regalo escondido** (Gold Box): Compra/prepara un detalle pequeño y escóndelo. Cambia la pista en Host Mode → Premios.
+- [ ] **Excursión sorpresa** (Diamond Box): Piensa ideas de excursión cercanas.
+- [ ] **Noche de spa** (Diamond Box): Velas (LED si preferís), sales/aceite, mascarillas.
+- [ ] **La Corona de HOMELOTTERY** (Legendary Box): Opcional: una corona de papel o cartón para coronar al ganador.
+- [ ] **La Carta Secreta** (Legendary Box): ESCRIBE ESTA NOCHE una carta a mano para Tatiana. Sobre cerrado, guardado donde puedas sacarlo rápido.
+- [ ] **El Regalo Legendario** (Legendary Box): El regalo principal para Tatiana (si lo tienes). Envuelto y escondido. Si no hay regalo físico, edita el texto por un vale especial.
+
+## F2. Catálogo completo de premios
 Las probabilidades base están abajo. La app las ajusta en directo: los premios únicos ya entregados desaparecen, los premios atrevidos solo existen si los dos tenéis activado el modo picante, y los premios personales solo le pueden tocar a su destinatario.
 ### Bronze Box — 30 monedas · se desbloquea en el EP 02
 | Premio | Prob. base | Tipo | Preparación física |

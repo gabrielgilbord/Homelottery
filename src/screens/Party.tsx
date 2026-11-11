@@ -3,7 +3,7 @@ import { CHALLENGES } from '../data/challenges';
 import { COCKTAIL } from '../data/gaming';
 import { ChallengeList } from './Challenges';
 import { PageHead, PlayerSwitch, Section, Toggle } from '../components/ui';
-import { DeckDrawer } from '../components/DeckDrawer';
+import { DeckStage } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
 import { useGame } from '../state/store';
 import { pick } from '../lib/random';
@@ -25,7 +25,7 @@ function CocktailLab() {
   return (
     <div className="party-hero stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
       <div className="split" style={{ flexWrap: 'wrap' }}>
-        <div className="stack" style={{ ['--gap' as string]: '4px' }}><span className="eyebrow accent">Laboratorio</span><h2 className="h2">Cóctel o mocktail</h2></div>
+        <h2 className="h2">Laboratorio de cócteles</h2>
         <PlayerSwitch value={who} onChange={setWho} label="Para" />
       </div>
       <div className="setting" style={{ borderBottom: 0 }}>
@@ -34,14 +34,14 @@ function CocktailLab() {
       </div>
       {mix && (
         <div key={mix.k} className="recipe" style={{ animation: 'pop .45s var(--ease-spring)' }}>
-          <div><div className="eyebrow">Base</div><div className="h4">{mix.base}</div></div>
-          <div><div className="eyebrow">Mezcla</div><div className="h4">{mix.mixer}</div></div>
-          <div><div className="eyebrow">Toque final</div><div className="h4">{mix.garnish}</div></div>
-          <div><div className="eyebrow">Estilo</div><div className="h4">{mix.style}</div></div>
+          <div><span className="label">Base</span><span className="h4">{mix.base}</span></div>
+          <div><span className="label">Mezcla</span><span className="h4">{mix.mixer}</span></div>
+          <div><span className="label">Toque final</span><span className="h4">{mix.garnish}</span></div>
+          <div><span className="label">Estilo</span><span className="h4">{mix.style}</span></div>
         </div>
       )}
-      <div className="cluster"><button className="btn accent lg" onClick={gen}><Icon name="glass" size={18} />{mix ? 'Otra receta' : 'Generar receta'}</button></div>
-      <p className="xs faint">Sin cantidades. Basta un sorbo para puntuar. Agua y refrescos siempre en la mesa.</p>
+      <button className="btn accent lg block" onClick={gen}><Icon name="glass" size={18} />{mix ? 'Otra receta' : 'Generar receta'}</button>
+      <p className="small faint">Sin cantidades: basta un sorbo para puntuar. Agua y refrescos siempre en la mesa.</p>
     </div>
   );
 }
@@ -50,13 +50,11 @@ export default function Party() {
   const list = CHALLENGES.filter((c) => c.category === 'party');
   return (
     <div>
-      <PageHead eyebrow="Arena" title="Party Mode" sub="La tarde es una fiesta. Beber nunca es obligatorio ni castigo, y nunca decide quién gana: todo funciona igual con agua." />
-      <CocktailLab />
-      <Section title="Barajas de fiesta" eyebrow="Sin repeticiones hasta agotar el mazo">
-        <div className="grid-auto" style={{ ['--min' as string]: '300px' }}>
-          {['never', 'likely', 'truth', 'dare', 'quick', 'songs', 'mime', 'trial', 'blanks'].map((d) => <DeckDrawer key={d} deckId={d} />)}
-        </div>
-      </Section>
+      <PageHead title="Party Mode" sub="La tarde es una fiesta. Beber nunca es obligatorio ni un castigo, y nunca decide quién gana: todo funciona igual con agua." />
+      <section aria-label="Barajas de fiesta">
+        <DeckStage deckIds={['never', 'likely', 'truth', 'dare', 'quick', 'songs', 'mime', 'trial', 'blanks']} />
+      </section>
+      <section className="section"><CocktailLab /></section>
       <Section title="Juegos de fiesta"><ChallengeList list={list} /></Section>
     </div>
   );

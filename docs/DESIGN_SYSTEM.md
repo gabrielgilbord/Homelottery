@@ -1,69 +1,65 @@
-# HOMELOTTERY Design System · "Velvet Broadcast"
+# HOMELOTTERY Design System · "Late Show en casa"
 
-Código: `src/styles/tokens.css` (tokens), `base.css` (tipos, layout, motion), `components.css` (librería), `shell.css` (navegación), `screens.css` (composición por mundo). Componentes React en `src/components/ui.tsx`.
+Código: `src/styles/tokens.css` (tokens), `base.css` (tipos, layout, motion y ajustes nativos), `components.css` (librería), `shell.css` (navegación y transiciones), `screens.css` (composición de cada mundo). Componentes React en `src/components/` (`ui.tsx`, `Logo.tsx`, `DeckDrawer.tsx`, `NameSpinner.tsx`, `Icon.tsx`).
 
 ## Color
-| Token | Uso |
-|---|---|
-| `--ink-0…4` | Escenario y superficies (tinta con matiz vino, nunca gris puro) |
-| `--ivory`, `--ivory-2`, `--ivory-3`, `--ivory-4` | Texto principal, secundario, terciario (mín. 5,3:1) y deshabilitado |
-| `--wine`, `--wine-2`, `--wine-3` | Marca: sellos, cortina, foco del escenario |
-| `--champagne` | **Solo valor**: monedas, premios, botón `value` |
-| `--legend` | Degradado iridiscente: **solo** para momentos legendarios |
-| `--success`, `--danger`, `--warning`, `--live` | Estados semánticos (independientes del acento) |
-| `--gabriel`, `--tatiana` | Identidad de los jugadores, siempre acompañada de inicial y lado |
-| `--c-home`, `--c-gaming`, `--c-cards`, `--c-party`, `--c-couples`, `--c-movie`, `--c-boxes`, `--c-roulette`, `--c-host` | Acento de cada mundo. `[data-world]` lo asigna a `--accent` |
+| Token | Valor | Uso |
+|---|---|---|
+| `--velvet-0…4` | `#1a0b12` → `#452534` | Fondo y superficies de terciopelo burdeos |
+| `--curtain` | `#4a1426` | Telón: escenario, cortina de privacidad, cartela de episodio |
+| `--ivory`, `-2`, `-3`, `-4` | `#f7ecdf`, `#d6c4b6`, `#a8928a`, `#6f5a5c` | Texto (15,9 : 1, 10,6 : 1 y 6,1 : 1). `-4` solo para deshabilitado |
+| `--brass` | `#d9b46a` | **Solo valor**: monedas, premios y botón `value` |
+| `--on-air` | `#ff5b4a` | En directo |
+| `--success`, `--danger`, `--warning` | | Estados |
+| `--gabriel`, `--tatiana` | `#9cc2ff`, `#ff9fbb` | Siempre con inicial y lado, nunca solo el color |
+| `--w-*` | gaming `#5bd7ff`, cards `#63c59a`, party `#ff8552`, couples `#f27a9b`, movie `#ffbe55`, boxes brass, roulette `#ff5b4a`, host `#a7b4c2` | Un acento por mundo, vía `[data-world]` → `--accent`. Sin violeta |
+| `--foil` | degradado iridiscente | Material de los objetos legendarios. Nunca sobre texto |
 
 ## Tipografía
-- **Instrument Serif** (`--f-display`) para titulares, marcadores y momentos.
-- **Geist Sans** (`--f-ui`) para la interfaz.
-- **Geist Mono** (`--f-mono`) para rótulos, tiempos y datos.
-- Escala: `--t-micro` 11 · `xs` 12 · `sm` 13 · `base` 15 · `md` 17 · `lg` 19–22 · `xl` 24–32 · `2xl` 32–52 · `3xl` 42–76 · `score` 52–96.
-- Roles: `.h1` a `.h5`, `.lead`, `.eyebrow`, `.score`, `.num` (tabular).
+- **Bricolage Grotesque Variable**, con ancho del 75 al 85 % y peso de 680 a 800: titulares, marcadores, nombres de premios y logotipo.
+- **Geist Sans**: interfaz y texto.
+- **Geist Mono**: solo los dígitos del temporizador y el PIN.
+- Escala: 12 · 13 · 15 · 17 · 21 · 26→34 · 34→56 · 44→84 · marcador 56→104.
+- Etiquetas siempre en minúscula normal. Nada de mayúsculas espaciadas.
 
-## Espacio, forma y elevación
-- Espaciado en base 4: `--s-1` (4) … `--s-10` (72).
-- Radios: `xs 6 · sm 10 · md 14 · lg 20 · xl 28 · pill`.
-- Elevación: `--e-1` (superficies), `--e-2` (toasts), `--e-3` (sheets y carta).
-- Toque: `--tap` 44 / `--tap-lg` 52.
-- Breakpoints: **600** (2 columnas), **900** (raíl lateral, layouts de escritorio), **1280** (3 columnas).
+## Espacio, radios, elevación, táctil
+- Rejilla de 4 px (`--s-1` … `--s-10`). Gutter de `max(20px, safe-area)`.
+- Radios por función: etiqueta 6 · chip e input 10 · botón 14 · superficie 20 · escenario y hoja 28.
+- Elevación con desplazamiento y desenfoque cálido (`--e-1/2/3`).
+- Objetivos táctiles de 44 y 52 px.
+- Breakpoints: **600** (dos columnas), **900** (raíl lateral), **1280**.
 
-## Motion
-- Duraciones: `--d-instant` 90 · `fast` 160 · `base` 260 · `slow` 460 · `epic` 900.
-- Curvas: `--ease-out`, `--ease-in-out`, `--ease-spring` (feedback), `--ease-anticipate` (tapas y aperturas).
-- Primitivas: `.page` (entrada), `.stagger` (escalonado), `pop`, `rise`, `float-up` (deltas), `pulse-live`.
-- Celebración: `celebrate(1 | 2 | 3)` en `src/lib/celebrate.ts`, proporcional a la recompensa.
-- Todo se desactiva con `prefers-reduced-motion`.
+## Movimiento
+- Curvas: `--ease-out` (0.23,1,0.32,1), `--ease-in-out` (0.77,0,0.175,1), `--ease-drawer` (0.32,0.72,0,1); `--ease-spring` solo en celebraciones.
+- Duraciones: pulsar 120 · rápido 180 · base 240 · hoja 380 · revelación 640.
+- Hover solo con puntero fino. `:active` a 0,97 en todo lo que se pulsa.
+- Movimiento reducido: menos desplazamiento, pero el feedback de opacidad y color se mantiene.
 
-## Componentes
-| Componente | Clases / React | Estados |
-|---|---|---|
-| Button | `.btn` + `primary`, `accent`, `value`, `ghost`, `quiet`, `danger` · `sm`, `lg`, `block`, `icon` | hover, focus-visible, active (escala), disabled, `is-loading`, `is-armed` (confirmación) |
-| ConfirmButton | `<ConfirmButton>` | reposo → armado (late y vibra) → confirmado; vuelve al reposo a los 3,5 s |
-| Tabs / segmentado | `<Seg>`, `<PlayerSwitch>` | on, hover, focus; con `role` de tablist o radiogroup |
-| Chip / Tag | `.chip` (filtro, `aria-pressed`), `.tag` (estado: `ok`, `live`, `value`, `sweet`, `spicy`, `legendary`) | |
-| Switch / Range / Input | `<Toggle>`, `<Range>`, `.input` | focus con anillo de acento; error con `aria-invalid` + `.error-text` |
-| Sheet (modal) | `<Modal>` | bottom sheet en móvil, diálogo centrado en escritorio; foco y Escape gestionados |
-| Curtain | `<Curtain>` | privacidad para un solo móvil: mantener pulsado para revelar |
-| Toast | `<Toaster>` + `toast()` | gold, good, bad, info; se pospone durante las revelaciones |
-| Timer | `<Timer>` | anillo de progreso, presets, alarma |
-| AnimatedNumber | `<AnimatedNumber showDelta>` | conteo + delta flotante |
-| Listas | `.list` + `.row-item` (con `.lead-icon` y `.chev`) | hover con barrido y flecha que se desplaza |
-| Ledger / Specs | `.ledger`, `.specs` | stats y fichas con filetes, sin tarjetas |
-| Game card | `.ccard` | hover con elevación, `aria-disabled` cuando está fuera de límites |
-| Mystery box | `<Box3D tier state>` | idle, still, locked, charging, open |
-| Mystery card | `<MysteryCard>` | hover con inclinación |
-| Empty / Skeleton | `<Empty>`, `.skeleton` | |
+## Componentes y estados
+| Componente | Estados |
+|---|---|
+| `.btn` (`primary`, `accent`, `value`, `ghost`, `quiet`, `danger`; `sm`, `lg`, `block`, `icon`) | hover (solo puntero), focus-visible, active, disabled, `is-loading`, `is-armed` |
+| `ConfirmButton` | reposo → armado (late y vibra) → confirmado |
+| `Seg`, `PlayerSwitch`, `.chip`, `.tag` | on, focus y pressed (`aria-pressed`, `role`) |
+| `.input`, `Toggle`, `Range` | focus con anillo de acento, error (`aria-invalid` + `.error-text`) |
+| `Modal` (hoja inferior en móvil), `Curtain`, `Toaster` | foco y Escape gestionados. Los toasts se posponen durante las revelaciones |
+| `.row-item`, `.crow` (fila de catálogo), `.ledger`, `.specs`, `.h2h` | listas y datos sin "muro de tarjetas" |
+| `.stage` + `.scorebug` + `.tug` | escenario del Home y del marcador |
+| `DeckStage` (`.prompt-card`) | selector de baraja + carta marfil. Las barajas privadas van tras la cortina |
+| `Box3D`, `.reveal-stage`, `.prize-card` | idle, still, locked, charging, open |
+| `Timer`, `AnimatedNumber`, `MysteryCard`, `Empty`, `.skeleton` | |
 
 ## Identidad por mundo
 | Mundo | Tratamiento |
 |---|---|
-| Home | Editorial: titular serif grande, marcador en banda, listas con filetes |
-| Gaming | Paneles por juego con su propio color (LoL dorado hextech, Split Fiction violeta, ARK verde jungla, PS azul) y tragaperras |
-| Card Arena | Tapete verde, dados físicos, moneda que gira y carta real |
-| Party | Coral/magenta, cartas-prompt marfil con sombra desplazada, receta en rejilla |
-| Couples | Rosa sobrio, medidor de intensidad Sweet / Spicy / Legendary |
-| Movie Night | Cabecera con bandas de letterbox, haz de proyector cian, cartelera en pósters, bingo en papel |
-| Mystery Boxes | Cámara acorazada con cajas 3D por material (bronce, plata, oro, cristal facetado, laca negra iridiscente) |
-| Roulette | Segmentos coloreados por significado (valor, ataque, suerte), ticks y buje con monograma |
-| Host Mode | Sala de control: densa, sans, franjas de "clasificado", tablas |
+| Home | Escenario con telón, foco, marcador tipo televisión y escaleta de 8 episodios |
+| Challenges | Catálogo en filas con icono del mundo, metadatos y recompensa en latón |
+| Gaming | Paneles por juego (LoL dorado, Split Fiction rosa, ARK verde, PlayStation azul) y ranuras de sorteo |
+| Card Arena | Tapete verde, dados, moneda y carta real |
+| Party | Carta marfil grande, selector de 9 barajas y laboratorio de cócteles |
+| Couples | Medidor Sweet / Spicy / Legendary con el nivel común |
+| Movie Night | Cabecera de cine con bombillas de marquesina y haz de proyector, cartelera y bingo en papel |
+| Mystery Boxes | Cámara acorazada con cajas 3D por material y revelación con anticipación |
+| Roulette | Rueda con colores por significado, ticks de latón y buje con logo |
+| Leaderboard | Marcador y tabla cara a cara |
+| Host Mode | Sala de control: más fría, densa y con cronologías con hora |

@@ -176,7 +176,7 @@ export function recordResult(challengeId: string, outcome: Outcome): ResultSumma
     const pay = (p: PlayerId, pts: number, coins: number, why: string) => {
       addPoints(s, p, pts); addCoins(s, p, coins);
       delta[p] = { points: (delta[p]?.points || 0) + Math.round(pts), coins: (delta[p]?.coins || 0) + Math.round(coins) };
-      lines.push(`${PLAYER_NAME[p]}: +${Math.round(pts)} pts · +${Math.round(coins)} monedas${why ? ' · ' + why : ''}`);
+      lines.push(`${PLAYER_NAME[p]}: +${Math.round(pts)} puntos y +${Math.round(coins)} monedas${why ? ` (${why})` : ''}`);
     };
     const bonus = (p: PlayerId) => {
       const b = c.reward.bonus;
@@ -196,7 +196,7 @@ export function recordResult(challengeId: string, outcome: Outcome): ResultSumma
       const w = outcome, l = rival(w);
       const W = s.players[w], L = s.players[l];
       let mult = finale * W.multiplier;
-      const why: string[] = [];
+      const why: string[] = []; // joined with commas in the summary
       if (W.doubleArmed) { mult *= 2; why.push('Double Trouble'); }
       if (W.multiplier > 1) why.push(`x${W.multiplier}`);
       if (finale > 1) why.push('Gran Final x2');
@@ -206,7 +206,7 @@ export function recordResult(challengeId: string, outcome: Outcome): ResultSumma
       // catch-up: the trailing player earns more coins when winning
       if (W.points + 30 < L.points) { coins *= 1.5; why.push('bonus remontada'); }
       if (W.lossStreak >= 3) W.stats.comeback += 1;
-      pay(w, c.reward.points * mult, coins, why.join(' · '));
+      pay(w, c.reward.points * mult, coins, why.join(', '));
       pay(l, 0, c.reward.coins * consolation * L.multiplier, 'consolación');
       bonus(w);
       W.wins += 1; W.streak += 1; W.bestStreak = Math.max(W.bestStreak, W.streak); W.lossStreak = 0;
@@ -404,7 +404,7 @@ function runEvent(s: GameState, id: EventEffect): string {
     case 'laugh': break;
   }
   log(s, { kind: 'event', text: `Evento sorpresa: ${ev.title}` });
-  return `EVENTO · ${ev.title}: ${ev.text}`;
+  return `Evento sorpresa, ${ev.title}: ${ev.text}`;
 }
 
 export function doubleOrNothing(p: PlayerId, bet: number): { win: boolean; amount: number } {
@@ -537,11 +537,11 @@ export function openEnvelope(id: string): { message: string; reward: string } | 
     switch (id) {
       case 'env-first': addCoins(s, 'tatiana', 20); break;
       case 'env-warmup': PLAYERS.forEach((p) => addCoins(s, p, 15)); break;
-      case 'env-five': { const names = PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${CARDS[giveCard(s, p)].name}`); reward = names.join(' · '); break; }
+      case 'env-five': { const names = PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${CARDS[giveCard(s, p)].name}`); reward = names.join(', '); break; }
       case 'env-comeback': { const t = trailingPlayer(s) || (leader(s) ? rival(leader(s)!) : 'tatiana'); addCoins(s, t, 40); giveCard(s, t, 'revenge'); reward = `${PLAYER_NAME[t]}: +40 monedas y una carta Revenge`; break; }
       case 'env-gold': PLAYERS.forEach((p) => addCoins(s, p, 20)); break;
       case 'env-party': PLAYERS.forEach((p) => addCoins(s, p, 25)); break;
-      case 'env-midnight': { const names = PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${CARDS[giveCard(s, p)].name}`); reward = names.join(' · '); break; }
+      case 'env-midnight': { const names = PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${CARDS[giveCard(s, p)].name}`); reward = names.join(', '); break; }
       case 'env-cinema': PLAYERS.forEach((p) => addCoins(s, p, 40)); break;
       case 'env-final': PLAYERS.forEach((p) => (s.players[p].keys += 1)); break;
       case 'env-gabriel': addCoins(s, 'tatiana', 30); break;
@@ -653,7 +653,7 @@ export function lotteryBid(itemId: string, bids: Record<PlayerId, number>): Play
     else w = bids.gabriel > bids.tatiana ? 'gabriel' : 'tatiana';
     addCoins(s, w, -bids[w]);
     s.lottery[itemId] = { id: itemId, winner: w, bids };
-    log(s, { kind: 'lottery', player: w, text: `Movie Lottery · ${PLAYER_NAME[w]} gana "${itemId}" pujando ${bids[w]}${bids.gabriel === bids.tatiana ? ' (empate decidido al azar)' : ''}` });
+    log(s, { kind: 'lottery', player: w, text: `Movie Lottery: ${PLAYER_NAME[w]} gana "${itemId}" pujando ${bids[w]}${bids.gabriel === bids.tatiana ? ' (empate decidido al azar)' : ''}` });
     return w;
   });
 }
@@ -663,7 +663,7 @@ export function lotteryGoldenSeat(itemId: string, p: PlayerId): boolean {
   commit((s) => {
     s.prizes.find((r) => r.uid === rec.uid)!.redeemed = true;
     s.lottery[itemId] = { id: itemId, winner: p };
-    log(s, { kind: 'lottery', player: p, text: `Movie Lottery · ${PLAYER_NAME[p]} usa La Butaca de Oro para "${itemId}"` });
+    log(s, { kind: 'lottery', player: p, text: `Movie Lottery: ${PLAYER_NAME[p]} usa La Butaca de Oro para "${itemId}"` });
   });
   return true;
 }
@@ -720,7 +720,7 @@ function automations(s: GameState) {
       if (a.reward.key) { P.keys += a.reward.key; parts.push('Llave Legendaria'); }
       if (a.reward.card) parts.push(CARDS[giveCard(s, p)].name);
       log(s, { kind: 'achievement', player: p, text: `Logro de ${PLAYER_NAME[p]}: ${a.name} (${parts.join(', ')})` });
-      toast(`Logro desbloqueado · ${PLAYER_NAME[p]}`, `${a.name} — ${parts.join(', ')}`, 'gold');
+      toast(`Logro de ${PLAYER_NAME[p]}: ${a.name}`, parts.join(', '), 'gold');
     }
   }
 }

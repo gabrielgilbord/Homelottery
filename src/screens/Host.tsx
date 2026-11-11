@@ -4,9 +4,9 @@ import {
   setEnvelopeOverride, toggleChecklist, setHostNotes, resetGame, replayIntro, exportSave, importSave, setShared, boxEntries, toast, envelopeAvailable,
 } from '../state/store';
 import { EPISODES } from '../data/episodes';
-import { BOXES, CARDS, CARD_TYPES, ENVELOPES, PRIZE_FOR, prizeById } from '../data/rewards';
+import { BOXES, CARDS, CARD_TYPES, ENVELOPES, PRIZES, PRIZE_FOR, prizeById } from '../data/rewards';
 import { GAMES } from '../data/gaming';
-import { TONIGHT, MATERIALS, BREAKFAST, HOST_TIMELINE, PLAN_B, TOMORROW, PRESENTER_TIPS } from '../data/cheatsheet';
+import { TONIGHT, TONIGHT_TIMELINE, MATERIALS, BREAKFAST, HOST_TIMELINE, PLAN_B, PRESENTER_TIPS } from '../data/cheatsheet';
 import { CHALLENGES } from '../data/challenges';
 import { ConfirmButton, PlayerSwitch, Section, Seg, Toggle, fmtTime } from '../components/ui';
 import { Icon } from '../components/Icon';
@@ -99,10 +99,22 @@ function Check({ id, text }: { id: string; text: string }) {
   );
 }
 
+function TimedCheck({ id, time, text }: { id: string; time: string; text: string }) {
+  const s = useGame();
+  const on = !!s.host.checklist[id];
+  return (
+    <button className={'check tl' + (on ? ' on' : '')} role="checkbox" aria-checked={on} onClick={() => toggleChecklist(id)} style={{ display: 'grid', gridTemplateColumns: '22px 76px 1fr', gap: 'var(--s-3)', alignItems: 'start' }}>
+      <span className="box">{on && <Icon name="check" size={13} stroke={2.6} />}</span>
+      <time className="digits small" style={{ color: on ? 'var(--ivory-3)' : 'var(--ivory)', paddingTop: 2 }}>{time}</time>
+      <span className="c-text small">{text}</span>
+    </button>
+  );
+}
+
 function Block({ letter, title, children, breakBefore }: { letter: string; title: string; children: React.ReactNode; breakBefore?: boolean }) {
   return (
     <section className={'section' + (breakBefore ? ' print-break' : '')} style={{ marginTop: 'var(--s-8)' }}>
-      <div className="section-head"><div className="cluster"><span className="mono accent-text">{letter}</span><h2 className="h3">{title}</h2></div></div>
+      <div className="section-head"><div className="cluster"><span className="h3 accent-text">{letter}</span><h2 className="h3">{title}</h2></div></div>
       {children}
     </section>
   );
@@ -111,7 +123,8 @@ function Block({ letter, title, children, breakBefore }: { letter: string; title
 export function CheatSheet() {
   const s = useGame();
   const done = Object.values(s.host.checklist).filter(Boolean).length;
-  const total = TONIGHT.reduce((a, g) => a + g.items.length, 0) + TOMORROW.length + MATERIALS.home.length + MATERIALS.buy.length;
+  const physical = PRIZES.filter((p) => !/^(Automático|Nada|Ninguna)/.test(p.prep));
+  const total = TONIGHT_TIMELINE.length + HOST_TIMELINE.length + MATERIALS.home.length + MATERIALS.buy.length;
   return (
     <div>
       <div className="panel" style={{ padding: 'var(--s-6) var(--s-5)' }}>
@@ -122,13 +135,21 @@ export function CheatSheet() {
         <div className="cluster no-print"><button className="btn primary sm" onClick={() => window.print()}><Icon name="printer" size={14} />Imprimir o guardar PDF</button></div>
       </div>
 
-      <Block letter="A" title="Preparación esta noche">
-        <div className="host-grid two">
-          {TONIGHT.map((g) => <div key={g.id} className="panel"><h3>{g.title}</h3><div>{g.items.map((i) => <Check key={i.id} id={'t-' + i.id} text={i.text} />)}</div></div>)}
-        </div>
+      <Block letter="A" title="Esta noche, en orden">
+        <div className="timeline">{TONIGHT_TIMELINE.map((t) => <TimedCheck key={t.id} id={t.id} time={t.time} text={t.what} />)}</div>
+        <details style={{ marginTop: 'var(--s-4)' }}>
+          <summary className="small" style={{ cursor: 'pointer', color: 'var(--ivory-2)' }}>Ver el detalle por tipo de tarea</summary>
+          <div className="host-grid two" style={{ marginTop: 'var(--s-3)' }}>
+            {TONIGHT.map((g) => <div key={g.id} className="panel"><h3>{g.title}</h3><ul className="small muted" style={{ margin: 0, paddingLeft: 18 }}>{g.items.map((i) => <li key={i.id} style={{ marginBottom: 6 }}>{i.text}</li>)}</ul></div>)}
+          </div>
+        </details>
       </Block>
 
-      <Block letter="B" title="Descargas y videojuegos" breakBefore>
+      <Block letter="B" title="Mañana, en orden">
+        <div className="timeline">{HOST_TIMELINE.map((t, i) => <TimedCheck key={i} id={'tm-' + i} time={t.time} text={t.what} />)}</div>
+      </Block>
+
+      <Block letter="C" title="Descargas y videojuegos" breakBefore>
         <div className="table-wrap">
           <table className="t">
             <thead><tr><th>Juego</th><th>Prioridad</th><th>Plataforma</th><th>Precio</th><th>Tamaño</th><th>PS Plus</th><th>Multijugador</th><th>Requisitos</th><th>Enlace</th></tr></thead>
@@ -147,36 +168,35 @@ export function CheatSheet() {
         <p className="xs faint prose" style={{ marginTop: 'var(--s-3)' }}>Fuentes: fichas oficiales de PlayStation (ARK: pantalla dividida local para 2; Brawlhalla gratis con modos locales; Rocket League free-to-play), ayuda oficial de Epic (pantalla dividida de Rocket League y Fortnite) y Psyonix (Rocket League online sin PS Plus). El tamaño de ARK (~179 GB) viene de PSPrices, no de Sony. Con ARK, Split Fiction y Rocket League tenéis de sobra.</p>
       </Block>
 
-      <Block letter="C" title="Materiales">
+      <Block letter="D" title="Materiales">
         <div className="host-grid two">
           <div className="panel"><h3>Probablemente ya en casa</h3><div>{MATERIALS.home.map((m, i) => <Check key={i} id={'mh-' + i} text={m} />)}</div></div>
           <div className="panel"><h3>Comprar si falta</h3><div>{MATERIALS.buy.map((m, i) => <Check key={i} id={'mb-' + i} text={m} />)}</div></div>
         </div>
       </Block>
 
-      <Block letter="D" title="El desayuno" breakBefore>
+      <Block letter="E" title="El desayuno" breakBefore>
         <ol className="steps">{BREAKFAST.map((b, i) => <li key={i}><span><b>{b.t}.</b> <span className="muted">{b.d}</span></span></li>)}</ol>
-        <div className="panel" style={{ marginTop: 'var(--s-4)' }}><span className="eyebrow">Texto de la invitación (aparece solo en la app)</span><p className="small muted" style={{ fontStyle: 'italic' }}>“Buenos días, Tatiana. Hoy Gabriel ha preparado algo para ti. Pero hay una pequeña condición… Hoy no vas a poder decidirlo todo. Habrá desafíos. Habrá apuestas. Habrá sorpresas. Habrá premios que todavía no conoces. Y puede que hoy descubras que tienes un pequeño rival en casa. Bienvenida a… HOMELOTTERY · GABRIEL × TATIANA · THE COUPLES EDITION”</p></div>
+        <div className="panel" style={{ marginTop: 'var(--s-4)' }}><span className="label">Texto de la invitación (aparece solo en la app)</span><p className="small muted" style={{ fontStyle: 'italic' }}>“Buenos días, Tatiana. Hoy Gabriel ha preparado algo para ti. Pero hay una pequeña condición… Hoy no vas a poder decidirlo todo. Habrá desafíos. Habrá apuestas. Habrá sorpresas. Habrá premios que todavía no conoces. Y puede que hoy descubras que tienes un pequeño rival en casa. Bienvenida a… HOMELOTTERY · GABRIEL × TATIANA · THE COUPLES EDITION”</p></div>
       </Block>
 
-      <Block letter="E" title="Cronograma de Gabriel">
-        <div className="log">{HOST_TIMELINE.map((t) => <div key={t.time} className="li"><time style={{ color: 'var(--ivory)' }}>{t.time}</time><span className="small">{t.what}</span></div>)}</div>
-        <div className="host-grid two" style={{ marginTop: 'var(--s-5)' }}>
-          {EPISODES.map((e) => <div key={e.n} className="panel"><span className="eyebrow">EP {String(e.n).padStart(2, '0')} · {e.time}</span><h3>{e.title}</h3><p className="small muted">{e.hostNote}</p></div>)}
+      <Block letter="F" title="Notas por episodio">
+        <div className="host-grid two">
+          {EPISODES.map((e) => <div key={e.n} className="panel"><span className="label">Episodio {e.n}, {e.time}</span><h3>{e.title}</h3><p className="small muted">{e.hostNote}</p></div>)}
         </div>
       </Block>
 
-      <Block letter="F" title="Premios secretos" breakBefore><PrizeCatalog compact /></Block>
+      <Block letter="G" title="Premios físicos que preparar">
+        <div className="timeline">{physical.map((p) => <TimedCheck key={p.id} id={'pf-' + p.id} time={BOXES.find((b) => b.entries.some((x) => x.prizeId === p.id))?.name.replace(' Box', '') || ''} text={`${p.title}: ${p.prep}`} />)}</div>
+      </Block>
 
-      <Block letter="G" title="Plan B">
+      <Block letter="H" title="Catálogo completo de premios" breakBefore><PrizeCatalog compact /></Block>
+
+      <Block letter="I" title="Plan B">
         <div className="rules3">{PLAN_B.map((p) => <div key={p.q}><span className="h5">{p.q}</span><span className="small muted">{p.a}</span></div>)}</div>
       </Block>
 
-      <Block letter="H" title="Checklist de mañana">
-        <div>{TOMORROW.map((t, i) => <Check key={i} id={'m-' + i} text={`${i + 1}. ${t}`} />)}</div>
-      </Block>
-
-      <Block letter="+" title="Consejos y reglas internas">
+      <Block letter="J" title="Consejos y reglas internas">
         <ul className="small muted prose" style={{ margin: 0, paddingLeft: 18, display: 'flex', flexDirection: 'column', gap: 8 }}>
           {PRESENTER_TIPS.map((t) => <li key={t}>{t}</li>)}
           <li>Economía: cada uno empieza con 50 monedas. Ganar un duelo da puntos y monedas (+5 por racha, máximo +20). Perder da el 40% de las monedas como consolación (60% en modo Relax). Si el ganador iba 30 o más puntos por detrás, cobra x1,5 monedas. En la Gran Final los puntos valen doble.</li>
@@ -201,7 +221,7 @@ function PrizeCatalog({ compact }: { compact?: boolean }) {
         const baseTotal = b.entries.reduce((a, e) => a + e.weight, 0);
         return (
           <div key={b.tier} className="stack" style={{ ['--gap' as string]: 'var(--s-2)' }}>
-            <div className="split"><span className="h4" style={{ color: b.color }}>{b.name}</span><span className="xs mono faint">{b.costLabel} · desde EP 0{b.unlockEpisode}</span></div>
+            <div className="split"><span className="h4" style={{ color: b.color }}>{b.name}</span><span className="small faint">{b.costLabel}, desde el episodio {b.unlockEpisode}</span></div>
             <div className="table-wrap">
               <table className="t" style={{ minWidth: compact ? 600 : 720 }}>
                 <thead><tr><th>Premio</th><th>Base</th><th>Ahora · {PLAYER_NAME[who]}</th><th>Preparación física</th>{!compact && <th className="no-print" />}</tr></thead>
