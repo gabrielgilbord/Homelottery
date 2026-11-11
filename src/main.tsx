@@ -18,6 +18,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>,
 );
 
+// Offline-first: register the precaching service worker as early as possible,
+// and ask the browser to keep this site's storage (the saved game) from being evicted.
 if ('serviceWorker' in navigator && import.meta.env.PROD) {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(() => {}); });
+  navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
 }
+try { navigator.storage?.persist?.(); } catch { /* not supported */ }
