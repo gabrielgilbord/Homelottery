@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRoute, go } from './lib/router';
-import { useGame } from './state/store';
+import { useGame, leader } from './state/store';
 import { Icon } from './components/Icon';
-import { Modal, Toaster } from './components/ui';
-import { PLAYER_NAME } from './types';
+import { AnimatedNumber, Modal, Toaster } from './components/ui';
 import { challengeById } from './data/challenges';
-import { CATEGORIES } from './data/episodes';
+import { EPISODES } from './data/episodes';
+import type { CategoryId } from './types';
 import Intro from './screens/Intro';
 import Home from './screens/Home';
 import Show from './screens/Show';
@@ -23,40 +23,63 @@ import Achievements from './screens/Achievements';
 import Host from './screens/Host';
 import Prefs from './screens/Prefs';
 
-export const NAV = [
-  { id: 'home', label: 'Home', icon: 'home', theme: 'home' },
-  { id: 'show', label: 'The Show', icon: 'show', theme: 'leader' },
-  { id: 'challenges', label: 'Challenges', icon: 'target', theme: 'home' },
-  { id: 'gaming', label: 'Gaming Arena', icon: 'gamepad', theme: 'gaming' },
-  { id: 'cards', label: 'Card Arena', icon: 'cards', theme: 'cards' },
-  { id: 'party', label: 'Party Mode', icon: 'glass', theme: 'party' },
-  { id: 'couples', label: 'Couples Mode', icon: 'heart', theme: 'couples' },
-  { id: 'movie', label: 'Movie Night', icon: 'film', theme: 'movie' },
-  { id: 'boxes', label: 'Mystery Boxes', icon: 'gift', theme: 'boxes' },
-  { id: 'roulette', label: 'Roulette', icon: 'wheel', theme: 'roulette' },
-  { id: 'inventory', label: 'Inventory', icon: 'bag', theme: 'inventory' },
-  { id: 'leaderboard', label: 'Leaderboard', icon: 'trophy', theme: 'leader' },
-  { id: 'achievements', label: 'Achievements', icon: 'medal', theme: 'boxes' },
-  { id: 'host', label: 'Host Mode', icon: 'lock', theme: 'host' },
+export interface NavItem { id: string; label: string; icon: string; world: string }
+export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
+  { title: 'El show', items: [
+    { id: 'home', label: 'Inicio', icon: 'home', world: 'home' },
+    { id: 'show', label: 'The Show', icon: 'show', world: 'show' },
+    { id: 'challenges', label: 'Challenges', icon: 'target', world: 'home' },
+  ] },
+  { title: 'Arenas', items: [
+    { id: 'gaming', label: 'Gaming Arena', icon: 'gamepad', world: 'gaming' },
+    { id: 'cards', label: 'Card Arena', icon: 'cards', world: 'cards' },
+    { id: 'party', label: 'Party Mode', icon: 'glass', world: 'party' },
+    { id: 'couples', label: 'Couples Mode', icon: 'heart', world: 'couples' },
+    { id: 'movie', label: 'Movie Night', icon: 'film', world: 'movie' },
+  ] },
+  { title: 'Premios', items: [
+    { id: 'boxes', label: 'Mystery Boxes', icon: 'gift', world: 'boxes' },
+    { id: 'roulette', label: 'Roulette', icon: 'wheel', world: 'roulette' },
+    { id: 'inventory', label: 'Inventario', icon: 'bag', world: 'boxes' },
+  ] },
+  { title: 'Marcador', items: [
+    { id: 'leaderboard', label: 'Leaderboard', icon: 'trophy', world: 'home' },
+    { id: 'achievements', label: 'Logros', icon: 'medal', world: 'boxes' },
+    { id: 'prefs', label: 'Preferencias', icon: 'sliders', world: 'couples' },
+  ] },
+  { title: 'Presentador', items: [{ id: 'host', label: 'Host Mode', icon: 'lock', world: 'host' }] },
 ];
-
+const ALL = NAV_GROUPS.flatMap((g) => g.items);
 const BOTTOM = ['home', 'show', 'challenges', 'boxes'];
+const CAT_WORLD: Record<CategoryId, string> = { home: 'home', couples: 'couples', cards: 'cards', gaming: 'gaming', party: 'party', movie: 'movie' };
 
 export default function App() {
   const s = useGame();
   const route = useRoute();
   const [menu, setMenu] = useState(false);
   const [hostUnlocked, setHostUnlocked] = useState(false);
+  const [epCard, setEpCard] = useState<number | null>(null);
+  const prevEp = useRef(s.episode);
 
-  // Host mode locks itself as soon as you leave it — secrets never linger on screen.
+  // Host Mode locks itself as soon as you leave it — secrets never linger on screen.
   useEffect(() => { if (route.name !== 'host') setHostUnlocked(false); }, [route.name]);
 
-  const navItem = NAV.find((n) => n.id === route.name);
-  const ch = route.name === 'challenge' ? challengeById(route.param || '') : undefined;
-  const theme = ch ? CATEGORIES[ch.category].theme : route.name === 'prefs' ? 'couples' : navItem?.theme || 'home';
-  useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
+  // Episode title card whenever the show advances
+  useEffect(() => {
+    if (s.episode !== prevEp.current && s.introDone) {
+      setEpCard(s.episode);
+      const t = setTimeout(() => setEpCard(null), 2600);
+      prevEp.current = s.episode;
+      return () => clearTimeout(t);
+    }
+    prevEp.current = s.episode;
+  }, [s.episode, s.introDone]);
 
-  if (!s.introDone) return (<><div className="ambient" /><Intro /><Toaster /></>);
+  const ch = route.name === 'challenge' ? challengeById(route.param || '') : undefined;
+  const world = ch ? CAT_WORLD[ch.category] : ALL.find((n) => n.id === route.name)?.world || 'home';
+  useEffect(() => { document.documentElement.dataset.world = world; }, [world]);
+
+  if (!s.introDone) return (<><div className="stage-light" /><Intro /><Toaster /></>);
 
   let screen;
   switch (route.name) {
@@ -78,64 +101,85 @@ export default function App() {
     default: screen = <Home />;
   }
 
-  const g = s.players.gabriel, t = s.players.tatiana;
+  const lead = leader(s);
+  const ep = EPISODES[s.episode - 1];
+  const current = (id: string) => route.name === id || (id === 'challenges' && route.name === 'challenge');
+
   return (
     <>
-      <div className="ambient" />
-      <div className="app">
-        <aside className="sidebar">
-          <button className="brand" onClick={() => go('home')} style={{ marginBottom: 22, padding: '0 6px' }}>
-            <div className="brand-mark">H</div>
-            <div><div className="brand-name">HOMELOTTERY</div><div className="brand-sub">Gabriel × Tatiana</div></div>
+      <div className="stage-light" />
+      <div className="shell">
+        <nav className="rail" aria-label="Secciones">
+          <button className="brand" onClick={() => go('home')} aria-label="Ir al inicio">
+            <div className="wordmark">Home<i>lottery</i></div>
+            <div className="wordmark-sub">Gabriel × Tatiana</div>
           </button>
-          {NAV.map((n, i) => (
-            <button key={n.id} className={'navlink' + (route.name === n.id ? ' active' : '')} onClick={() => go(n.id)}>
-              <span className="navnum">{String(i + 1).padStart(2, '0')}</span><Icon name={n.icon} size={18} />{n.label}
-            </button>
+          {NAV_GROUPS.map((g) => (
+            <div key={g.title} className="group">
+              <div className="eyebrow">{g.title}</div>
+              {g.items.map((n) => (
+                <button key={n.id} className="navlink" data-world={n.world} style={{ ['--dot' as string]: 'var(--accent)' }} aria-current={current(n.id) ? 'page' : undefined} onClick={() => go(n.id)}>
+                  <Icon name={n.icon} size={18} />{n.label}<span className="ndot" />
+                </button>
+              ))}
+            </div>
           ))}
-          <div style={{ marginTop: 'auto', paddingTop: 16 }}>
-            <button className={'navlink' + (route.name === 'prefs' ? ' active' : '')} onClick={() => go('prefs')}><span className="navnum" /><Icon name="sliders" size={18} />Preferencias y límites</button>
-          </div>
-        </aside>
+        </nav>
 
         <header className="topbar no-print">
-          <button className="brand" onClick={() => go('home')}>
-            <div className="brand-mark">H</div>
-            <div><div className="brand-name">HOMELOTTERY</div><div className="brand-sub">Ep 0{s.episode} · Gabriel × Tatiana</div></div>
+          <button className="brand" onClick={() => go('home')} aria-label="Ir al inicio">
+            <div><div className="wordmark" style={{ fontSize: 22 }}>Home<i>lottery</i></div></div>
           </button>
-          <div className="mini-score" onClick={() => go('leaderboard')} style={{ cursor: 'pointer' }}>
-            <span className="mini-chip"><span className="dot" style={{ background: 'var(--gabriel)' }}>G</span>{g.points}</span>
-            <span className="mini-chip"><span className="dot" style={{ background: 'var(--tatiana)' }}>T</span>{t.points}</span>
+          <div className="status">
+            <span className="live-dot" />
+            <span className="eyebrow" style={{ color: 'var(--ivory-2)' }}>Episodio {String(s.episode).padStart(2, '0')}</span>
+            <span className="small muted" style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{ep.title}</span>
           </div>
+          <button className="scorepill" onClick={() => go('leaderboard')} aria-label={`Marcador: Gabriel ${s.players.gabriel.points}, Tatiana ${s.players.tatiana.points}`}>
+            <span className={'s' + (lead === 'gabriel' ? ' lead' : '')}><span className="avatar sm gabriel">G</span><AnimatedNumber value={s.players.gabriel.points} /></span>
+            <span className="sep" />
+            <span className={'s' + (lead === 'tatiana' ? ' lead' : '')}><AnimatedNumber value={s.players.tatiana.points} /><span className="avatar sm tatiana">T</span></span>
+          </button>
         </header>
 
-        <main className="main">{screen}</main>
+        <main className="content" key={route.name + (route.param || '')}>
+          <div className="page">{screen}</div>
+        </main>
 
-        <nav className="bottomnav no-print">
-          {BOTTOM.map((id) => { const n = NAV.find((x) => x.id === id)!; return (
-            <button key={id} className={'navbtn' + (route.name === id || (id === 'challenges' && route.name === 'challenge') ? ' active' : '')} onClick={() => go(id)}>
+        <nav className="bottomnav no-print" aria-label="Navegación principal">
+          {BOTTOM.map((id) => { const n = ALL.find((x) => x.id === id)!; return (
+            <button key={id} className="navbtn" aria-current={current(id) ? 'page' : undefined} onClick={() => go(id)}>
               <Icon name={n.icon} size={22} />{n.label.replace('Mystery ', '')}
             </button>
           ); })}
-          <button className={'navbtn' + (menu ? ' active' : '')} onClick={() => setMenu(true)}><Icon name="menu" size={22} />Menú</button>
+          <button className="navbtn" aria-current={menu ? 'page' : undefined} aria-haspopup="dialog" onClick={() => setMenu(true)}><Icon name="menu" size={22} />Más</button>
         </nav>
       </div>
 
-      <Modal open={menu} onClose={() => setMenu(false)} eyebrow="HOMELOTTERY" title="Todas las secciones">
-        <div className="menu-grid">
-          {NAV.map((n, i) => (
-            <button key={n.id} className="menu-tile" data-theme={n.theme} onClick={() => { setMenu(false); go(n.id); }}>
-              <div className="row between"><Icon name={n.icon} style={{ color: 'var(--accent)' }} /><span className="n">{String(i + 1).padStart(2, '0')}</span></div>
-              <b>{n.label.toUpperCase()}</b>
-            </button>
-          ))}
-          <button className="menu-tile" data-theme="couples" onClick={() => { setMenu(false); go('prefs'); }}>
-            <div className="row between"><Icon name="sliders" style={{ color: 'var(--accent)' }} /><span className="n">+</span></div>
-            <b>PREFERENCIAS Y LÍMITES</b>
-          </button>
-        </div>
-        <p className="tiny faint" style={{ marginTop: 14 }}>Jugadores: {PLAYER_NAME.gabriel} y {PLAYER_NAME.tatiana}. Todo se guarda automáticamente en este dispositivo.</p>
+      <Modal open={menu} onClose={() => setMenu(false)} eyebrow="Homelottery" title="Todas las secciones">
+        {NAV_GROUPS.map((g) => (
+          <div key={g.title} className="menu-group">
+            <div className="eyebrow">{g.title}</div>
+            <div className="menu-grid">
+              {g.items.map((n) => (
+                <button key={n.id} className="menu-tile" data-world={n.world} aria-current={current(n.id) ? 'page' : undefined} onClick={() => { setMenu(false); go(n.id); }}>
+                  <Icon name={n.icon} size={20} className="mi" />{n.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
       </Modal>
+
+      {epCard && (
+        <div className={'ep-card' + (epCard === 8 ? ' finale' : '')} aria-live="polite">
+          <div>
+            <div className="ep-n">{epCard === 8 ? 'LA GRAN FINAL' : `EPISODIO ${String(epCard).padStart(2, '0')} DE 08`}</div>
+            <div className="ep-t">{EPISODES[epCard - 1].title}</div>
+            <div className="ep-line" />
+          </div>
+        </div>
+      )}
       <Toaster />
     </>
   );

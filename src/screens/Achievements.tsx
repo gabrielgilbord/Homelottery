@@ -9,24 +9,21 @@ export default function Achievements() {
   const count = (p: string) => ACHIEVEMENTS.filter((a) => s.achievements[`${a.id}:${p}`]).length;
   return (
     <div>
-      <PageHead eyebrow="13 · Achievements" title="Achievements" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno trae su recompensa automática.`} num="13">
-        <div className="row" style={{ marginTop: 12, gap: 14 }}>{PLAYERS.map((p) => <span key={p} className={'ptag ' + p}>{PLAYER_NAME[p]} {count(p)}/{ACHIEVEMENTS.length}</span>)}</div>
+      <PageHead eyebrow="Logros" title="Achievements" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno paga su recompensa en cuanto se consigue.`}>
+        <div className="cluster" style={{ ['--gap' as string]: 'var(--s-5)' }}>{PLAYERS.map((p) => <span key={p} className="stack" style={{ ['--gap' as string]: '2px' }}><span className={'pname small ' + p}>{PLAYER_NAME[p]}</span><span className="h3 num">{count(p)}<span className="faint">/{ACHIEVEMENTS.length}</span></span></span>)}</div>
       </PageHead>
-      <div className="grid two">
+      <div className="list">
         {ACHIEVEMENTS.map((a) => {
           const got = PLAYERS.filter((p) => s.achievements[`${a.id}:${p}`]);
           const reward = [a.reward.coins && `${a.reward.coins} monedas`, a.reward.key && 'Llave Legendaria', a.reward.card && 'carta especial'].filter(Boolean).join(' + ');
           return (
-            <div key={a.id} className={'card tight item' + (got.length ? ' glow' : '')} style={{ opacity: got.length ? 1 : 0.62 }}>
-              <div className="item-icon" style={!got.length ? { color: 'var(--ink-3)', background: 'var(--glass)', borderColor: 'var(--line)' } : undefined}><Icon name={got.length ? a.glyph : 'lock'} /></div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontSize: 15 }}>{a.name}</h3>
-                <p>{a.desc}</p>
-                <div className="row wrap" style={{ marginTop: 6, gap: 6 }}>
-                  <span className="chip">{reward}</span>
-                  {got.map((p) => <span key={p} className={'chip ptag ' + p}>{PLAYER_NAME[p]}</span>)}
-                </div>
-              </div>
+            <div key={a.id} className="row-item" data-world={got.length ? 'boxes' : undefined}>
+              <span className="lead-icon" style={!got.length ? { color: 'var(--ivory-4)', background: 'var(--ink-2)' } : undefined}><Icon name={got.length ? a.glyph : 'lock'} size={18} /></span>
+              <span className="grow stack" style={{ ['--gap' as string]: '2px' }}>
+                <span className="h5" style={{ color: got.length ? 'var(--ivory)' : 'var(--ivory-2)' }}>{a.name}</span>
+                <span className="xs faint">{a.desc} · <span className="value-text">{reward}</span></span>
+              </span>
+              <span className="cluster" style={{ ['--gap' as string]: '4px', flexShrink: 0 }}>{got.map((p) => <span key={p} className={'avatar sm ' + p} title={PLAYER_NAME[p]}>{PLAYER_NAME[p][0]}</span>)}</span>
             </div>
           );
         })}

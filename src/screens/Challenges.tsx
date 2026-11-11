@@ -3,9 +3,10 @@ import { CHALLENGES, challengeById } from '../data/challenges';
 import { CATEGORIES } from '../data/episodes';
 import { useGame, recordResult, skipChallenge, categoryAllowed, intensityAllowed, type Outcome, type ResultSummary } from '../state/store';
 import { Icon } from '../components/Icon';
-import { ConfirmButton, Modal, PageHead, Section, Seg, Timer } from '../components/ui';
+import { ConfirmButton, Empty, Modal, PageHead, Seg, Timer } from '../components/ui';
 import { go } from '../lib/router';
 import { pick } from '../lib/random';
+import { celebrate } from '../lib/celebrate';
 import type { CategoryId, Challenge, GameState } from '../types';
 import { INTENSITY_LABEL, PLAYERS, PLAYER_NAME } from '../types';
 
@@ -13,34 +14,39 @@ export function allowed(s: GameState, c: Challenge) {
   return categoryAllowed(s, c.category) && intensityAllowed(s, c.intensity);
 }
 
+function Pips({ n }: { n: number }) {
+  return <span className="pips" aria-label={`Dificultad ${n} de 3`}>{[1, 2, 3].map((i) => <i key={i} className={i <= n ? 'on' : ''} />)}</span>;
+}
+
 export function ChallengeCard({ c }: { c: Challenge }) {
   const s = useGame();
   const ok = allowed(s, c);
   const done = s.completed[c.id] || 0;
   return (
-    <button className="card clickable challenge-card" data-theme={CATEGORIES[c.category].theme} onClick={() => go('challenge', c.id)} style={{ opacity: ok ? 1 : 0.4 }}>
-      {done > 0 && <span className="done-badge row" style={{ gap: 4 }}><Icon name="check" size={16} />{done > 1 ? `x${done}` : ''}</span>}
-      <div className="row" style={{ gap: 8 }}>
-        <span className="eyebrow" style={{ fontSize: 10 }}>{c.sub || CATEGORIES[c.category].short}</span>
-        {c.intensity && <span className={'chip ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
+    <button className="ccard" data-world={CATEGORIES[c.category].theme} aria-disabled={!ok} onClick={() => go('challenge', c.id)}>
+      <div className="ctop">
+        <span className="cat">{c.sub || CATEGORIES[c.category].short}</span>
+        <span className="cluster" style={{ ['--gap' as string]: '6px' }}>
+          {c.intensity && <span className={'tag ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
+          {done > 0 && <span className="tag ok"><Icon name="check" size={11} />{done > 1 ? `x${done}` : 'Jugada'}</span>}
+          {!ok && <span className="tag"><Icon name="lock" size={11} />Límite</span>}
+        </span>
       </div>
-      <h3 style={{ margin: '6px 0 0', fontSize: 17, paddingRight: 24 }}>{c.name}</h3>
-      <p className="small muted" style={{ margin: '4px 0 0' }}>{c.tagline}</p>
-      <div className="meta">
-        <span><Icon name="timer" size={14} />{c.duration} min</span>
-        <span><Icon name={c.mode === 'coop' ? 'heart' : 'bolt'} size={14} />{c.mode === 'coop' ? 'Equipo' : 'Duelo'}</span>
-        <span><Icon name="star" size={14} />{c.reward.points}</span>
-        <span><Icon name="coin" size={14} />{c.reward.coins}</span>
-        {c.requires && <span style={{ color: 'var(--accent)' }}><Icon name="info" size={14} />{c.requires}</span>}
-        {!ok && <span><Icon name="lock" size={14} />Fuera de vuestros límites</span>}
+      <div className="ctitle">{c.name}</div>
+      <div className="ctag">{c.tagline}</div>
+      <div className="cmeta">
+        <span><Icon name="timer" size={13} />{c.duration}′</span>
+        <span><Icon name={c.mode === 'coop' ? 'users' : 'bolt'} size={13} />{c.mode === 'coop' ? 'Equipo' : 'Duelo'}</span>
+        <Pips n={c.difficulty} />
+        <span className="reward"><Icon name="coin" size={13} />{c.reward.coins} · {c.reward.points} pts</span>
       </div>
     </button>
   );
 }
 
 export function ChallengeList({ list }: { list: Challenge[] }) {
-  if (!list.length) return <div className="empty">No hay pruebas con estos filtros.</div>;
-  return <div className="grid two">{list.map((c) => <ChallengeCard key={c.id} c={c} />)}</div>;
+  if (!list.length) return <Empty icon="target">No hay pruebas con estos filtros.</Empty>;
+  return <div className="catalog stagger">{list.map((c) => <ChallengeCard key={c.id} c={c} />)}</div>;
 }
 
 type Filter = 'all' | 'todo' | 'quick' | 'coop';
@@ -58,6 +64,7 @@ export default function Challenges() {
     if (q && !(c.name + ' ' + c.tagline + ' ' + (c.sub || '')).toLowerCase().includes(q.toLowerCase())) return false;
     return true;
   }), [cat, f, q, s.completed]);
+  const played = Object.keys(s.completed).length;
 
   const randomPick = () => {
     const pool = list.filter((c) => allowed(s, c) && !s.completed[c.id]);
@@ -67,23 +74,22 @@ export default function Challenges() {
 
   return (
     <div>
-      <PageHead eyebrow="03 · The Game Library" title="Challenges" sub={`${CHALLENGES.length} pruebas jugables. Cada una con reglas, materiales, puntuación y revancha.`} num="03" />
-      <div className="stack">
-        <input className="input" placeholder="Buscar prueba…" value={q} onChange={(e) => setQ(e.target.value)} />
-        <div className="scroll-x">
-          <button className={'chip' + (cat === 'all' ? ' accent' : '')} onClick={() => setCat('all')}>Todas</button>
+      <PageHead eyebrow="Biblioteca de pruebas" title="Challenges" sub={`${CHALLENGES.length} pruebas en seis mundos. ${played} jugadas hasta ahora.`}
+        aside={<button className="btn primary" onClick={randomPick}><Icon name="dice" size={16} />Al azar</button>} />
+      <div className="filters">
+        <label className="search"><Icon name="target" size={16} /><span className="sr-only">Buscar prueba</span><input className="input" placeholder="Buscar una prueba" value={q} onChange={(e) => setQ(e.target.value)} /></label>
+        <div className="hscroll">
+          <button className={'chip' + (cat === 'all' ? ' on' : '')} onClick={() => setCat('all')}>Todas · {CHALLENGES.length}</button>
           {(Object.keys(CATEGORIES) as CategoryId[]).map((c) => (
-            <button key={c} className={'chip' + (cat === c ? ' accent' : '')} onClick={() => setCat(c)}>{CATEGORIES[c].short} · {CHALLENGES.filter((x) => x.category === c).length}</button>
+            <button key={c} data-world={CATEGORIES[c].theme} className={'chip' + (cat === c ? ' on' : '')} onClick={() => setCat(c)}>
+              <span className="dot" />{CATEGORIES[c].short} · {CHALLENGES.filter((x) => x.category === c).length}
+            </button>
           ))}
         </div>
-        <div className="row wrap between">
-          <Seg<Filter> value={f} onChange={setF} options={[{ v: 'all', label: 'Todas' }, { v: 'todo', label: 'Sin jugar' }, { v: 'quick', label: '≤10 min' }, { v: 'coop', label: 'Equipo' }]} />
-          <button className="btn primary" onClick={randomPick}><Icon name="dice" />Prueba al azar</button>
-        </div>
+        <Seg<Filter> value={f} onChange={setF} label="Filtro" options={[{ v: 'all', label: 'Todas' }, { v: 'todo', label: 'Sin jugar' }, { v: 'quick', label: '≤ 10 min' }, { v: 'coop', label: 'Equipo' }]} />
       </div>
-      <Section title={`${list.length} pruebas`}>
-        <ChallengeList list={list} />
-      </Section>
+      <div className="eyebrow" style={{ marginBottom: 'var(--s-3)' }}>{list.length} resultados</div>
+      <ChallengeList list={list} />
     </div>
   );
 }
@@ -93,102 +99,123 @@ export function ChallengeDetail({ id }: { id: string }) {
   const c = challengeById(id);
   const [result, setResult] = useState<ResultSummary | null>(null);
   const [swapOpen, setSwapOpen] = useState(false);
-  if (!c) return <div className="empty">Prueba no encontrada. <button className="btn sm" onClick={() => go('challenges')}>Volver</button></div>;
+  if (!c) return <Empty icon="target" action={<button className="btn sm" onClick={() => go('challenges')}>Volver a la biblioteca</button>}>Prueba no encontrada.</Empty>;
   const ok = allowed(s, c);
   const done = s.completed[c.id] || 0;
   const mods = PLAYERS.filter((p) => s.players[p].doubleArmed || s.players[p].multiplier > 1);
 
-  const register = (o: Outcome) => setResult(recordResult(c.id, o));
+  const register = (o: Outcome) => {
+    const r = recordResult(c.id, o);
+    setResult(r);
+    if (o !== 'coop-fail') celebrate(s.episode === 8 || c.reward.points >= 25 ? 2 : 1);
+  };
   const alternatives = CHALLENGES.filter((x) => x.id !== c.id && x.category === c.category && allowed(s, x) && !s.completed[x.id]);
 
   return (
-    <div data-theme={CATEGORIES[c.category].theme}>
-      <button className="btn ghost sm" onClick={() => history.length > 1 ? history.back() : go('challenges')} style={{ marginBottom: 14 }}><Icon name="back" size={16} />Volver</button>
-      <PageHead eyebrow={`${CATEGORIES[c.category].name} · ${c.sub || ''}`} title={c.name} sub={c.tagline}>
-        <div className="chips" style={{ marginTop: 12 }}>
-          {c.intensity && <span className={'chip ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
-          <span className="chip">{c.mode === 'coop' ? 'Cooperativo' : 'Duelo individual'}</span>
-          {c.drinks && <span className="chip">Bebida opcional · funciona con agua</span>}
-          {c.requires && <span className="chip accent">Requiere: {c.requires}</span>}
-          {done > 0 && <span className="chip" style={{ color: 'var(--good)' }}>Jugada {done} {done === 1 ? 'vez' : 'veces'}</span>}
+    <div>
+      <button className="btn quiet sm" onClick={() => (history.length > 1 ? history.back() : go('challenges'))} style={{ marginBottom: 'var(--s-4)', marginLeft: -12 }}><Icon name="back" size={16} />Volver</button>
+      <header className="detail-hero">
+        <div className="cluster">
+          <span className="eyebrow accent">{CATEGORIES[c.category].name} · {c.sub}</span>
+          {c.intensity && <span className={'tag ' + c.intensity}>{INTENSITY_LABEL[c.intensity]}</span>}
+          {done > 0 && <span className="tag ok">Jugada {done}×</span>}
         </div>
-      </PageHead>
+        <h1 className="h1">{c.name}</h1>
+        <p className="lead">{c.tagline}</p>
+        <div className="cluster">
+          {c.drinks && <span className="tag">Bebida opcional · funciona con agua</span>}
+          {c.requires && <span className="tag accent">Requiere {c.requires}</span>}
+          {!ok && <span className="tag" style={{ ['--tone' as string]: 'var(--danger)' }}>Fuera de vuestros límites</span>}
+        </div>
+      </header>
 
-      {!ok && <div className="card tight" style={{ marginBottom: 14, borderColor: 'rgba(239,122,122,.4)' }}><b>Fuera de vuestros límites actuales.</b> <span className="small muted">Se puede jugar igualmente si los dos queréis, o elegir otra.</span></div>}
+      <dl className="specs" style={{ margin: 0 }}>
+        <div><dt>Jugadores</dt><dd>{c.players}</dd></div>
+        <div><dt>Duración</dt><dd>{c.duration} min</dd></div>
+        <div><dt>Dificultad</dt><dd><Pips n={c.difficulty} /></dd></div>
+        <div><dt>Recompensa</dt><dd className="value-text">{c.reward.points} pts · {c.reward.coins} monedas{c.reward.bonus ? ' + sorpresa' : ''}</dd></div>
+      </dl>
 
-      <div className="kv">
-        <div><b>Jugadores</b>{c.players}</div>
-        <div><b>Duración</b>{c.duration} min</div>
-        <div><b>Dificultad</b>{'●'.repeat(c.difficulty)}{'○'.repeat(3 - c.difficulty)}</div>
-        <div><b>Recompensa</b>{c.reward.points} pts · {c.reward.coins} monedas{c.reward.bonus ? ' · + sorpresa' : ''}</div>
-      </div>
+      <div className="detail-grid section" style={{ marginTop: 'var(--s-8)' }}>
+        <div className="stack" style={{ ['--gap' as string]: 'var(--s-8)' }}>
+          <section>
+            <div className="eyebrow" style={{ marginBottom: 'var(--s-3)' }}>Materiales</div>
+            <div className="cluster">{c.materials.map((m) => <span key={m} className="chip">{m}</span>)}</div>
+          </section>
+          <section>
+            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>Cómo se juega</h2>
+            <ol className="steps">{c.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
+          </section>
+          <section className="rules3">
+            <div><span className="eyebrow">Puntuación</span><span className="small">{c.scoring}</span></div>
+            <div><span className="eyebrow">Victoria</span><span className="small">{c.win}</span></div>
+            <div><span className="eyebrow">Revancha</span><span className="small">{c.rematch}</span></div>
+            <div><span className="eyebrow">Premio</span><span className="small">{c.mode === 'coop' ? 'Si lo superáis, los dos cobráis la recompensa completa.' : 'Quien gana cobra la recompensa. Quien pierde, una consolación.'}{c.reward.bonus ? ' Además hay un premio sorpresa.' : ''}{s.episode === 8 ? ' Gran Final: puntos x2.' : ''}</span></div>
+          </section>
+        </div>
 
-      <Section title="Materiales">
-        <div className="chips">{c.materials.map((m) => <span key={m} className="chip">{m}</span>)}</div>
-      </Section>
-
-      <Section title="Cómo se juega">
-        <div className="card"><ol className="steps">{c.steps.map((st, i) => <li key={i}>{st}</li>)}</ol></div>
-      </Section>
-
-      <div className="grid two section">
-        <div className="card tight"><div className="eyebrow" style={{ fontSize: 10 }}>Puntuación</div><p style={{ margin: '6px 0 0' }}>{c.scoring}</p></div>
-        <div className="card tight"><div className="eyebrow" style={{ fontSize: 10 }}>Condición de victoria</div><p style={{ margin: '6px 0 0' }}>{c.win}</p></div>
-        <div className="card tight"><div className="eyebrow" style={{ fontSize: 10 }}>Revancha</div><p style={{ margin: '6px 0 0' }}>{c.rematch}</p></div>
-        <div className="card tight"><div className="eyebrow" style={{ fontSize: 10 }}>Premio</div><p style={{ margin: '6px 0 0' }}>{c.mode === 'coop' ? 'Si lo superáis, los dos cobráis la recompensa completa.' : 'El ganador cobra la recompensa; el otro, una consolación.'} {c.reward.bonus ? 'Además hay un premio sorpresa.' : ''} {s.episode === 8 ? 'Gran Final: puntos x2.' : ''}</p></div>
-      </div>
-
-      <Section title="Temporizador">
-        <div className="card"><Timer seconds={c.duration <= 5 ? 60 : Math.min(600, c.duration * 60)} /></div>
-      </Section>
-
-      <Section title="Registrar resultado">
-        <div className="card glow stack">
-          {mods.length > 0 && <div className="small accent">{mods.map((p) => `${PLAYER_NAME[p]}: ${s.players[p].doubleArmed ? 'Double Trouble activo' : ''}${s.players[p].multiplier > 1 ? ` x${s.players[p].multiplier}` : ''}`).join(' · ')}</div>}
-          {c.mode === 'duel' ? (
-            <div className="grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              {PLAYERS.map((p) => (
-                <ConfirmButton key={p} className="btn lg" onConfirm={() => register(p)} confirmText={`¿Gana ${PLAYER_NAME[p]}?`}>
-                  <span className={'ptag ' + p}><Icon name="trophy" />Gana {PLAYER_NAME[p]}</span>
+        <aside className="detail-aside stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
+          <div className="surface"><div className="eyebrow" style={{ marginBottom: 'var(--s-4)' }}>Temporizador</div><Timer seconds={c.duration <= 5 ? 60 : Math.min(600, c.duration * 60)} /></div>
+          <div className="surface result-panel">
+            <div className="split"><span className="eyebrow">Resultado</span><span className="xs faint">Doble toque para confirmar</span></div>
+            {mods.length > 0 && <div className="small value-text">{mods.map((p) => `${PLAYER_NAME[p]}: ${s.players[p].doubleArmed ? 'Double Trouble' : ''}${s.players[p].multiplier > 1 ? ` x${s.players[p].multiplier}` : ''}`).join(' · ')}</div>}
+            {c.mode === 'duel' ? (
+              <>
+                {PLAYERS.map((p) => (
+                  <ConfirmButton key={p} className={'winner-btn ' + p} onConfirm={() => register(p)} confirmText={<><span>¿Confirmas que gana {PLAYER_NAME[p]}?</span><Icon name="check" size={18} /></>}>
+                    <span className="cluster"><span className={'avatar sm ' + p}>{PLAYER_NAME[p][0]}</span>Gana {PLAYER_NAME[p]}</span><Icon name="trophy" size={18} />
+                  </ConfirmButton>
+                ))}
+                <div className="grid-2">
+                  <ConfirmButton className="btn" onConfirm={() => register('tie')} confirmText="¿Empate?">Empate</ConfirmButton>
+                  <button className="btn ghost" onClick={() => setSwapOpen(true)}>Pasar o cambiar</button>
+                </div>
+              </>
+            ) : (
+              <>
+                <ConfirmButton className="winner-btn" onConfirm={() => register('coop-win')} confirmText={<><span>¿Superado?</span><Icon name="check" size={18} /></>}>
+                  <span>Superado en equipo</span><Icon name="heart" size={18} />
                 </ConfirmButton>
-              ))}
-              <ConfirmButton className="btn" onConfirm={() => register('tie')} confirmText="¿Empate?"><Icon name="users" />Empate</ConfirmButton>
-              <button className="btn ghost" onClick={() => setSwapOpen(true)}><Icon name="skip" />Pasar / cambiar</button>
-            </div>
-          ) : (
-            <div className="grid" style={{ gridTemplateColumns: '1fr 1fr' }}>
-              <ConfirmButton className="btn primary lg" onConfirm={() => register('coop-win')} confirmText="¿Superado?"><Icon name="heart" />Superado</ConfirmButton>
-              <ConfirmButton className="btn lg" onConfirm={() => register('coop-fail')} confirmText="¿No superado?">No superado</ConfirmButton>
-              <button className="btn ghost" style={{ gridColumn: '1 / -1' }} onClick={() => setSwapOpen(true)}><Icon name="skip" />Pasar / cambiar</button>
-            </div>
-          )}
-          <p className="tiny faint" style={{ margin: 0 }}>Toca dos veces para confirmar. Pasar una prueba nunca penaliza.</p>
-        </div>
-      </Section>
+                <div className="grid-2">
+                  <ConfirmButton className="btn" onConfirm={() => register('coop-fail')} confirmText="¿No superado?">No superado</ConfirmButton>
+                  <button className="btn ghost" onClick={() => setSwapOpen(true)}>Pasar o cambiar</button>
+                </div>
+              </>
+            )}
+            <p className="xs faint">Pasar una prueba nunca resta nada.</p>
+          </div>
+        </aside>
+      </div>
 
-      <Modal open={!!result} onClose={() => setResult(null)} eyebrow={c.name} title={result?.headline}>
+      <Modal open={!!result} onClose={() => setResult(null)}>
         {result && (
-          <div className="stack">
-            {result.lines.map((l, i) => <div key={i} className="card tight small">{l}</div>)}
-            <div className="row wrap">
-              <button className="btn primary" onClick={() => { setResult(null); go('show'); }}>Volver al episodio</button>
-              <button className="btn" onClick={() => { setResult(null); go('boxes'); }}><Icon name="gift" />Cajas</button>
-              <button className="btn" onClick={() => { setResult(null); go('roulette'); }}><Icon name="wheel" />Ruleta</button>
+          <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
+            <div className="result-hero">
+              <span className="eyebrow accent">{c.name}</span>
+              <h2 className="h2">{result.headline}</h2>
             </div>
+            <div>{result.lines.map((l, i) => <div key={i} className="result-line"><span>{l}</span></div>)}</div>
+            <div className="grid-2">
+              <button className="btn" onClick={() => { setResult(null); go('boxes'); }}><Icon name="gift" size={16} />Cajas</button>
+              <button className="btn" onClick={() => { setResult(null); go('roulette'); }}><Icon name="wheel" size={16} />Ruleta</button>
+            </div>
+            <button className="btn primary block" onClick={() => { setResult(null); go('show'); }}>Volver al episodio</button>
           </div>
         )}
       </Modal>
 
       <Modal open={swapOpen} onClose={() => setSwapOpen(false)} eyebrow="Sin presión" title="Pasar o cambiar">
         <div className="stack">
-          <p className="muted" style={{ margin: 0 }}>Pasar no resta nada. Elige una alternativa de la misma categoría o vuelve a la biblioteca.</p>
-          {alternatives.slice(0, 4).map((a) => (
-            <button key={a.id} className="card clickable tight item" onClick={() => { skipChallenge(c.id); setSwapOpen(false); go('challenge', a.id); }}>
-              <div className="item-icon"><Icon name="target" /></div>
-              <div style={{ flex: 1 }}><h3 style={{ fontSize: 15 }}>{a.name}</h3><p className="tiny">{a.tagline}</p></div>
-            </button>
-          ))}
-          <button className="btn" onClick={() => { skipChallenge(c.id); setSwapOpen(false); const a = pick(alternatives); if (a) go('challenge', a.id); else go('challenges'); }}><Icon name="dice" />Sustituir al azar</button>
+          <p className="muted">Pasar no resta nada. Elige otra prueba del mismo mundo.</p>
+          <div className="list">
+            {alternatives.slice(0, 4).map((a) => (
+              <button key={a.id} className="row-item" onClick={() => { skipChallenge(c.id); setSwapOpen(false); go('challenge', a.id); }}>
+                <span className="grow"><span className="h5" style={{ display: 'block' }}>{a.name}</span><span className="xs faint">{a.tagline}</span></span>
+                <Icon name="chevron" size={18} className="chev" />
+              </button>
+            ))}
+          </div>
+          <button className="btn primary" onClick={() => { skipChallenge(c.id); setSwapOpen(false); const a = pick(alternatives); if (a) go('challenge', a.id); else go('challenges'); }}><Icon name="dice" size={16} />Sustituir al azar</button>
           <button className="btn ghost" onClick={() => { skipChallenge(c.id); setSwapOpen(false); go('challenges'); }}>Solo pasar</button>
         </div>
       </Modal>

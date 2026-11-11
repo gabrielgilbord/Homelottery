@@ -15,48 +15,51 @@ export default function Prefs() {
   const visible = open === who;
 
   return (
-    <div data-theme="couples">
-      <PageHead eyebrow="Preferencias y límites" title="Vuestras reglas" sub="Cada uno configura lo suyo en privado. El juego siempre usa el nivel más suave de los dos y nunca enseña los límites del otro." />
-      <div className="card glow row between wrap">
-        <div><div className="tiny faint">Nivel común activo</div><div className="h-show" style={{ fontSize: 32, color: 'var(--accent)' }}>{INTENSITY_LABEL[sharedIntensity(s)]}</div></div>
-        <div className="row"><span className="small">Modo un solo móvil (cortinas de privacidad)</span><Toggle on={s.sharedScreen} onChange={setShared} /></div>
+    <div>
+      <PageHead eyebrow="Preferencias y límites" title="Vuestras reglas" sub="Cada uno configura lo suyo en privado. El juego usa siempre el nivel más suave de los dos y nunca enseña los límites del otro." />
+      <div className="ledger">
+        <div><div className="eyebrow">Nivel común</div><div className="v accent-text">{INTENSITY_LABEL[sharedIntensity(s)]}</div></div>
+        <div className="stack" style={{ ['--gap' as string]: '8px' }}><div className="eyebrow">Un solo móvil</div><div className="cluster"><Toggle on={s.sharedScreen} onChange={setShared} label="Modo un solo móvil" /><span className="xs faint">Cortinas de privacidad</span></div></div>
       </div>
 
-      <Section title="Configuración personal">
-        <div className="row wrap between">
+      <Section title="Ajustes personales">
+        <div className="split" style={{ flexWrap: 'wrap' }}>
           <PlayerSwitch value={who} onChange={(x) => { setWho(x); setOpen(null); }} />
-          {!visible && <button className="btn primary" onClick={() => (s.sharedScreen ? setCurtain(true) : setOpen(who))}><Icon name="eye" />Abrir mis ajustes</button>}
+          {!visible && <button className="btn accent" onClick={() => (s.sharedScreen ? setCurtain(true) : setOpen(who))}><Icon name="eye" size={16} />Abrir mis ajustes</button>}
         </div>
         {visible && (
-          <div className="card stack" style={{ marginTop: 14 }}>
+          <div className="surface stack" style={{ marginTop: 'var(--s-5)', ['--gap' as string]: 'var(--s-5)' }}>
             <label className="field">Nivel de competición
-              <Seg value={p.competition} onChange={(v) => set({ competition: v })} options={[{ v: 'chill', label: 'Relax' }, { v: 'normal', label: 'Normal' }, { v: 'fierce', label: 'A muerte' }]} />
-              <span className="tiny faint">"Relax" sube la consolación del que pierde (para los dos).</span>
+              <Seg block value={p.competition} onChange={(v) => set({ competition: v })} label="Competición" options={[{ v: 'chill', label: 'Relax' }, { v: 'normal', label: 'Normal' }, { v: 'fierce', label: 'A muerte' }]} />
+              <span className="hint">Relax sube la consolación de quien pierde, para los dos.</span>
             </label>
             <label className="field">Intensidad romántica máxima
-              <Seg<Intensity> value={p.romance} onChange={(v) => set({ romance: v })} options={[{ v: 'sweet', label: 'Sweet' }, { v: 'spicy', label: 'Spicy' }, { v: 'legendary', label: 'Legendary' }]} />
+              <Seg<Intensity> block value={p.romance} onChange={(v) => set({ romance: v })} label="Intensidad" options={[{ v: 'sweet', label: 'Sweet' }, { v: 'spicy', label: 'Spicy' }, { v: 'legendary', label: 'Legendary' }]} />
             </label>
-            <div className="row between"><span>Retos y premios picantes</span><Toggle on={p.spicy} onChange={(v) => set({ spicy: v })} /></div>
-            <div className="row between"><span>Bebidas con alcohol para mí (siempre opcional)</span><Toggle on={p.alcohol} onChange={(v) => set({ alcohol: v })} /></div>
-            <label className="field">Tipo de recompensas que prefiero
-              <Seg value={p.rewardStyle} onChange={(v) => set({ rewardStyle: v })} options={[{ v: 'all', label: 'De todo' }, { v: 'romantic', label: 'Más románticas' }, { v: 'fun', label: 'Más divertidas' }]} />
+            <div>
+              <div className="setting"><span>Retos y premios picantes</span><Toggle on={p.spicy} onChange={(v) => set({ spicy: v })} label="Picante" /></div>
+              <div className="setting"><span>Bebidas con alcohol para mí <span className="faint">(siempre opcional)</span></span><Toggle on={p.alcohol} onChange={(v) => set({ alcohol: v })} label="Alcohol" /></div>
+            </div>
+            <label className="field">Recompensas que prefiero
+              <Seg block value={p.rewardStyle} onChange={(v) => set({ rewardStyle: v })} label="Recompensas" options={[{ v: 'all', label: 'De todo' }, { v: 'romantic', label: 'Románticas' }, { v: 'fun', label: 'Divertidas' }]} />
             </label>
-            <div className="field">Categorías que prefiero evitar
-              <div className="chips">
+            <div className="field">Mundos que prefiero evitar
+              <div className="cluster">
                 {(Object.keys(CATEGORIES) as CategoryId[]).map((c) => {
                   const on = p.avoid.includes(c);
-                  return <button key={c} className={'chip' + (on ? ' spicy' : '')} onClick={() => set({ avoid: on ? p.avoid.filter((x) => x !== c) : [...p.avoid, c] })}>{on ? 'Evitar · ' : ''}{CATEGORIES[c].short}</button>;
+                  return <button key={c} className={'chip' + (on ? ' on' : '')} aria-pressed={on} onClick={() => set({ avoid: on ? p.avoid.filter((x) => x !== c) : [...p.avoid, c] })}>{on && <Icon name="close" size={12} />}{CATEGORIES[c].short}</button>;
                 })}
               </div>
             </div>
-            <label className="field">Límites personales (nota privada, solo para recordarlos)
-              <textarea className="input" value={p.limits} onChange={(e) => set({ limits: e.target.value })} placeholder="Lo que no me apetece hoy…" />
+            <label className="field">Límites personales
+              <textarea className="input" value={p.limits} onChange={(e) => set({ limits: e.target.value })} placeholder="Lo que no me apetece hoy" />
+              <span className="hint">Nota privada para recordarlo. No la lee nadie más.</span>
             </label>
-            <button className="btn" onClick={() => setOpen(null)}><Icon name="eyeoff" />Cerrar y ocultar</button>
+            <button className="btn ghost" onClick={() => setOpen(null)}><Icon name="eyeoff" size={16} />Cerrar y ocultar</button>
           </div>
         )}
       </Section>
-      <p className="tiny faint" style={{ marginTop: 18 }}>Siempre se puede pasar o sustituir cualquier prueba sin penalización. Siempre.</p>
+      <p className="small faint" style={{ marginTop: 'var(--s-6)' }}>Cualquier prueba se puede pasar o sustituir sin penalización.</p>
       <Curtain open={curtain} to={who} label={`Ajustes privados de ${PLAYER_NAME[who]}.`} onCancel={() => setCurtain(false)} onReveal={() => { setCurtain(false); setOpen(who); }} />
     </div>
   );

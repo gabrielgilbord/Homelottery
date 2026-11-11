@@ -7,43 +7,44 @@ import { useGame, sharedIntensity } from '../state/store';
 import { INTENSITY_LABEL, INTENSITY_ORDER, PLAYERS, PLAYER_NAME } from '../types';
 import { go } from '../lib/router';
 
+const DESC = { sweet: 'Complicidad y ternura', spicy: 'Con chispa y picante', legendary: 'Momentos que se recuerdan' };
+
 export default function Couples() {
   const s = useGame();
   const level = sharedIntensity(s);
+  const li = INTENSITY_ORDER.indexOf(level);
   const list = CHALLENGES.filter((c) => c.category === 'couples');
   return (
     <div>
-      <PageHead eyebrow="07 · Couples Mode" title={<>Couples <span className="accent">Mode</span></>} sub="Complicidad, confianza, romance y algo de picante. Siempre al nivel más suave de los dos, y siempre con derecho a pasar." num="07" />
+      <PageHead eyebrow="Arena" title={<>Couples <span className="italic">Mode</span></>} sub="Siempre al nivel más suave de los dos y siempre con derecho a pasar. Las recompensas románticas no se anuncian: se descubren." />
 
-      <div className="card glow stack">
-        <div className="row between wrap">
-          <div><div className="eyebrow" style={{ fontSize: 10 }}>Nivel común activo</div><div className="h-show" style={{ fontSize: 40, color: 'var(--accent)' }}>{INTENSITY_LABEL[level]}</div></div>
-          <button className="btn" onClick={() => go('prefs')}><Icon name="sliders" />Mis límites</button>
+      <section className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
+        <div className="split"><span className="eyebrow">Nivel común activo</span><button className="btn quiet sm" onClick={() => go('prefs')}><Icon name="sliders" size={14} />Mis límites</button></div>
+        <div className="intensity" role="list">
+          {INTENSITY_ORDER.map((i, k) => (
+            <div key={i} role="listitem" className={k <= li ? 'on' : ''} aria-current={k === li ? 'true' : undefined}>
+              <div className="il">{INTENSITY_LABEL[i]}</div>
+              <div className="xs" style={{ marginTop: 6 }}>{DESC[i]}</div>
+            </div>
+          ))}
         </div>
-        <div className="row" style={{ gap: 6 }}>
-          {INTENSITY_ORDER.map((i) => <div key={i} style={{ flex: 1, height: 6, borderRadius: 9, background: INTENSITY_ORDER.indexOf(i) <= INTENSITY_ORDER.indexOf(level) ? 'var(--accent)' : 'rgba(255,255,255,.08)' }} />)}
-        </div>
-        <p className="tiny faint" style={{ margin: 0 }}>
-          {PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${s.prefs[p].configured ? 'configurado' : 'pendiente'}`).join(' · ')}. Los límites individuales son privados: aquí solo se ve el nivel común.
-        </p>
-      </div>
+        <p className="xs faint">{PLAYERS.map((p) => `${PLAYER_NAME[p]}: ${s.prefs[p].configured ? 'configurado' : 'pendiente'}`).join(' · ')}. Los límites individuales son privados.</p>
+      </section>
 
       <Section title="Barajas de pareja">
-        <div className="grid two">
-          <DeckDrawer deckId="know" compact />
-          <DeckDrawer deckId="datetheme" compact />
-          <DeckDrawer deckId="secretplan" compact />
-          {level !== 'sweet' && <DeckDrawer deckId="truth-spicy" compact />}
+        <div className="grid-auto" style={{ ['--min' as string]: '300px' }}>
+          <DeckDrawer deckId="know" />
+          <DeckDrawer deckId="datetheme" />
+          <DeckDrawer deckId="secretplan" />
+          {level !== 'sweet' && <DeckDrawer deckId="truth-spicy" />}
         </div>
       </Section>
 
       {INTENSITY_ORDER.map((i) => (
-        <Section key={i} title={INTENSITY_LABEL[i]} aside={<span className={'chip ' + i}>{i === 'sweet' ? 'Tierno' : i === 'spicy' ? 'Picante' : 'Legendario'}</span>}>
+        <Section key={i} title={INTENSITY_LABEL[i]} eyebrow={DESC[i]} aside={<span className={'tag ' + i}>{list.filter((c) => c.intensity === i).length}</span>}>
           <ChallengeList list={list.filter((c) => c.intensity === i)} />
         </Section>
       ))}
-
-      <p className="tiny faint" style={{ marginTop: 20 }}>Las recompensas románticas no se anuncian: se descubren en las cajas y en la Ruleta de Medianoche.</p>
     </div>
   );
 }

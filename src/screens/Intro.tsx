@@ -1,24 +1,22 @@
-import { useMemo, useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { useGame, setIntroStep, finishIntro, openEnvelope, updatePrefs } from '../state/store';
 import { Icon } from '../components/Icon';
 import { go } from '../lib/router';
 import { ENVELOPES } from '../data/rewards';
 import { Seg, Toggle } from '../components/ui';
+import { celebrate } from '../lib/celebrate';
 import type { Intensity } from '../types';
 
-function Particles() {
-  const dots = useMemo(() => Array.from({ length: 26 }, (_, i) => ({ left: (i * 37) % 100, delay: (i * 0.7) % 9, dur: 7 + (i % 5) })), []);
-  return <div className="particles">{dots.map((d, i) => <i key={i} style={{ left: d.left + '%', bottom: 0, animationDelay: d.delay + 's', animationDuration: d.dur + 's' }} />)}</div>;
-}
+const d = (s: number) => ({ animationDelay: s + 's' }) as CSSProperties;
 
 const RULES = [
   { icon: 'users', t: 'Dos protagonistas', d: 'Gabriel y Tatiana. Rivales, cómplices y concursantes a la vez.' },
-  { icon: 'target', t: 'Pruebas para todo', d: 'Individuales y cooperativas: casa, cartas, consolas, fiesta, pareja y cine.' },
+  { icon: 'target', t: 'Pruebas para todo', d: 'Casa, cartas, consolas, fiesta, pareja y cine. Individuales y en equipo.' },
   { icon: 'coin', t: 'Monedas y puntos', d: 'Los puntos deciden quién gana el día. Las monedas compran suerte.' },
-  { icon: 'gift', t: 'Cajas misteriosas', d: 'Nadie sabe lo que hay dentro hasta que se abre. Y lo que sale, se queda.' },
-  { icon: 'cards', t: 'Cartas especiales', d: 'Roba, protege, duplica, intercambia... o recibe una misión secreta.' },
-  { icon: 'wheel', t: 'La suerte lo cambia todo', d: 'Ruletas, doble o nada y eventos sorpresa. Siempre con monedas ficticias.' },
-  { icon: 'eyeoff', t: 'Sin spoilers', d: 'Las sorpresas no se revelan antes de tiempo. Ni preguntes.' },
+  { icon: 'gift', t: 'Cajas misteriosas', d: 'Nadie sabe lo que hay dentro hasta que se abre. Lo que sale, se queda.' },
+  { icon: 'cards', t: 'Cartas especiales', d: 'Roba, protege, duplica, intercambia o recibe una misión secreta.' },
+  { icon: 'wheel', t: 'La suerte decide', d: 'Ruletas, doble o nada y eventos sorpresa, siempre con monedas ficticias.' },
+  { icon: 'eyeoff', t: 'Sin spoilers', d: 'Las sorpresas no se revelan antes de tiempo. Ni lo intentes.' },
   { icon: 'heart', t: 'Regla de oro', d: 'Cualquier prueba se puede pasar o cambiar, sin penalización y sin explicaciones.' },
 ];
 
@@ -27,73 +25,64 @@ export default function Intro() {
   const step = s.introStep;
   const [envOpen, setEnvOpen] = useState(s.envelopesOpened.includes('env-first'));
   const letter = s.host.envelopeOverrides['env-first'] || ENVELOPES[0].message;
-
-  const next = (n: number) => { setIntroStep(n); window.scrollTo({ top: 0 }); };
+  const next = (n: number) => { setIntroStep(n); document.querySelector('.intro')?.scrollTo({ top: 0 }); };
 
   return (
-    <div className="intro" data-theme="dawn">
-      <Particles />
+    <div className="intro" data-world="couples">
       {step === 0 && (
-        <div className="intro-inner reveal" key="s0">
-          <div className="eyebrow" style={{ animationDelay: '.2s', color: '#ffc9a8' }}>Una producción de Gabriel</div>
-          <p className="intro-line" style={{ animationDelay: '.6s', fontSize: 'clamp(24px,7vw,32px)', marginTop: 18 }}>
-            Buenos días, Tatiana. <Icon name="heart" size={22} style={{ color: '#ff8fb1', verticalAlign: '-3px' }} />
-          </p>
-          <p className="intro-line" style={{ animationDelay: '1.4s' }}>Hoy Gabriel ha preparado algo para ti.</p>
-          <p className="intro-line" style={{ animationDelay: '2.3s' }}>Pero hay una pequeña condición…</p>
-          <p className="intro-line" style={{ animationDelay: '3.2s', fontStyle: 'italic' }}>Hoy no vas a poder decidirlo todo.</p>
-          <div style={{ animationDelay: '4.1s', margin: '10px 0 14px' }}>
-            {['Habrá desafíos.', 'Habrá apuestas.', 'Habrá sorpresas.', 'Habrá premios que todavía no conoces.'].map((l) => (
-              <div key={l} className="h-show" style={{ fontSize: 'clamp(22px,6.5vw,30px)', letterSpacing: '.08em', color: '#ffe3c7' }}>{l}</div>
-            ))}
+        <div className="intro-inner seq" key="s0">
+          <span className="eyebrow" style={d(0.2)}>Una producción de Gabriel</span>
+          <p className="intro-line" style={{ ...d(0.7), fontSize: 'clamp(2rem, 1.4rem + 3vw, 2.75rem)' }}>Buenos días, <span className="italic">Tatiana.</span></p>
+          <p className="intro-line muted" style={d(1.5)}>Hoy Gabriel ha preparado algo para ti.</p>
+          <p className="intro-line muted" style={d(2.3)}>Pero hay una pequeña condición…</p>
+          <p className="intro-line italic" style={d(3.1)}>Hoy no vas a poder decidirlo todo.</p>
+          <div className="intro-list" style={d(3.9)}>
+            <span>Habrá desafíos.</span><span>Habrá apuestas.</span><span>Habrá sorpresas.</span><span>Habrá premios que todavía no conoces.</span>
           </div>
-          <p className="intro-line" style={{ animationDelay: '5.2s' }}>Y puede que hoy descubras que tienes un pequeño rival en casa.</p>
-          <p className="intro-line faint" style={{ animationDelay: '6.2s', marginTop: 10 }}>Bienvenida a…</p>
-          <div style={{ animationDelay: '6.9s' }}>
-            <div className="intro-logo gold-text">HOMELOTTERY</div>
-            <div className="intro-ed">GABRIEL × TATIANA</div>
-            <div className="eyebrow" style={{ marginTop: 6, color: '#ffc9a8' }}>The Couples Edition</div>
+          <p className="intro-line muted" style={d(4.9)}>Y puede que hoy descubras que tienes un pequeño rival en casa.</p>
+          <div className="stack" style={{ ...d(5.9), ['--gap' as string]: 'var(--s-3)', marginTop: 'var(--s-4)' } as CSSProperties}>
+            <span className="eyebrow">Bienvenida a…</span>
+            <div className="intro-logo">Home<i>lottery</i></div>
+            <span className="eyebrow" style={{ color: 'var(--ivory-2)' }}>Gabriel × Tatiana · The Couples Edition</span>
           </div>
-          <div style={{ animationDelay: '7.8s', marginTop: 30 }}>
-            <button className="btn gold lg" onClick={() => next(1)}>DESCUBRIR MI SORPRESA</button>
+          <div style={{ ...d(6.8), marginTop: 'var(--s-5)' }}>
+            <button className="btn value lg block" onClick={() => next(1)}>Descubrir mi sorpresa</button>
           </div>
         </div>
       )}
 
       {step === 1 && (
-        <div className="intro-inner reveal" key="s1" style={{ justifyContent: 'flex-start' }}>
-          <div className="eyebrow" style={{ color: '#ffc9a8' }}>Las reglas del show</div>
-          <h1 className="h-display" style={{ fontSize: 'clamp(30px,8vw,42px)', margin: '8px 0 20px', animationDelay: '.2s' }}>Así se juega</h1>
-          <div className="stack" style={{ width: '100%', textAlign: 'left' }}>
-            {RULES.map((r, i) => (
-              <div key={r.t} className="card tight item" style={{ animation: `reveal .7s ${0.3 + i * 0.18}s cubic-bezier(.2,.8,.2,1) forwards`, opacity: 0, transform: 'translateY(14px)' }}>
-                <div className="item-icon"><Icon name={r.icon} /></div>
-                <div><h3>{r.t}</h3><p>{r.d}</p></div>
+        <div className="intro-inner seq" key="s1">
+          <span className="eyebrow accent" style={d(0.1)}>Las reglas del show</span>
+          <h1 className="h1" style={d(0.25)}>Así se juega</h1>
+          <div style={d(0.5)}>
+            {RULES.map((r) => (
+              <div key={r.t} className="rule-row">
+                <span className="ri"><Icon name={r.icon} size={20} /></span>
+                <span className="stack" style={{ ['--gap' as string]: '2px' }}><span className="h5">{r.t}</span><span className="small muted">{r.d}</span></span>
               </div>
             ))}
           </div>
-          <div style={{ animationDelay: '2s', marginTop: 24, width: '100%' }}>
-            <button className="btn gold lg block" onClick={() => next(2)}>ENTENDIDO. QUIERO MI SOBRE</button>
-          </div>
+          <div style={d(0.9)}><button className="btn value lg block" onClick={() => next(2)}>Entendido. Quiero mi sobre</button></div>
         </div>
       )}
 
       {step === 2 && (
-        <div className="intro-inner reveal" key="s2">
-          <div className="eyebrow" style={{ color: '#ffc9a8' }}>Sobre nº 1</div>
-          <h1 className="h-display" style={{ fontSize: 'clamp(28px,8vw,40px)', margin: '8px 0 18px', animationDelay: '.2s' }}>The First Envelope</h1>
+        <div className="intro-inner seq" key="s2" style={{ textAlign: 'center' }}>
+          <span className="eyebrow accent" style={d(0.1)}>Sobre número uno</span>
+          <h1 className="h1" style={d(0.25)}>The First <span className="italic">Envelope</span></h1>
           {!envOpen ? (
-            <div style={{ animationDelay: '.5s' }}>
-              <button className="seal-env" onClick={() => { const r = openEnvelope('env-first'); void r; setEnvOpen(true); }} aria-label="Abrir sobre">
-                <div className="env-body" /><div className="env-flap" /><div className="env-seal">G</div>
+            <div style={d(0.5)}>
+              <button className="seal-env" onClick={() => { openEnvelope('env-first'); setEnvOpen(true); celebrate(1); }} aria-label="Romper el sello y abrir el sobre">
+                <div className="eb" /><div className="ef" /><div className="es">G</div>
               </button>
-              <p className="faint small">Toca el sello para abrirlo</p>
+              <p className="small faint">Toca el sello</p>
             </div>
           ) : (
-            <div style={{ width: '100%' }}>
-              <div className="letter" style={{ animation: 'pop .7s cubic-bezier(.2,1.2,.3,1)' }}>{letter}</div>
-              <p className="small" style={{ color: '#ffd9b8', marginTop: 14 }}>+20 monedas de bienvenida para Tatiana.</p>
-              <button className="btn gold lg block" style={{ marginTop: 14 }} onClick={() => next(3)}>ESTOY PREPARADA</button>
+            <div className="stack" style={{ ['--gap' as string]: 'var(--s-4)', textAlign: 'left' }}>
+              <div className="letter">{letter}</div>
+              <p className="small value-text" style={{ textAlign: 'center' }}>+20 monedas de bienvenida para Tatiana</p>
+              <button className="btn value lg block" onClick={() => next(3)}>Estoy preparada</button>
             </div>
           )}
         </div>
@@ -102,20 +91,18 @@ export default function Intro() {
       {step === 3 && <QuickPrefs onDone={() => next(4)} />}
 
       {step === 4 && (
-        <div className="intro-inner reveal" key="s4">
-          <div className="eyebrow" style={{ color: '#ffc9a8' }}>Episodio 01 · Misión de bienvenida</div>
-          <h1 className="h-display" style={{ fontSize: 'clamp(30px,8vw,44px)', margin: '10px 0 8px', animationDelay: '.2s' }}>Operación Desayuno</h1>
-          <p className="intro-line" style={{ animationDelay: '.6s' }}>Tres rondas. Ocho minutos. Una bandeja.</p>
-          <div className="card" style={{ textAlign: 'left', animationDelay: '1s', width: '100%' }}>
-            <ol className="steps">
-              <li><b>Cata a ciegas.</b> Ojos cerrados: Gabriel te da a probar 3 bocados. Adivina qué son.</li>
-              <li><b>El brindis.</b> Con el zumo o el café, predice quién ganará la primera prueba del día.</li>
-              <li><b>La pregunta del día.</b> ¿Qué es lo que más te apetece que pase hoy?</li>
-            </ol>
-          </div>
-          <div style={{ animationDelay: '1.4s', marginTop: 20, width: '100%' }} className="stack">
-            <button className="btn gold lg block" onClick={() => { finishIntro(); go('challenge', 'h-breakfast'); }}>EMPEZAR LA MISIÓN</button>
-            <button className="btn ghost block" onClick={() => { finishIntro(); go('home'); }}>Ir al plató</button>
+        <div className="intro-inner seq" key="s4">
+          <span className="eyebrow accent" style={d(0.1)}>Episodio 01 · Misión de bienvenida</span>
+          <h1 className="h1" style={d(0.25)}>Operación <span className="italic">Desayuno</span></h1>
+          <p className="lead" style={d(0.45)}>Tres rondas. Ocho minutos. Una bandeja.</p>
+          <ol className="steps" style={d(0.65)}>
+            <li><span><b>Cata a ciegas.</b> <span className="muted">Ojos cerrados: Gabriel te da a probar tres bocados. Adivina qué son.</span></span></li>
+            <li><span><b>El brindis.</b> <span className="muted">Con el zumo o el café, predice quién ganará la primera prueba del día.</span></span></li>
+            <li><span><b>La pregunta del día.</b> <span className="muted">¿Qué es lo que más te apetece que pase hoy?</span></span></li>
+          </ol>
+          <div className="stack" style={d(0.9)}>
+            <button className="btn value lg block" onClick={() => { finishIntro(); go('challenge', 'h-breakfast'); }}>Empezar la misión</button>
+            <button className="btn quiet block" onClick={() => { finishIntro(); go('home'); }}>Ir al plató</button>
           </div>
         </div>
       )}
@@ -126,26 +113,27 @@ export default function Intro() {
 function QuickPrefs({ onDone }: { onDone: () => void }) {
   const s = useGame();
   const t = s.prefs.tatiana;
+  const set = (patch: Partial<typeof t>) => updatePrefs('tatiana', { ...patch, configured: true });
   return (
-    <div className="intro-inner reveal" key="s3" style={{ justifyContent: 'flex-start' }}>
-      <div className="eyebrow" style={{ color: '#ffc9a8' }}>Antes de empezar</div>
-      <h1 className="h-display" style={{ fontSize: 'clamp(28px,8vw,40px)', margin: '8px 0 6px', animationDelay: '.2s' }}>Tus reglas, Tatiana</h1>
-      <p className="muted" style={{ animationDelay: '.4s' }}>Se juega siempre al nivel más suave de los dos. Puedes cambiarlo cuando quieras en Preferencias.</p>
-      <div className="card stack" style={{ textAlign: 'left', width: '100%', animationDelay: '.6s' }}>
+    <div className="intro-inner seq" key="s3">
+      <span className="eyebrow accent" style={d(0.1)}>Antes de empezar</span>
+      <h1 className="h1" style={d(0.25)}>Tus reglas, <span className="italic">Tatiana</span></h1>
+      <p className="muted" style={d(0.4)}>Se juega siempre al nivel más suave de los dos. Puedes cambiarlo cuando quieras.</p>
+      <div className="stack" style={{ ...d(0.6), ['--gap' as string]: 'var(--s-5)' } as CSSProperties}>
         <label className="field">Nivel romántico máximo
-          <Seg<Intensity> value={t.romance} onChange={(v) => updatePrefs('tatiana', { romance: v, configured: true })}
-            options={[{ v: 'sweet', label: 'Sweet' }, { v: 'spicy', label: 'Spicy' }, { v: 'legendary', label: 'Legendary' }]} />
+          <Seg<Intensity> block value={t.romance} onChange={(v) => set({ romance: v })} label="Nivel romántico" options={[{ v: 'sweet', label: 'Sweet' }, { v: 'spicy', label: 'Spicy' }, { v: 'legendary', label: 'Legendary' }]} />
         </label>
-        <div className="row between"><span className="small">Retos y premios picantes</span><Toggle on={t.spicy} onChange={(v) => updatePrefs('tatiana', { spicy: v, configured: true })} /></div>
-        <div className="row between"><span className="small">Bebidas con alcohol disponibles para mí (siempre opcional)</span><Toggle on={t.alcohol} onChange={(v) => updatePrefs('tatiana', { alcohol: v, configured: true })} /></div>
-        <label className="field">Nivel de competición
-          <Seg value={t.competition} onChange={(v) => updatePrefs('tatiana', { competition: v, configured: true })}
-            options={[{ v: 'chill', label: 'Relax' }, { v: 'normal', label: 'Normal' }, { v: 'fierce', label: 'A muerte' }]} />
+        <label className="field">Competición
+          <Seg block value={t.competition} onChange={(v) => set({ competition: v })} label="Competición" options={[{ v: 'chill', label: 'Relax' }, { v: 'normal', label: 'Normal' }, { v: 'fierce', label: 'A muerte' }]} />
         </label>
+        <div>
+          <div className="setting"><span className="small">Retos y premios picantes</span><Toggle on={t.spicy} onChange={(v) => set({ spicy: v })} label="Picante" /></div>
+          <div className="setting"><span className="small">Bebidas con alcohol para mí <span className="faint">(siempre opcional)</span></span><Toggle on={t.alcohol} onChange={(v) => set({ alcohol: v })} label="Alcohol" /></div>
+        </div>
       </div>
-      <div style={{ animationDelay: '.9s', marginTop: 18, width: '100%' }}>
-        <button className="btn gold lg block" onClick={() => { updatePrefs('tatiana', { configured: true }); onDone(); }}>LISTO</button>
-        <p className="tiny faint" style={{ marginTop: 10 }}>Gabriel configurará los suyos en privado. Nadie ve los límites del otro, solo el nivel común.</p>
+      <div className="stack" style={d(0.85)}>
+        <button className="btn value lg block" onClick={() => { set({}); onDone(); }}>Listo</button>
+        <p className="xs faint" style={{ textAlign: 'center' }}>Gabriel configurará los suyos en privado. Nadie ve los límites del otro.</p>
       </div>
     </div>
   );

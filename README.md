@@ -47,7 +47,7 @@ npm run cheatsheet # regenera docs/GABRIEL_SECRET_CHEAT_SHEET.md desde los datos
 - Estado en `src/state/store.ts` (store externo + `useSyncExternalStore`), autoguardado en `localStorage` con migración de versiones.
 - Aleatoriedad con `crypto.getRandomValues` (`src/lib/random.ts`).
 - Contenido en `src/data/*` (pruebas, barajas, premios, episodios, juegos, cheat sheet).
-- Design System en `src/styles.css`: tokens + temas por sección (`data-theme`), fuentes empaquetadas (Cinzel, Playfair Display, Manrope, Bebas Neue), iconos SVG propios.
+- Design System "Velvet Broadcast" en `src/styles/` (tokens, base, componentes, shell, pantallas) con acento por mundo (`data-world`), fuentes empaquetadas (Instrument Serif, Geist Sans, Geist Mono) e iconos SVG propios. Ver `docs/DESIGN_SYSTEM.md` y `docs/DESIGN_AUDIT.md`.
 
 ## Privacidad (un solo móvil)
 - El **modo pantalla compartida** (activo por defecto) muestra una cortina de *mantener para revelar* antes de enseñar contenido privado: misiones secretas, cartas privadas, pujas, sobres personales, ajustes de límites y cajas abiertas en privado.

@@ -6,53 +6,62 @@ import { NameSpinner } from '../components/NameSpinner';
 import { DeckDrawer } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
 
-const subs = ['League of Legends', 'Split Fiction', 'ARK', 'PlayStation F2P'];
+const GAME_PANELS = [
+  { sub: 'League of Legends', id: 'lol', mark: 'LoL', note: 'PC · online' },
+  { sub: 'Split Fiction', id: 'sf', mark: 'SF', note: 'PS5 · pantalla dividida' },
+  { sub: 'ARK', id: 'ark', mark: 'ARK', note: 'PS5 · requiere actualización' },
+  { sub: 'PlayStation F2P', id: 'ps', mark: 'PS', note: 'Gratis · local' },
+];
 
 export default function Gaming() {
   const list = CHALLENGES.filter((c) => c.category === 'gaming');
+  const f2p = GAMES.filter((g) => g.price.startsWith('Gratis') && g.priority !== 'NO RECOMENDADO' && g.platform !== 'PC');
   return (
     <div>
-      <PageHead eyebrow="04 · Gaming Arena" title={<>Gaming <span className="accent">Arena</span></>} sub="League of Legends, Split Fiction, ARK y los free-to-play de PlayStation que de verdad merecen la pena para dos." num="04" />
+      <PageHead eyebrow="Arena" title="Gaming Arena" sub="League of Legends, Split Fiction, ARK y los free-to-play de PlayStation que de verdad funcionan para dos en un sofá." />
 
-      <div className="card glow item" style={{ marginBottom: 8 }}>
-        <div className="item-icon"><Icon name="info" /></div>
-        <div><h3>Aviso ARK</h3><p>Las pruebas de ARK requieren el juego actualizado. Si la actualización no ha terminado, jugad Split Fiction o Rocket League: las pruebas de ARK se quedan para otro día.</p></div>
+      <div className="game-panel" data-game="lol">
+        <div className="gp-head"><span className="gp-mark">LoL</span><div className="stack grow" style={{ ['--gap' as string]: '2px' }}><h2 className="h3">Herramientas de la Grieta</h2><span className="xs faint mono">Ruleta de campeón, rol y modo</span></div></div>
+        <div className="grid-auto" style={{ ['--min' as string]: '200px' }}>
+          <NameSpinner items={LOL_CHAMPIONS} label="Campeón" button="Girar campeón" />
+          <NameSpinner items={LOL_ROLES} label="Rol" button="Girar rol" />
+          <NameSpinner items={['ARAM', 'Normal', 'Personalizada 1v1', 'Práctica (farmeo)', 'Co-op vs IA']} label="Modo" button="Girar modo" />
+        </div>
       </div>
 
-      <Section title="Herramientas League of Legends">
-        <div className="grid three">
-          <NameSpinner items={LOL_CHAMPIONS} label="Ruleta de campeones" button="Girar campeón" />
-          <NameSpinner items={LOL_ROLES} label="Ruleta de rol" button="Girar rol" />
-          <NameSpinner items={['ARAM', 'Normal reclutamiento', 'Personalizada 1v1', 'Práctica (farmeo)', 'Co-op vs IA']} label="Modo de juego" button="Girar modo" />
-        </div>
-      </Section>
-
-      <Section title="Barajas secretas">
-        <div className="grid two">
+      <Section title="Barajas secretas" eyebrow="Una regla oculta por partida">
+        <div className="grid-auto" style={{ ['--min' as string]: '300px' }}>
           <DeckDrawer deckId="absurd-lol" />
           <DeckDrawer deckId="hidden-sf" />
         </div>
       </Section>
 
-      {subs.map((sub) => (
-        <Section key={sub} title={sub}>
-          <ChallengeList list={list.filter((c) => c.sub === sub)} />
-        </Section>
-      ))}
-
-      <Section title="Free-to-play recomendados (verificados)">
-        <div className="grid two">
-          {GAMES.filter((g) => g.price.startsWith('Gratis') && g.priority !== 'NO RECOMENDADO').map((g) => (
-            <div key={g.name} className="card tight stack" style={{ gap: 8 }}>
-              <div className="row between"><h3 style={{ margin: 0, fontSize: 16 }}>{g.name}</h3><span className="chip accent">{g.price}</span></div>
-              <div className="small muted">{g.local}</div>
-              <div className="tiny faint">PS Plus: {g.psPlus}</div>
-              <a className="btn sm" href={g.link} target="_blank" rel="noreferrer"><Icon name="download" size={16} />Página oficial PlayStation</a>
+      {GAME_PANELS.map((g) => (
+        <section key={g.id} className="section">
+          <div className="game-panel" data-game={g.id}>
+            <div className="gp-head">
+              <span className="gp-mark">{g.mark}</span>
+              <div className="stack grow" style={{ ['--gap' as string]: '2px' }}><h2 className="h3">{g.sub}</h2><span className="xs faint mono">{g.note}</span></div>
             </div>
-          ))}
-        </div>
-        <p className="tiny faint" style={{ marginTop: 10 }}>Precios y modos comprobados en las páginas oficiales de PlayStation y Epic Games (nov. 2026). Los tamaños de descarga no se publican en todas las fichas: miradlos en la consola.</p>
-      </Section>
+            {g.id === 'ark' && <p className="small muted" style={{ marginBottom: 'var(--s-4)' }}>Si la actualización no ha terminado, estas pruebas se quedan para otro día. Plan B: Split Fiction o Rocket League.</p>}
+            <ChallengeList list={list.filter((c) => c.sub === g.sub)} />
+            {g.id === 'ps' && (
+              <div className="list" style={{ marginTop: 'var(--s-5)' }}>
+                {f2p.map((x) => (
+                  <a key={x.name} className="row-item" href={x.link} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
+                    <span className="grow stack" style={{ ['--gap' as string]: '2px' }}>
+                      <span className="cluster"><span className="h5">{x.name}</span><span className="tag value">{x.price}</span></span>
+                      <span className="xs faint">{x.local} · PS Plus: {x.psPlus}</span>
+                    </span>
+                    <Icon name="download" size={18} className="chev" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      ))}
+      <p className="xs faint" style={{ marginTop: 'var(--s-5)' }}>Precios y modos comprobados en las páginas oficiales de PlayStation y Epic Games (nov. 2026). Los tamaños de descarga se ven en la consola.</p>
     </div>
   );
 }
