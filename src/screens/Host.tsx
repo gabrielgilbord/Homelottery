@@ -9,6 +9,7 @@ import { GAMES } from '../data/gaming';
 import { TONIGHT, TONIGHT_TIMELINE, MATERIALS, BREAKFAST, HOST_TIMELINE, PLAN_B, PRESENTER_TIPS } from '../data/cheatsheet';
 import { CHALLENGES } from '../data/challenges';
 import { ConfirmButton, PlayerSwitch, Section, Seg, Toggle, fmtTime } from '../components/ui';
+import { Monogram, OnAir } from '../components/Logo';
 import { Icon } from '../components/Icon';
 import { PLAYER_NAME, type BoxTier, type CardType, type PlayerId } from '../types';
 
@@ -34,7 +35,7 @@ export default function Host({ unlocked, onUnlock, onLock }: { unlocked: boolean
     <div className="host">
       <div className="host-bar no-print">
         <div className="stack" style={{ ['--gap' as string]: '2px' }}>
-          <span className="classified"><Icon name="lock" size={12} />CONFIDENTIAL · SOLO GABRIEL</span>
+          <span className="classified"><Icon name="lock" size={12} />Confidencial: solo Gabriel</span>
           <span className="h4">Sala de control</span>
         </div>
         <button className="btn danger sm" onClick={onLock}><Icon name="lock" size={14} />Bloquear</button>
@@ -60,10 +61,13 @@ function PinGate({ hasPin, onUnlock }: { hasPin: boolean; onUnlock: () => void }
   const [err, setErr] = useState('');
   const tryIn = () => (checkHostPin(pin) ? onUnlock() : (setErr('PIN incorrecto. Inténtalo otra vez.'), setPin('')));
   return (
-    <div className="host" style={{ maxWidth: 400, margin: '8vh auto 0' }}>
-      <div className="panel" style={{ padding: 'var(--s-7) var(--s-6)', alignItems: 'center', textAlign: 'center', gap: 'var(--s-4)' }}>
-        <span className="classified"><Icon name="lock" size={12} />SOLO GABRIEL</span>
-        <h1 className="h2">Host Mode</h1>
+    <div className="host host-gate">
+      <div className="door-sign" aria-hidden><OnAir label="Rec: no entrar" /></div>
+      <div className="door">
+        <Monogram size={64} ground="var(--ink)" />
+        <span className="bc">Control room</span>
+        <h1 className="h1">Host Mode</h1>
+        <span className="classified"><Icon name="lock" size={12} />Solo Gabriel</span>
         {!hasPin ? (
           <>
             <p className="small muted">Primera vez: crea un PIN de presentador de al menos 4 dígitos.</p>
@@ -128,7 +132,7 @@ export function CheatSheet() {
   return (
     <div>
       <div className="panel" style={{ padding: 'var(--s-6) var(--s-5)' }}>
-        <span className="classified">CONFIDENTIAL — DO NOT SHOW TATIANA</span>
+        <span className="classified">Confidential. Do not show Tatiana</span>
         <h2 className="h2">Gabriel’s Secret Cheat Sheet</h2>
         <p className="small muted">Todo lo necesario para que mañana tú también disfrutes. <span className="num">{done}/{total}</span> tareas marcadas.</p>
         <div className="progress"><i style={{ width: (done / total) * 100 + '%' }} /></div>

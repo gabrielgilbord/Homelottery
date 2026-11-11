@@ -8,9 +8,10 @@ import { LogoMark } from './Logo';
 
 /* ---------------- Page & section heads ---------------- */
 /** Page header. The heading carries its own weight: no eyebrow above it. */
-export function PageHead({ title, sub, children, aside }: { eyebrow?: ReactNode; title: ReactNode; sub?: ReactNode; children?: ReactNode; aside?: ReactNode }) {
+export function PageHead({ title, sub, children, aside, show }: { eyebrow?: ReactNode; title: ReactNode; sub?: ReactNode; children?: ReactNode; aside?: ReactNode; show?: ReactNode }) {
   return (
     <header className="page-head">
+      {show && <div className="ph-show"><span className="bc">{show}</span></div>}
       <div className="split top">
         <h1 className="h1">{title}</h1>
         {aside}
@@ -20,7 +21,6 @@ export function PageHead({ title, sub, children, aside }: { eyebrow?: ReactNode;
     </header>
   );
 }
-
 export function Section({ title, eyebrow, aside, children, id }: { title: ReactNode; eyebrow?: ReactNode; aside?: ReactNode; children: ReactNode; id?: string }) {
   return (
     <section className="section" id={id}>
@@ -89,11 +89,12 @@ export function Curtain({ open, to, label, onReveal, onCancel }: { open: boolean
   const C = 2 * Math.PI * 70;
   return (
     <div className="curtain" role="dialog" aria-modal="true" aria-label={`Pantalla privada para ${name}`}>
+      <span className="bc">Private broadcast</span>
       <h2 className="h1">Solo para {name}</h2>
       <p className="muted" style={{ maxWidth: 320 }}>{label || 'Pasa el móvil. La otra persona mira hacia otro lado.'}</p>
       <button className="hold" onPointerDown={begin} onPointerUp={end} onPointerLeave={end} onPointerCancel={end} onContextMenu={(e) => e.preventDefault()}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onReveal(); }} aria-label="Mantén pulsado para revelar">
-        <svg className="ring" viewBox="0 0 150 150" aria-hidden><circle cx="75" cy="75" r="70" fill="none" stroke="rgba(243,235,225,.12)" strokeWidth="3" /><circle cx="75" cy="75" r="70" fill="none" stroke="var(--ivory)" strokeWidth="3" strokeDasharray={C} strokeDashoffset={C * (1 - p)} strokeLinecap="round" /></svg>
+        <svg className="ring" viewBox="0 0 150 150" aria-hidden><circle cx="75" cy="75" r="70" fill="none" stroke="rgba(243,235,225,.12)" strokeWidth="3" /><circle cx="75" cy="75" r="70" fill="none" stroke="var(--orange-2)" strokeWidth="4" strokeDasharray={C} strokeDashoffset={C * (1 - p)} strokeLinecap="round" /></svg>
         <span className="stack" style={{ alignItems: 'center', ['--gap' as string]: '6px' }}><Icon name="eye" size={24} />Mantén pulsado</span>
       </button>
       <button className="btn quiet sm" onClick={onCancel}>Cancelar</button>
@@ -188,7 +189,13 @@ export function Timer({ seconds: initial = 60 }: { seconds?: number }) {
 }
 
 let audioCtx: AudioContext | null = null;
+/** Show sounds are optional and OFF by default (a per-device preference, not game state). */
+const SOUND_KEY = 'homelottery.sound';
+export function soundOn() { try { return localStorage.getItem(SOUND_KEY) === '1'; } catch { return false; } }
+export function setSound(on: boolean) { try { localStorage.setItem(SOUND_KEY, on ? '1' : '0'); } catch { /* storage unavailable */ } }
+
 export function beep(freq = 880, ms = 200, vol = 0.06) {
+  if (!soundOn()) return;
   try {
     audioCtx = audioCtx || new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
     const o = audioCtx.createOscillator(), g = audioCtx.createGain();

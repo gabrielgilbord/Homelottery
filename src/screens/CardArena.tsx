@@ -123,7 +123,7 @@ export default function CardArena() {
   const list = CHALLENGES.filter((c) => c.category === 'cards');
   return (
     <div>
-      <PageHead eyebrow="Arena" title="Card Arena" sub="Duelos de cartas, dados y papel pensados para dos. Casi todos empiezan en menos de dos minutos." />
+      <PageHead show="The Card Table" title="Cartas y dados" sub="Duelos de cartas, dados y papel pensados para dos. Casi todos empiezan en menos de dos minutos." />
       <div className="felt"><div className="grid-auto" style={{ ['--min' as string]: '240px' }}><DiceTool /><CoinTool /><CardDrawTool /></div></div>
       <Section title="Series y torneos" eyebrow="Torneos al mejor de 3, 5 o 7"><SeriesTool /></Section>
       <Section title="Baraja española"><ChallengeList list={list.filter((c) => c.sub === 'Baraja española')} /></Section>

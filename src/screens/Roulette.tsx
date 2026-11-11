@@ -9,15 +9,17 @@ import { PLAYER_NAME, type PlayerId } from '../types';
 import { rand } from '../lib/random';
 import type { SegmentKind } from '../data/rewards';
 
-function polar(cx: number, cy: number, r: number, a: number) { const rad = ((a - 90) * Math.PI) / 180; return [cx + r * Math.cos(rad), cy + r * Math.sin(rad)]; }
+function polar(cx: number, cy: number, r: number, a: number) { const rad = ((a - 90) * Math.PI) / 180; return [Math.round((cx + r * Math.cos(rad)) * 100) / 100, Math.round((cy + r * Math.sin(rad)) * 100) / 100]; }
 
-/* Segment colors encode MEANING, not decoration: value = champagne family, attacks = wine, luck = ink. */
+/* Segment colours encode MEANING, not decoration:
+   value (coins, boxes, keys) = champagne family · prizes = burnt orange · attacks = burgundy · luck = cream / ink · nothing = black. */
 const KIND_FILL: Record<SegmentKind, string> = {
-  coins: '#d9b46a', box: '#b88e45', key: '#f2d7a0', legendary: '#f2d7a0', prize: '#8a1e3c',
-  double: '#2b1621', multiplier: '#361d2a', event: '#452534', card: '#22111a', swap: '#3a1d2b',
-  steal: '#b5223a', revenge: '#7a1630', nothing: '#1a0b12',
+  coins: '#d6b77a', box: '#c19a55', key: '#ead2a0', legendary: '#f0d9a6', prize: '#e27a50',
+  double: '#f2e9d8', multiplier: '#e3d6bf', event: '#2b2328', card: '#3a2f35', swap: '#d9cab0',
+  steal: '#8e2a3c', revenge: '#6a1f30', nothing: '#171417',
 };
-const KIND_TEXT: Partial<Record<SegmentKind, string>> = { coins: '#2a1708', box: '#2a1708', key: '#2a1708', legendary: '#5a1430' };
+const DARK_TEXT = new Set<SegmentKind>(['coins', 'box', 'key', 'legendary', 'prize', 'double', 'multiplier', 'swap']);
+const BULBS = 28;
 
 export default function Roulette() {
   const s = useGame();
@@ -59,66 +61,76 @@ export default function Roulette() {
 
   return (
     <div>
-      <PageHead eyebrow="Mesa de ruleta" title="Mystery Roulette" sub="Cada porción ocupa exactamente su probabilidad. Lo que ves es lo que hay." />
+      <PageHead show="The Wheel" title="La ruleta" sub="Cada porción ocupa exactamente su probabilidad. Lo que ves es lo que hay." />
 
       <div className="wheel-tabs" role="radiogroup" aria-label="Ruleta">
         {WHEELS.map((w) => {
           const lk = s.episode < w.unlockEpisode;
           return (
             <button key={w.id} className="wheel-tab" role="radio" aria-checked={w.id === wheelId} aria-pressed={w.id === wheelId} data-locked={lk} onClick={() => !spinning && setWheelId(w.id)}>
-              <span className="h5">{w.name.replace('Ruleta de ', '').replace('Ruleta ', '')}</span>
-              <span className="small faint num">{lk ? `Desde el episodio ${w.unlockEpisode}` : `${w.cost} monedas`}</span>
+              <span className="wtab-name">{w.name.replace('Ruleta de ', '').replace('Ruleta ', '')}</span>
+              <span className="wtab-meta">{lk ? <><Icon name="lock" size={12} />Episodio {w.unlockEpisode}</> : `${w.cost} monedas`}</span>
             </button>
           );
         })}
       </div>
 
-      <div className="wheel-stage">
-        <p className="small muted" style={{ textAlign: 'center', maxWidth: 420 }}>{wheel.tagline}</p>
-        <div className="wheel-wrap" style={{ opacity: locked ? 0.35 : 1 }}>
-          <svg key={tick} className={'wheel-pointer' + (spinning ? ' tick' : '')} width="30" height="36" viewBox="0 0 30 36" aria-hidden><path d="M15 36 L2 6 Q15 -4 28 6 Z" fill="#f7ecdf" /><circle cx="15" cy="10" r="3.5" fill="#b5223a" /></svg>
+      <div className={'wheel-stage' + (spinning ? ' is-spinning' : '') + (res && !spinning ? ' has-result' : '')} data-wheel={wheel.id}>
+        <p className="wheel-tagline">{wheel.tagline}</p>
+        <div className="wheel-wrap" style={{ opacity: locked ? 0.4 : 1 }}>
+          <svg className="wheel-bulbs" viewBox="0 0 200 200" aria-hidden>
+            {Array.from({ length: BULBS }, (_, i) => { const [x, y] = polar(100, 100, 98, (i * 360) / BULBS); return <circle key={i} cx={x} cy={y} r="2.2" style={{ ['--i' as string]: i % 4 }} />; })}
+          </svg>
           <svg className="wheel" viewBox="0 0 200 200" style={{ transform: `rotate(${rot}deg)`, transitionDuration: spinning ? undefined : '0s' }} role="img" aria-label={`${wheel.name} con ${segs.length} resultados`}>
-            <circle cx="100" cy="100" r="99" fill="#140810" stroke="#d9b46a" strokeWidth="1.2" />
+            <circle cx="100" cy="100" r="93" className="wheel-rim" />
             {arcs.map(({ sg, a0, a1 }) => {
-              const [x0, y0] = polar(100, 100, 92, a0), [x1, y1] = polar(100, 100, 92, a1);
+              const [x0, y0] = polar(100, 100, 88, a0), [x1, y1] = polar(100, 100, 88, a1);
               const large = a1 - a0 > 180 ? 1 : 0;
               const mid = (a0 + a1) / 2;
-              const [tx, ty] = polar(100, 100, 64, mid);
-              const narrow = a1 - a0 < 28;
+              const [tx, ty] = polar(100, 100, 83, mid);
+              const span = a1 - a0;
+              const fs = span < 14 ? 6.4 : span < 22 ? 7.6 : 8.6;
               return (
                 <g key={sg.id}>
-                  <path d={`M100 100 L${x0} ${y0} A92 92 0 ${large} 1 ${x1} ${y1} Z`} fill={KIND_FILL[sg.kind]} stroke="rgba(26,11,18,.9)" strokeWidth="0.8" />
-                  <text x={tx} y={ty} fill={KIND_TEXT[sg.kind] || '#f3ebe1'} fontSize={narrow || sg.label.length > 10 ? 5.6 : 7} fontWeight="700" fontFamily="Geist Sans, sans-serif" textAnchor="middle" dominantBaseline="middle" transform={`rotate(${mid < 180 ? mid - 90 : mid + 90} ${tx} ${ty})`}>{sg.label}</text>
+                  <path d={`M100 100 L${x0} ${y0} A88 88 0 ${large} 1 ${x1} ${y1} Z`} fill={KIND_FILL[sg.kind]} stroke="#171417" strokeWidth="0.7" />
+                  <text x={tx} y={ty} fill={DARK_TEXT.has(sg.kind) ? '#171417' : '#f2e9d8'} fontSize={fs} className="wheel-label" textAnchor={mid > 180 ? 'start' : 'end'} dominantBaseline="middle" transform={`rotate(${mid > 180 ? mid + 90 : mid - 90} ${tx} ${ty})`}>{sg.label}</text>
                 </g>
               );
             })}
-            {Array.from({ length: 48 }, (_, i) => { const [x0, y0] = polar(100, 100, 95, i * 7.5), [x1, y1] = polar(100, 100, i % 2 ? 97 : 98.5, i * 7.5); return <line key={i} x1={x0} y1={y0} x2={x1} y2={y1} stroke="rgba(217,180,106,.55)" strokeWidth="0.5" />; })}
+            {arcs.map(({ sg, a0 }) => { const [px, py] = polar(100, 100, 90.5, a0); return <circle key={'peg' + sg.id} cx={px} cy={py} r="1.5" className="wheel-peg" />; })}
           </svg>
-          <div className="wheel-hub">{locked ? <Icon name="lock" /> : <LogoMark size={34} />}</div>
+          <svg key={tick} className={'wheel-pointer' + (spinning ? ' tick' : '')} width="34" height="46" viewBox="0 0 34 46" aria-hidden>
+            <path d="M17 44 L5 12 A12 12 0 1 1 29 12 Z" fill="#f2e9d8" stroke="#171417" strokeWidth="1.5" />
+            <circle cx="17" cy="12" r="5" fill="#c65b35" stroke="#171417" strokeWidth="1.2" />
+          </svg>
+          <div className="wheel-hub">{locked ? <Icon name="lock" /> : <LogoMark size={30} frame="var(--cream)" />}</div>
         </div>
-        <PlayerSwitch value={who} onChange={(p) => !spinning && setWho(p)} label="Gira" />
-        <button className="btn accent lg" onClick={spin} disabled={spinning || locked}>
-          {locked ? `Se abre en el episodio ${wheel.unlockEpisode}` : spinning ? 'Girando' : `Girar por ${cost} monedas`}
-        </button>
-        <span className="small faint">{PLAYER_NAME[who]} tiene <span className="value-text num">{s.players[who].coins}</span> monedas</span>
+        <div className="wheel-controls">
+          <PlayerSwitch value={who} onChange={(p) => !spinning && setWho(p)} label="Gira" />
+          <button className="btn cta lg wheel-go" onClick={spin} disabled={spinning || locked}>
+            {locked ? `Se abre en el episodio ${wheel.unlockEpisode}` : spinning ? 'Girando…' : `Girar por ${cost} monedas`}
+          </button>
+          <span className="small faint">{PLAYER_NAME[who]} tiene <span className="value-text num">{s.players[who].coins}</span> monedas</span>
+        </div>
         {res && !spinning && (
-          <div className="prize-card" style={{ ['--box' as string]: 'var(--accent)' }} aria-live="polite">
-            <span className="small accent-text" style={{ fontWeight: 700 }}>Ha salido {res.segment.label}</span>
-            <p className="h3" style={{ textAlign: 'center' }}>{res.text}</p>
+          <div className="win-ticket" aria-live="polite">
+            <span className="wt-k">Ha salido</span>
+            <span className="wt-big">{res.segment.label}</span>
+            <p className="wt-text">{res.text}</p>
           </div>
         )}
       </div>
 
       <Section title="Probabilidades" eyebrow={wheel.name}>
         <div className="odds">
-          {segs.map((sg) => <div key={sg.id}><span><span className="sw" style={{ background: KIND_FILL[sg.kind], boxShadow: '0 0 0 1px var(--line-3)' }} />{sg.label}</span><b className="num mono">{Math.round((sg.weight / total) * 100)}%</b></div>)}
+          {segs.map((sg) => <div key={sg.id}><span><span className="sw" style={{ background: KIND_FILL[sg.kind] }} />{sg.label}</span><b className="num mono">{Math.round((sg.weight / total) * 100)}%</b></div>)}
         </div>
       </Section>
 
       <Modal open={!!dbl} onClose={() => dbl?.out && setDbl(null)} dismissable={!!dbl?.out} eyebrow="Doble o nada" title={dbl?.out ? (dbl.out.win ? 'Doble.' : 'Nada.') : `¿Cuánto se juega ${PLAYER_NAME[who]}?`}>
         {dbl && !dbl.out && (
           <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
-            <div className="score num" style={{ textAlign: 'center', color: 'var(--champagne)' }}>{dbl.bet}</div>
+            <div className="score num" style={{ textAlign: 'center', color: 'var(--value)' }}>{dbl.bet}</div>
             <Range label="Apuesta" min={0} max={Math.min(100, s.players[who].coins)} value={dbl.bet} onChange={(v) => setDbl({ bet: v })} />
             <p className="small muted" style={{ textAlign: 'center' }}>50% de doblarlo. Máximo 100 monedas. Puedes plantarte.</p>
             <div className="grid-2">

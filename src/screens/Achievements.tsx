@@ -9,7 +9,7 @@ export default function Achievements() {
   const count = (p: string) => ACHIEVEMENTS.filter((a) => s.achievements[`${a.id}:${p}`]).length;
   return (
     <div>
-      <PageHead title="Logros" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno paga su recompensa en cuanto se consigue.`}>
+      <PageHead show="Hall of fame" title="Logros" sub={`${ACHIEVEMENTS.length} logros por jugador. Cada uno paga su recompensa en cuanto se consigue.`}>
         <div className="cluster" style={{ ['--gap' as string]: 'var(--s-5)' }}>{PLAYERS.map((p) => <span key={p} className="stack" style={{ ['--gap' as string]: '2px' }}><span className={'pname small ' + p}>{PLAYER_NAME[p]}</span><span className="h3 num">{count(p)}<span className="faint">/{ACHIEVEMENTS.length}</span></span></span>)}</div>
       </PageHead>
       <div className="list">

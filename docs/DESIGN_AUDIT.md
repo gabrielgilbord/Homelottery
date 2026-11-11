@@ -1,4 +1,44 @@
-# HOMELOTTERY · Auditoría y rediseño v3 ("Late Show en casa")
+# HOMELOTTERY · Auditoría de diseño
+
+## v4 · THE PRIVATE SHOW × THE PLAY CLUB (identidad de marca)
+
+### Skills instaladas y usadas
+
+Entorno: Claude Code 2.1, que carga skills desde `~/.claude/skills` (usuario) y `.claude/skills` (proyecto). Se instalaron **a nivel de usuario**, copiando la carpeta que cada repositorio publica para Claude Code. Es su método documentado y no ejecuta nada. No se metieron en el repositorio del juego (son unos 50 MB de código ajeno), y no había skills previas con esos nombres. La herramienta Skill de Claude Code las lista, así que están accesibles. Como el contenedor es efímero, en una sesión nueva hay que repetir la copia (o instalar el plugin oficial con `/plugin`).
+
+| Skill | Fuente oficial | Estado | Cómo se usó |
+|---|---|---|---|
+| Impeccable 4.8.2 | github.com/pbakaus/impeccable (Apache 2.0) | Instalada (`impeccable`) | Flujo `new-work` con dirección fijada por el brief; modos *Experience* (portada, caja, ruleta, sobres) y *Operate* (Home, selección); `craft-floor`: contraste medido, superficies del navegador tematizadas, sin eyebrows, sin texto con degradado y sin sombras duras. **No se ejecutó su binario** (`scripts/impeccable` descarga un ejecutable compilado que no se puede revisar); se siguió el fallback que la propia skill documenta |
+| Frontend Design | github.com/anthropics/skills (`skills/frontend-design`) | Instalada (`frontend-design`) | Plan de tokens revisado contra los cinco tópicos de diseño generado; una sola audacia por pantalla; textos desde el lado de quien usa la app |
+| UI UX Pro Max | github.com/nextlevelbuilder/ui-ux-pro-max-skill (MIT) | Instalada (`ui-ux-pro-max`). Su buscador en Python es local y se revisó antes de ejecutarlo | Se pasaron los tres conceptos por `--design-system`. Sus propuestas (violeta neón, Cormorant con Montserrat, Inter con Playfair, fieltro verde con oro) eran justo los tópicos a evitar y se usaron como contra-referencia. Sí se aplicó su checklist de UX (44 px, contraste, estados, movimiento reducido) |
+| Emil Kowalski | github.com/emilkowalski/skill (MIT) | Instaladas `emil-design-eng`, `animate`, `choreograph`, `review-animations`, `mobile-native`, `animation-vocabulary` | Curvas, duraciones, `:active` 0,97, nada desde `scale(0)`, hover solo con ratón, CSS interrumpible y cartela coreografiada (ver `MOTION_GUIDELINES.md`) |
+| Taste (tasteskill 2.5.1) | github.com/Leonxlnx/taste-skill (MIT) | Instalada (`design-taste-frontend`). Sus scripts no se ejecutaron | Es para webs de empresa. Se aplicó su puerta de calidad móvil: 44 px, nada fuera de pantalla a 320 px, un solo sistema de botones y tarjetas, dos niveles de anidado, nada de violeta y movimiento reducido sin contenido oculto |
+| Design Engineer | No hay una oficial y verificable | No instalada | Solo aparecen versiones de la comunidad (una se declara para dashboards y SaaS). La más cercana con fuente verificable es `emil-design-eng` («Skills for Design Engineers»), ya instalada |
+
+### Lo que la v3 tenía de plantilla
+
+| # | Problema | Dónde |
+|---|---|---|
+| 1 | Todas las pantallas compartían una composición: barra, titular condensado, párrafo y paneles redondeados con borde | Gaming, Couples, Party, Movie, Host y Prefs |
+| 2 | Un único granate en toda la app; el acento de cada mundo era un punto de 8 px | Todo |
+| 3 | El logo era un ticket pequeño más el nombre escrito en una fuente | Barra, rail, intro |
+| 4 | Controles de librería: pastilla segmentada, chips redondeados, input en caja, login genérico de Host | Todo |
+| 5 | Navegación con idiomas mezclados (Inicio / The Show / Challenges / Boxes) | Barra inferior |
+| 6 | Los sobres eran tarjetas idénticas con un círculo; las cajas, regalos genéricos sobre fondo plano | Show, Boxes |
+| 7 | La ruleta tenía rótulos de 9 px y no tenía elementos físicos | Roulette |
+| 8 | El marcador era una tabla gris | Leaderboard |
+| 9 | Bug: modales y revelaciones encerrados dentro de la página (ver `QA_REPORT.md`) | Todas las capas |
+
+### Dirección y decisiones
+
+- **El brief fijó la dirección completa**, así que no hubo sorteo de direcciones: el flujo `new-work` de Impeccable lo contempla.
+- **Concepto de marca único: «La pantalla»**, un televisor dibujado como letra Didone. Es la O de HOME y el marco del monograma.
+- **Color por esquemas:** el suelo de cada pantalla cambia según su función (papel para leer, tinta para competir, burdeos para la intimidad, naranja para el directo). No hay un oscuro uniforme.
+- **Tres voces tipográficas:** Bodoni Moda (show), Bricolage condensada (revista) y Geist (instrucciones).
+- **Objetos en lugar de tarjetas:** tickets, placas, sobres, cajas, naipes y sellos. Las listas son filas editoriales con filetes.
+- **El inglés es solo marca:** ON AIR, Tonight's show, Special guests y los nombres de cada sección (The Arcade Break, After Hours…). Todas las etiquetas funcionales están en español.
+
+# Historial: auditoría y rediseño v3 ("Late Show en casa")
 
 Capturas reales: `docs/design/before/` (versión anterior), `docs/design/after/` (iPhone 13) y `docs/design/after-desktop/` (1440 px). En las dos se usa la misma partida simulada, a media tarde del episodio 5.
 

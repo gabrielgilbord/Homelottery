@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useGame, leader } from '../state/store';
 import { ACHIEVEMENTS } from '../data/rewards';
-import { AnimatedNumber, Avatar, Empty, PageHead, Section, Seg, fmtTime } from '../components/ui';
-import { Icon } from '../components/Icon';
+import { AnimatedNumber, Empty, PageHead, Section, Seg, fmtTime } from '../components/ui';
+import { Seal } from '../components/Logo';
 import { PLAYERS, PLAYER_NAME, type PlayerId } from '../types';
 
 export default function Leaderboard() {
@@ -23,20 +23,20 @@ export default function Leaderboard() {
   const hist = s.history.filter((h) => !h.secret).filter((h) => f === 'all' || (f === 'result' ? h.kind === 'result' || h.kind === 'skip' : ['box', 'roulette', 'card', 'envelope', 'achievement', 'lottery', 'mission', 'event'].includes(h.kind)));
   return (
     <div>
-      <PageHead title="Marcador" sub={l ? <>Lidera <b className={'pname ' + l}>{PLAYER_NAME[l]}</b> por {gap} puntos. En la Gran Final los puntos valen doble.</> : 'Empate. Todo se decide en la siguiente prueba.'} />
+      <PageHead show="Scoreboard" title="Marcador" sub={l ? <>Lidera <b className={'pname ' + l}>{PLAYER_NAME[l]}</b> por {gap} puntos. En la Gran Final los puntos valen doble.</> : 'Empate. Todo se decide en la siguiente prueba.'} />
 
-      <section className="scorebug" style={{ marginTop: 0 }} aria-label="Puntos">
-        {PLAYERS.map((p, i) => {
-          const side = (
-            <div key={p} className={'side' + (i === 1 ? ' right' : '')}>
-              <div className="who"><Avatar p={p} size="sm" /><span className={'pname ' + p}>{PLAYER_NAME[p]}</span></div>
-              <div className={'score' + (l && l !== p ? ' trailing' : '')}><AnimatedNumber value={s.players[p].points} /></div>
+      <section className="board" aria-label="Puntos" style={{ ['--dg' as string]: Math.max(3, String(Math.max(s.players.gabriel.points, s.players.tatiana.points)).length) }}>
+        <div className="board-row">
+          {PLAYERS.map((p, i) => (
+            <div key={p} className={'board-side ' + p + (i === 1 ? ' right' : '') + (l === p ? ' leading' : l ? ' trailing' : '')}>
+              <span className="board-name"><b>{PLAYER_NAME[p][0]}</b>{PLAYER_NAME[p]}</span>
+              <span className="board-score"><AnimatedNumber value={s.players[p].points} /></span>
             </div>
-          );
-          return i === 0 ? [side, <div key="m" className="mid">{l ? <span className="crown"><Icon name="crown" size={14} />+{gap}</span> : '='}</div>] : side;
-        })}
+          ))}
+        </div>
+        <div className="plate-tug" aria-hidden><i style={{ transform: `scaleX(${share})` }} /></div>
+        {l && <Seal ring="Winner · líder del marcador · Homelottery ·" size={84} className={'board-seal ' + (l === 'gabriel' ? 'at-left' : 'at-right')}>+{gap}</Seal>}
       </section>
-      <div className="tug" aria-hidden style={{ marginBottom: 'var(--s-6)' }}><i style={{ transform: `scaleX(${share})` }} /></div>
 
       <table className="h2h">
         <caption className="sr-only">Comparativa Gabriel contra Tatiana</caption>

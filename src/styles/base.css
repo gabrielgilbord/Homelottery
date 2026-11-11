@@ -1,19 +1,21 @@
 /* =====================================================================
-   BASE · reset, native-feel fixes, type roles, layout primitives, motion
+   BASE · reset, native-feel fixes, the three type voices, editorial
+   primitives (broadcast labels, rules, tickets), motion primitives
    ===================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 html {
   -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;   /* no grey flash on tap */
   overscroll-behavior: none;                  /* no accidental pull-to-refresh mid-game */
-  scrollbar-color: var(--velvet-4) transparent;
+  scrollbar-color: var(--bg-4) transparent;
   caret-color: var(--accent);
+  background: var(--bg);
 }
 html, body, #root { min-height: 100%; }
 body {
   margin: 0;
-  background: var(--velvet-0);
-  color: var(--ivory);
+  background: var(--bg);
+  color: var(--fg);
   font-family: var(--f-ui);
   font-size: var(--t-base);
   line-height: 1.55;
@@ -21,20 +23,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   overscroll-behavior: none;
+  transition: background-color var(--d-sheet) var(--ease-out), color var(--d-sheet) var(--ease-out);
 }
 img, svg { max-width: 100%; }
 button, input, select, textarea { font: inherit; color: inherit; }
-button, [role='button'], a, label, .chip, .seg button {
-  touch-action: manipulation;      /* kills the double-tap delay */
-}
+button, [role='button'], a, label, .chip, .seg button { touch-action: manipulation; }
 button, [role='button'], .chip, .seg button, .navbtn, .navlink {
   cursor: pointer;
-  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;  /* controls don't select on long-press */
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
 }
-a { color: var(--ivory); text-decoration-color: var(--line-3); text-underline-offset: 3px; }
-::selection { background: color-mix(in srgb, var(--accent) 35%, var(--curtain)); color: var(--ivory); }
+a { color: var(--fg); text-decoration-color: var(--line-3); text-underline-offset: 3px; }
+::selection { background: var(--orange); color: var(--cream); }
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-thumb { background: var(--velvet-4); border-radius: 8px; }
+::-webkit-scrollbar-thumb { background: var(--bg-4); border-radius: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 :focus { outline: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--r-xs); }
@@ -42,50 +43,67 @@ h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
-/* Stage light: one warm spot from above, static (no repaint loop) */
+/* Print grain over everything: the show is printed, not rendered. Static, no repaint. */
 .stage-light {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    radial-gradient(90vmax 60vmax at 50% -25%, rgba(255, 220, 190, 0.07), transparent 60%),
-    radial-gradient(60vmax 50vmax at 100% 0%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%);
-  transition: background var(--d-sheet) var(--ease-out);
+    radial-gradient(80vmax 50vmax at 50% -20%, color-mix(in srgb, var(--cream) 7%, transparent), transparent 60%);
 }
+.stage-light::after { content: ''; position: absolute; inset: 0; background-image: var(--grain); opacity: var(--grain-opacity); mix-blend-mode: overlay; }
+html[data-scheme='paper'] .stage-light::after { mix-blend-mode: multiply; }
 
-/* ---------------- type roles ---------------- */
-.display, .h1, .h2, .h3, .score {
+/* =====================================================================
+   TYPE · three voices
+   Display (Bodoni Moda): the show. Titles, numerals, scores, prizes.
+   Editorial (Bricolage condensed): the magazine. Labels, numbering, rows.
+   Functional (Geist): the instructions. Body, controls, long text.
+   ===================================================================== */
+.display, .h1, .h2, .score, .serif {
   font-family: var(--f-display);
-  font-stretch: 78%;
   font-optical-sizing: auto;
-  letter-spacing: -0.02em;
+  font-weight: 800;
+  letter-spacing: -0.015em;
 }
-.h1 { font-size: var(--t-2xl); font-weight: 760; line-height: 0.98; }
-.h2 { font-size: var(--t-xl); font-weight: 720; line-height: 1.02; }
-.h3 { font-size: var(--t-lg); font-weight: 680; line-height: 1.1; font-stretch: 85%; letter-spacing: -0.01em; }
+.h1 { font-size: var(--t-2xl); line-height: 0.96; letter-spacing: -0.025em; }
+.h2 { font-size: var(--t-xl); line-height: 1; font-weight: 750; }
+.h3 { font-family: var(--f-edit); font-stretch: 78%; font-size: var(--t-lg); font-weight: 720; line-height: 1.05; letter-spacing: -0.01em; }
 .h4 { font-family: var(--f-ui); font-weight: 600; font-size: var(--t-md); line-height: 1.3; letter-spacing: -0.01em; }
 .h5 { font-family: var(--f-ui); font-weight: 600; font-size: var(--t-base); line-height: 1.35; }
-.score { font-size: var(--t-score); font-weight: 800; line-height: 0.82; letter-spacing: -0.035em; font-variant-numeric: tabular-nums lining-nums; }
-.lead { font-size: var(--t-md); color: var(--ivory-2); line-height: 1.5; max-width: 58ch; }
-.body { font-size: var(--t-base); color: var(--ivory-2); }
+.score { font-size: var(--t-score); font-weight: 900; line-height: 0.8; letter-spacing: -0.04em; font-variant-numeric: lining-nums tabular-nums; }
+.lead { font-size: var(--t-md); color: var(--fg-2); line-height: 1.5; max-width: 58ch; }
+.body { font-size: var(--t-base); color: var(--fg-2); }
 .small { font-size: var(--t-sm); }
 .xs { font-size: var(--t-xs); }
-.muted { color: var(--ivory-2); }
-.faint { color: var(--ivory-3); }
+.muted { color: var(--fg-2); }
+.faint { color: var(--fg-3); }
 .accent-text { color: var(--accent); }
-.value-text { color: var(--brass); }
-.italic { font-style: normal; }  /* retired: no single-word italic accents */
-.legend-text { color: var(--brass); }   /* retired gradient text: legendary = brass */
-/* Labels: sentence case, regular tracking. No tracked all-caps, no mono costume. */
-.eyebrow, .label { font-family: var(--f-ui); font-size: var(--t-sm); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ivory-3); line-height: 1.35; }
+.value-text { color: var(--value); }
+.italic { font-style: normal; }
+.legend-text { color: var(--value); }
+/* Labels: sentence case, functional voice. */
+.eyebrow, .label { font-family: var(--f-ui); font-size: var(--t-sm); font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--fg-3); line-height: 1.35; }
 .eyebrow.accent, .label.accent { color: var(--accent); }
-.mono { font-family: var(--f-ui); font-variant-numeric: tabular-nums; }   /* numbers only: tabular sans */
+.mono { font-family: var(--f-ui); font-variant-numeric: tabular-nums; }
 .digits { font-family: var(--f-digits); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
 .num { font-variant-numeric: tabular-nums; }
 .prose { max-width: 62ch; }
 
+/* Broadcast language: the show's own captions (ON AIR, NEXT ACT, EPISODE 01).
+   A graphic object with a frame, used sparingly; never an eyebrow over every heading. */
+.bc {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 7px 2px; border: 1px solid currentColor; border-radius: var(--r-xs);
+  font-family: var(--f-edit); font-stretch: 75%; font-weight: 700; font-size: 11.5px; line-height: 1.15; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap;
+}
+.bc.solid { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.bc.hot { color: var(--hot); }
+.bc.value { color: var(--value); }
+/* Editorial figure: Bricolage numbers for rows, ranks, times */
+.fig { font-family: var(--f-edit); font-stretch: 75%; font-weight: 700; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+
 /* ---------------- layout primitives ---------------- */
 .stack { display: flex; flex-direction: column; gap: var(--gap, var(--s-3)); min-width: 0; }
 .cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap, var(--s-2)); min-width: 0; }
-.stack > *, .cluster > *, .grid > *, .grid-auto > *, .grid-2 > *, .split > * { --gap: initial; } /* --gap never leaks into nested layouts */
+.stack > *, .cluster > *, .grid > *, .grid-auto > *, .grid-2 > *, .split > * { --gap: initial; }
 .split { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); min-width: 0; }
 .split.top { align-items: flex-start; }
 .grow { flex: 1; min-width: 0; }
@@ -95,40 +113,52 @@ p { text-wrap: pretty; }
 .hscroll { display: flex; gap: var(--s-2); overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); overscroll-behavior-x: contain; }
 .hscroll::-webkit-scrollbar { display: none; }
 .hscroll > * { scroll-snap-align: start; flex-shrink: 0; }
-.section { margin-top: var(--s-9); }
-.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-4); }
+.section { margin-top: var(--s-10); }
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--s-3); margin-bottom: var(--s-4); padding-bottom: var(--s-3); border-bottom: 2px solid var(--fg); }
+.section-head .h2 { font-size: var(--t-xl); }
 .section-head .caption { margin-top: 4px; }
 .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
+.rule.heavy { height: 2px; background: var(--fg); }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 [hidden] { display: none !important; }
 
-/* meta: a row of facts separated by space, never by middle dots */
-.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: var(--t-sm); color: var(--ivory-3); font-variant-numeric: tabular-nums; }
+.meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; font-size: var(--t-sm); color: var(--fg-3); font-variant-numeric: tabular-nums; }
 .meta > span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .meta svg { opacity: 0.8; }
+
+/* ---------------- ticket: perforated stub, the show's admission object ---------------- */
+.ticket {
+  --notch: 9px; --tk-bg: var(--cream); --tk-fg: var(--ink);
+  position: relative; background: var(--tk-bg); color: var(--tk-fg); border-radius: var(--r-md);
+  -webkit-mask: radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle var(--notch) at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat, radial-gradient(circle var(--notch) at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
 
 /* ---------------- motion primitives ---------------- */
 @keyframes enter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @keyframes sheet-up { from { transform: translateY(100%); } to { transform: none; } }
-@keyframes pop { 0% { opacity: 0; transform: scale(0.92); } 60% { opacity: 1; transform: scale(1.02); } 100% { opacity: 1; transform: scale(1); } }
-@keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes pop { 0% { opacity: 0; transform: scale(0.94); } 60% { opacity: 1; transform: scale(1.015); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes pulse-live { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 @keyframes shimmer { from { background-position: -200% 0; } to { background-position: 200% 0; } }
 @keyframes float-up { 0% { opacity: 0; transform: translateY(4px); } 15% { opacity: 1; } 100% { opacity: 0; transform: translateY(-22px); } }
 @keyframes spin { to { transform: rotate(360deg); } }
+@keyframes wipe-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes unblur { from { opacity: 0; filter: blur(10px); transform: translateY(10px); } to { opacity: 1; filter: none; transform: none; } }
 
-/* route change: quick and quiet (seen tens of times a day) */
-.page { animation: enter var(--d-base) var(--ease-out) both; }
-/* list stagger: 30ms steps, capped */
-.stagger > * { animation: enter var(--d-base) var(--ease-out) both; animation-delay: min(calc(var(--i, 0) * 30ms), 240ms); }
+/* route change: quick and quiet (seen tens of times a day).
+   fill-mode BACKWARDS, never both: a transform left "in effect" after the animation would make
+   .page the containing block of every position:fixed child (modals, curtain, box reveal). */
+.page { animation: enter var(--d-base) var(--ease-out) backwards; }
+.stagger > * { animation: enter var(--d-base) var(--ease-out) backwards; animation-delay: min(calc(var(--i, 0) * 30ms), 240ms); }
 .stagger > *:nth-child(1) { --i: 0; } .stagger > *:nth-child(2) { --i: 1; } .stagger > *:nth-child(3) { --i: 2; }
 .stagger > *:nth-child(4) { --i: 3; } .stagger > *:nth-child(5) { --i: 4; } .stagger > *:nth-child(6) { --i: 5; }
 .stagger > *:nth-child(7) { --i: 6; } .stagger > *:nth-child(n + 8) { --i: 7; }
 
-/* Reduced motion: fewer, gentler — keep opacity/colour feedback, drop travel */
+/* Reduced motion: keep opacity/colour feedback, drop travel, nothing stays hidden */
 @media (prefers-reduced-motion: reduce) {
-  .page, .stagger > * { animation: fade var(--d-fast) ease both; }
+  .page, .stagger > * { animation: fade var(--d-fast) ease backwards; }
   *, *::before, *::after { transition-duration: 1ms !important; scroll-behavior: auto !important; }
-  .box3d, .wheel, .die, .coin, .stage-rays, .reveal-stage .rays { animation: none !important; }
+  .box3d, .wheel, .die, .coin, .stage-rays, .reveal-stage .rays, .marquee-bulbs i, .onair-lamp, .onair-lamp i { animation: none !important; }
 }

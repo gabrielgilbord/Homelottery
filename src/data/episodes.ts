@@ -66,16 +66,16 @@ export const EPISODES: Episode[] = [
 ];
 
 export const BREAKS = [
-  { after: 2, label: 'Pausa · Ducha, paseo o nada', time: '12:00 – 12:30' },
-  { after: 3, label: 'Comida + siesta o tiempo libre', time: '14:00 – 15:30' },
-  { after: 4, label: 'Respiro · Merienda', time: '17:30 – 18:00' },
+  { after: 2, label: 'Pausa: ducha, paseo o nada', time: '12:00 – 12:30' },
+  { after: 3, label: 'Comida, siesta o tiempo libre', time: '14:00 – 15:30' },
+  { after: 4, label: 'Respiro: merienda', time: '17:30 – 18:00' },
 ];
 
 export const CATEGORIES: Record<CategoryId, { name: string; short: string; theme: string; desc: string }> = {
-  home: { name: 'Home Challenges', short: 'Home', theme: 'home', desc: 'Memoria, equilibrio, cocina, puntería y competiciones absurdas.' },
-  couples: { name: 'Couples Challenges', short: 'Couples', theme: 'couples', desc: 'Complicidad, confianza, romance y retos picantes. Sweet · Spicy · Legendary.' },
-  cards: { name: 'Card Arena', short: 'Cards', theme: 'cards', desc: 'Baraja española, póker, dados, monedas y papel.' },
+  home: { name: 'Retos de casa', short: 'Casa', theme: 'home', desc: 'Memoria, equilibrio, cocina, puntería y competiciones absurdas.' },
+  couples: { name: 'En pareja', short: 'Pareja', theme: 'couples', desc: 'Complicidad, confianza, romance y retos picantes, en tres niveles: Sweet, Spicy y Legendary.' },
+  cards: { name: 'Cartas y dados', short: 'Cartas', theme: 'cards', desc: 'Baraja española, póker, dados, monedas y papel.' },
   gaming: { name: 'Gaming Arena', short: 'Gaming', theme: 'gaming', desc: 'League of Legends, Split Fiction, ARK y free-to-play de PS.' },
-  party: { name: 'Party Mode', short: 'Party', theme: 'party', desc: 'Juegos de fiesta con bebidas opcionales. Nunca obligatorio beber.' },
-  movie: { name: 'Movie & Series Night', short: 'Movie', theme: 'movie', desc: 'Twilight, La isla de las tentaciones y English Night.' },
+  party: { name: 'Fiesta', short: 'Fiesta', theme: 'party', desc: 'Juegos de fiesta con bebidas opcionales. Nunca obligatorio beber.' },
+  movie: { name: 'Noche de cine', short: 'Cine', theme: 'movie', desc: 'Twilight, La isla de las tentaciones y English Night.' },
 };

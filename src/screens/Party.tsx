@@ -4,6 +4,7 @@ import { COCKTAIL } from '../data/gaming';
 import { ChallengeList } from './Challenges';
 import { PageHead, PlayerSwitch, Section, Toggle } from '../components/ui';
 import { DeckStage } from '../components/DeckDrawer';
+import { OnAir } from '../components/Logo';
 import { Icon } from '../components/Icon';
 import { useGame } from '../state/store';
 import { pick } from '../lib/random';
@@ -40,7 +41,7 @@ function CocktailLab() {
           <div><span className="label">Estilo</span><span className="h4">{mix.style}</span></div>
         </div>
       )}
-      <button className="btn accent lg block" onClick={gen}><Icon name="glass" size={18} />{mix ? 'Otra receta' : 'Generar receta'}</button>
+      <button className="btn primary lg block" onClick={gen}><Icon name="glass" size={18} />{mix ? 'Otra receta' : 'Generar receta'}</button>
       <p className="small faint">Sin cantidades: basta un sorbo para puntuar. Agua y refrescos siempre en la mesa.</p>
     </div>
   );
@@ -50,7 +51,7 @@ export default function Party() {
   const list = CHALLENGES.filter((c) => c.category === 'party');
   return (
     <div>
-      <PageHead title="Party Mode" sub="La tarde es una fiesta. Beber nunca es obligatorio ni un castigo, y nunca decide quién gana: todo funciona igual con agua." />
+      <PageHead show="The Live Act" title="Fiesta" sub="La tarde es una fiesta. Beber nunca es obligatorio ni un castigo, y nunca decide quién gana: todo funciona igual con agua." aside={<OnAir label="Live" />} />
       <section aria-label="Barajas de fiesta">
         <DeckStage deckIds={['never', 'likely', 'truth', 'dare', 'quick', 'songs', 'mime', 'trial', 'blanks']} />
       </section>

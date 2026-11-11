@@ -1,65 +1,56 @@
-# HOMELOTTERY Design System · "Late Show en casa"
+# HOMELOTTERY Design System v4 · "The Private Show × The Play Club"
 
-Código: `src/styles/tokens.css` (tokens), `base.css` (tipos, layout, motion y ajustes nativos), `components.css` (librería), `shell.css` (navegación y transiciones), `screens.css` (composición de cada mundo). Componentes React en `src/components/` (`ui.tsx`, `Logo.tsx`, `DeckDrawer.tsx`, `NameSpinner.tsx`, `Icon.tsx`).
+La marca y sus reglas de uso están en `docs/BRAND_GUIDELINES.md`. El movimiento, en `docs/MOTION_GUIDELINES.md`. Este documento cubre el **código**.
 
-## Color
-| Token | Valor | Uso |
-|---|---|---|
-| `--velvet-0…4` | `#1a0b12` → `#452534` | Fondo y superficies de terciopelo burdeos |
-| `--curtain` | `#4a1426` | Telón: escenario, cortina de privacidad, cartela de episodio |
-| `--ivory`, `-2`, `-3`, `-4` | `#f7ecdf`, `#d6c4b6`, `#a8928a`, `#6f5a5c` | Texto (15,9 : 1, 10,6 : 1 y 6,1 : 1). `-4` solo para deshabilitado |
-| `--brass` | `#d9b46a` | **Solo valor**: monedas, premios y botón `value` |
-| `--on-air` | `#ff5b4a` | En directo |
-| `--success`, `--danger`, `--warning` | | Estados |
-| `--gabriel`, `--tatiana` | `#9cc2ff`, `#ff9fbb` | Siempre con inicial y lado, nunca solo el color |
-| `--w-*` | gaming `#5bd7ff`, cards `#63c59a`, party `#ff8552`, couples `#f27a9b`, movie `#ffbe55`, boxes brass, roulette `#ff5b4a`, host `#a7b4c2` | Un acento por mundo, vía `[data-world]` → `--accent`. Sin violeta |
-| `--foil` | degradado iridiscente | Material de los objetos legendarios. Nunca sobre texto |
+## Archivos
 
-## Tipografía
-- **Bricolage Grotesque Variable**, con ancho del 75 al 85 % y peso de 680 a 800: titulares, marcadores, nombres de premios y logotipo.
-- **Geist Sans**: interfaz y texto.
-- **Geist Mono**: solo los dígitos del temporizador y el PIN.
-- Escala: 12 · 13 · 15 · 17 · 21 · 26→34 · 34→56 · 44→84 · marcador 56→104.
-- Etiquetas siempre en minúscula normal. Nada de mayúsculas espaciadas.
+| Archivo | Contenido |
+|---|---|
+| `src/styles/fonts.css` | `@font-face` de Bodoni Moda (subconjunto latino, local) |
+| `src/styles/tokens.css` | Tintas de marca, **esquemas** (`night`, `paper`, `ink`, `stage`, `live`), alias de compatibilidad, acentos por mundo, escala, espacio, radios, elevación, movimiento y grano |
+| `src/styles/base.css` | Reset, ajustes nativos para móvil, las tres voces, rótulos de emisión (`.bc`), `.fig`, `.ticket`, layout y animaciones base |
+| `src/styles/components.css` | Botones, chips, pestañas, campos, interruptor, superficies, listas, ledger, hojas, cortina, avisos, cartas, temporizador, tablas |
+| `src/styles/shell.css` | Wordmark, ON AIR, `EpNum`, `Seal`, barra de emisión, navegación con luz de tally, rail, menú y cartela de episodio |
+| `src/styles/screens.css` | Home, catálogo, guía, sobres, mundos, cajas, ruleta, marcador, Host e intro |
+| `src/components/Logo.tsx` | `Wordmark`, `LogoMark`, `Monogram`, `OnAir`, `Seal`, `EpNum` |
+| `src/components/Envelope.tsx` | `Envelope` (4 familias y 3 estados) y `EnvelopeReveal` |
+| `src/screens/Boxes.tsx` | `Box3D` (materiales por nivel y etiqueta numerada) |
 
-## Espacio, radios, elevación, táctil
-- Rejilla de 4 px (`--s-1` … `--s-10`). Gutter de `max(20px, safe-area)`.
-- Radios por función: etiqueta 6 · chip e input 10 · botón 14 · superficie 20 · escenario y hoja 28.
-- Elevación con desplazamiento y desenfoque cálido (`--e-1/2/3`).
-- Objetivos táctiles de 44 y 52 px.
-- Breakpoints: **600** (dos columnas), **900** (raíl lateral), **1280**.
+## Esquemas
 
-## Movimiento
-- Curvas: `--ease-out` (0.23,1,0.32,1), `--ease-in-out` (0.77,0,0.175,1), `--ease-drawer` (0.32,0.72,0,1); `--ease-spring` solo en celebraciones.
-- Duraciones: pulsar 120 · rápido 180 · base 240 · hoja 380 · revelación 640.
-- Hover solo con puntero fino. `:active` a 0,97 en todo lo que se pulsa.
-- Movimiento reducido: menos desplazamiento, pero el feedback de opacidad y color se mantiene.
+`App.tsx` pone `data-scheme` y `data-world` en `<html>` según la ruta, y actualiza `theme-color` para la barra del sistema:
+
+```
+paper: show, challenges, challenge, leaderboard, inventory, achievements, prefs
+ink:   gaming, movie, host, cards        stage: couples        live: party
+night: el resto (home, boxes, roulette, intro)
+```
+
+Los componentes **solo** leen tokens semánticos: `--bg`, `--bg-1…4`, `--fg`, `--fg-2…4`, `--line…3`, `--value`, `--hot`, `--gabriel`, `--tatiana`, `--success`, `--danger`. Los nombres antiguos (`--velvet-*`, `--ivory-*`, `--brass`, `--curtain`) son alias que se vuelven a resolver en cada esquema. Por eso un bloque `.s-paper` dentro de una pantalla oscura se reimprime en crema sin CSS extra.
 
 ## Componentes y estados
-| Componente | Estados |
-|---|---|
-| `.btn` (`primary`, `accent`, `value`, `ghost`, `quiet`, `danger`; `sm`, `lg`, `block`, `icon`) | hover (solo puntero), focus-visible, active, disabled, `is-loading`, `is-armed` |
-| `ConfirmButton` | reposo → armado (late y vibra) → confirmado |
-| `Seg`, `PlayerSwitch`, `.chip`, `.tag` | on, focus y pressed (`aria-pressed`, `role`) |
-| `.input`, `Toggle`, `Range` | focus con anillo de acento, error (`aria-invalid` + `.error-text`) |
-| `Modal` (hoja inferior en móvil), `Curtain`, `Toaster` | foco y Escape gestionados. Los toasts se posponen durante las revelaciones |
-| `.row-item`, `.crow` (fila de catálogo), `.ledger`, `.specs`, `.h2h` | listas y datos sin "muro de tarjetas" |
-| `.stage` + `.scorebug` + `.tug` | escenario del Home y del marcador |
-| `DeckStage` (`.prompt-card`) | selector de baraja + carta marfil. Las barajas privadas van tras la cortina |
-| `Box3D`, `.reveal-stage`, `.prize-card` | idle, still, locked, charging, open |
-| `Timer`, `AnimatedNumber`, `MysteryCard`, `Empty`, `.skeleton` | |
 
-## Identidad por mundo
-| Mundo | Tratamiento |
+| Componente | Variantes y estados |
 |---|---|
-| Home | Escenario con telón, foco, marcador tipo televisión y escaleta de 8 episodios |
-| Challenges | Catálogo en filas con icono del mundo, metadatos y recompensa en latón |
-| Gaming | Paneles por juego (LoL dorado, Split Fiction rosa, ARK verde, PlayStation azul) y ranuras de sorteo |
-| Card Arena | Tapete verde, dados, moneda y carta real |
-| Party | Carta marfil grande, selector de 9 barajas y laboratorio de cócteles |
-| Couples | Medidor Sweet / Spicy / Legendary con el nivel común |
-| Movie Night | Cabecera de cine con bombillas de marquesina y haz de proyector, cartelera y bingo en papel |
-| Mystery Boxes | Cámara acorazada con cajas 3D por material y revelación con anticipación |
-| Roulette | Rueda con colores por significado, ticks de latón y buje con logo |
-| Leaderboard | Marcador y tabla cara a cara |
-| Host Mode | Sala de control: más fría, densa y con cronologías con hora |
+| `.btn` | `primary` (tinta del esquema invertida, doble filete), `cta` (invitación naranja, una por pantalla), `accent`, `value`, `ghost`, `quiet` (subrayado), `danger`, `sm`, `lg`, `block`, `icon`. Estados: hover (puntero fino), `:active` 0,97, `focus-visible`, `disabled`, `is-loading`, `is-armed` |
+| `.chip`, `.tag`, `.bc`, `.stamp` | on (`aria-pressed`), tonos `sweet`, `spicy`, `legendary`, `ok`, `live`, `value`, `accent` |
+| `.seg` | Pestañas con subrayado animado (`scaleX`); en `.players` el subrayado va en el color de cada jugador |
+| `.input` | Línea impresa (borde inferior de 2 px); focus con fondo del acento; error con `aria-invalid`. `textarea` en caja |
+| `.switch` | Piloto: naranja con mando tinta cuando está activo |
+| `Modal`, `Curtain`, `Toaster` | Hoja con filete superior de 3 px. Cortina de terciopelo con fleco champán. Avisos con forma de ticket |
+| `Envelope` | `k-normal`, `k-special`, `k-prize`, `k-surprise` × `is-locked`, `is-ready`, `is-opened` |
+| `Box3D` | `idle`, `still`, `locked`, `charging`, `open` × 5 materiales |
+| Ruleta | Aro por ruleta (`data-wheel`), clavijas, bombillas (`is-spinning`, `has-result`), `.win-ticket` |
+| `.plate`, `.board`, `.arcade` | Marcadores: placa de plató, tablero de competición y arcade |
+| `.mcard`, `.prompt-card` | Naipe de cartulina; carta grande de baraja con banda del color del mundo |
+| `Empty`, `.skeleton` | Vacío con borde discontinuo; carga con brillo |
+
+## Breakpoints
+
+320 (mínimo comprobado), 360 (barra superior compacta), 600 (dos columnas y estado en la barra), 900 (rail lateral), 1100 y 1280.
+
+## Rendimiento
+
+- CSS 112 KB (24 KB gzip). JS 429 KB (137 KB gzip), igual que antes del rediseño.
+- Una sola fuente nueva: Bodoni, 46 KB.
+- Ninguna imagen remota. El grano es un SVG en línea y los iconos de app son PNG generados desde el SVG del monograma.

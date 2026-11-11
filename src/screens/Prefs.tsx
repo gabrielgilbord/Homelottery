@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGame, updatePrefs, sharedIntensity, setShared } from '../state/store';
 import { CATEGORIES } from '../data/episodes';
-import { Curtain, PageHead, PlayerSwitch, Section, Seg, Toggle } from '../components/ui';
+import { Curtain, PageHead, PlayerSwitch, Section, Seg, Toggle, beep, setSound, soundOn } from '../components/ui';
 import { Icon } from '../components/Icon';
 import { INTENSITY_LABEL, PLAYER_NAME, type CategoryId, type Intensity, type PlayerId } from '../types';
 
@@ -13,13 +13,15 @@ export default function Prefs() {
   const p = s.prefs[who];
   const set = (patch: Partial<typeof p>) => updatePrefs(who, { ...patch, configured: true });
   const visible = open === who;
+  const [sound, setSoundState] = useState(soundOn);
 
   return (
     <div>
-      <PageHead eyebrow="Preferencias y límites" title="Vuestras reglas" sub="Cada uno configura lo suyo en privado. El juego usa siempre el nivel más suave de los dos y nunca enseña los límites del otro." />
+      <PageHead show="Private" title="Vuestras reglas" sub="Cada uno configura lo suyo en privado. El juego usa siempre el nivel más suave de los dos y nunca enseña los límites del otro." />
       <div className="ledger">
         <div><div className="label">Nivel que se juega</div><div className="v accent-text">{INTENSITY_LABEL[sharedIntensity(s)]}</div></div>
         <div className="stack" style={{ ['--gap' as string]: '8px' }}><div className="label">Un solo móvil</div><div className="cluster"><Toggle on={s.sharedScreen} onChange={setShared} label="Modo un solo móvil" /><span className="xs faint">Cortinas de privacidad</span></div></div>
+        <div className="stack" style={{ ['--gap' as string]: '8px' }}><div className="label">Sonidos del show</div><div className="cluster"><Toggle on={sound} onChange={(v) => { setSound(v); setSoundState(v); if (v) beep(880, 120, 0.05); }} label="Sonidos del show" /><span className="xs faint">{sound ? 'Activados en este móvil' : 'Desactivados'}</span></div></div>
       </div>
 
       <Section title="Ajustes personales">

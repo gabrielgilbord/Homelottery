@@ -22,12 +22,16 @@ export default function Movie() {
       <header className="cinema-head">
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-3)', maxWidth: 640 }}>
           <div className="marquee" aria-hidden>{Array.from({ length: 12 }, (_, i) => <i key={i} />)}</div>
-          <h1 className="h1">Movie Night</h1>
+          <span className="bc" style={{ alignSelf: 'flex-start', color: 'var(--champagne)' }}>The Screening Room</span>
+          <h1 className="h1">Noche de cine</h1>
           <p className="lead">Un concurso con palomitas. La película se gana en subasta y todo se juega sin pausar.</p>
+          <p className="credits" aria-label="Créditos">
+            <span>Una producción</span><b>Homelottery</b><span>protagonizada por</span><b>Tatiana</b><span>y</span><b>Gabriel</b><span>en</span><b>sesión privada</b>
+          </p>
         </div>
       </header>
       <div style={{ marginBottom: 'var(--s-6)' }}>
-        <Seg<Tab> value={tab} onChange={setTab} label="Secciones de Movie Night" options={[{ v: 'lottery', label: 'Lottery' }, { v: 'bingo', label: 'Bingo' }, { v: 'predict', label: 'Predicciones' }, { v: 'live', label: 'En vivo' }, { v: 'modes', label: 'Modos' }]} />
+        <Seg<Tab> value={tab} onChange={setTab} label="Secciones de Movie Night" options={[{ v: 'lottery', label: 'Subasta' }, { v: 'bingo', label: 'Bingo' }, { v: 'predict', label: 'Predicciones' }, { v: 'live', label: 'En vivo' }, { v: 'modes', label: 'Modos' }]} />
       </div>
       <div key={tab} className="page">
         {tab === 'lottery' && <Lottery />}

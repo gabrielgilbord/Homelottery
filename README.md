@@ -60,7 +60,8 @@ Alternativa por terminal: `npx vercel` (preview) y `npx vercel --prod` (producci
 - Estado en `src/state/store.ts` (store externo + `useSyncExternalStore`), autoguardado en `localStorage` con migración de versiones.
 - Aleatoriedad con `crypto.getRandomValues` (`src/lib/random.ts`).
 - Contenido en `src/data/*` (pruebas, barajas, premios, episodios, juegos, cheat sheet).
-- Design System "Late Show en casa" en `src/styles/` (tokens, base, componentes, shell, pantallas) con acento por mundo (`data-world`), fuentes empaquetadas (Bricolage Grotesque, Geist Sans, Geist Mono) e iconos SVG propios. Ver `docs/DESIGN_SYSTEM.md` y `docs/DESIGN_AUDIT.md`.
+- Identidad **THE PRIVATE SHOW × THE PLAY CLUB**: un programa de televisión privado con diseño editorial. Logo «La pantalla» (la O de HOME es un televisor Didone), tres voces tipográficas empaquetadas (Bodoni Moda, Bricolage Grotesque y Geist), un esquema de color por pantalla (`data-scheme`: papel, noche, tinta, burdeos y naranja) y objetos propios (tickets, sobres, cajas, sellos). Ver `docs/BRAND_GUIDELINES.md`, `docs/DESIGN_SYSTEM.md`, `docs/MOTION_GUIDELINES.md`, `docs/QA_REPORT.md` y `docs/DESIGN_AUDIT.md`.
+- Sonidos del show opcionales y desactivados por defecto (*Mis límites → Sonidos del show*).
 
 ## Privacidad (un solo móvil)
 - El **modo pantalla compartida** (activo por defecto) muestra una cortina de *mantener para revelar* antes de enseñar contenido privado: misiones secretas, cartas privadas, pujas, sobres personales, ajustes de límites y cajas abiertas en privado.

@@ -57,7 +57,8 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       withTimeout(fetch(req), 3000)
         .then((res) => {
-          if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(INDEX, copy)); }
+          const isShell = url.href === INDEX || url.pathname === new URL("./", self.registration.scope).pathname;
+          if (res && res.ok && isShell) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(INDEX, copy)); }
           return res && res.ok ? res : caches.match(INDEX);
         })
         .catch(() => caches.match(INDEX))

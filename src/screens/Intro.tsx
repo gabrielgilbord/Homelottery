@@ -5,7 +5,8 @@ import { go } from '../lib/router';
 import { ENVELOPES } from '../data/rewards';
 import { Seg, Toggle } from '../components/ui';
 import { celebrate } from '../lib/celebrate';
-import { Wordmark } from '../components/Logo';
+import { Wordmark, OnAir } from '../components/Logo';
+import { Envelope, EnvelopeReveal } from '../components/Envelope';
 import type { Intensity } from '../types';
 
 const d = (s: number) => ({ animationDelay: s + 's' }) as CSSProperties;
@@ -32,6 +33,7 @@ export default function Intro() {
     <div className="intro" data-world="couples">
       {step === 0 && (
         <div className="intro-inner seq" key="s0">
+          <div className="intro-top" style={d(0.1)}><OnAir label="Private broadcast" /></div>
           <p className="intro-big" style={d(0.4)}>Buenos días, Tatiana.</p>
           <p className="intro-line" style={d(1.3)}>Hoy Gabriel ha preparado algo para ti. Pero hay una pequeña condición…</p>
           <p className="intro-line" style={{ ...d(2.3), color: 'var(--ivory)', fontWeight: 600 }}>Hoy no vas a poder decidirlo todo.</p>
@@ -41,11 +43,11 @@ export default function Intro() {
           <p className="intro-line" style={d(4.2)}>Y puede que hoy descubras que tienes un pequeño rival en casa.</p>
           <div className="stack" style={{ ...d(5.2), ['--gap' as string]: 'var(--s-3)', marginTop: 'var(--s-4)' } as CSSProperties}>
             <span className="intro-line">Bienvenida a</span>
-            <Wordmark size="lg" />
-            <span className="intro-line" style={{ color: 'var(--ivory)' }}>Gabriel y Tatiana, the Couples Edition</span>
+            <div className="intro-mark"><Wordmark size="xl" tagline="Gabriel × Tatiana" /></div>
+            <span className="bc" style={{ alignSelf: 'flex-start' }}>The Couples Edition</span>
           </div>
           <div style={{ ...d(6.2), marginTop: 'var(--s-5)' }}>
-            <button className="btn value lg block" onClick={() => next(1)}>Descubrir mi sorpresa</button>
+            <button className="btn cta lg block" onClick={() => next(1)}>Descubrir mi sorpresa</button>
           </div>
         </div>
       )}
@@ -61,7 +63,7 @@ export default function Intro() {
               </div>
             ))}
           </div>
-          <div style={d(0.9)}><button className="btn value lg block" onClick={() => next(2)}>Entendido. Quiero mi sobre</button></div>
+          <div style={d(0.9)}><button className="btn cta lg block" onClick={() => next(2)}>Entendido. Quiero mi sobre</button></div>
         </div>
       )}
 
@@ -70,16 +72,15 @@ export default function Intro() {
           <h1 className="h1" style={d(0.1)}>El primer sobre</h1>
           {!envOpen ? (
             <div style={d(0.5)}>
-              <button className="seal-env" onClick={() => { openEnvelope('env-first'); setEnvOpen(true); celebrate(1); }} aria-label="Romper el sello y abrir el sobre">
-                <div className="eb" /><div className="ef" /><div className="es">G</div>
-              </button>
+              <div className="intro-env">
+                <Envelope id="env-first" n={1} name="El Primer Sobre" state="ready" label="Romper el sello y abrir el sobre" onClick={() => { openEnvelope('env-first'); setEnvOpen(true); celebrate(1); }} />
+              </div>
               <p className="small faint">Toca el sello</p>
             </div>
           ) : (
             <div className="stack" style={{ ['--gap' as string]: 'var(--s-4)', textAlign: 'left' }}>
-              <div className="letter">{letter}</div>
-              <p className="small value-text" style={{ textAlign: 'center', fontWeight: 600 }}>+20 monedas de bienvenida para Tatiana</p>
-              <button className="btn value lg block" onClick={() => next(3)}>Estoy preparada</button>
+              <EnvelopeReveal id="env-first" message={letter} reward="+20 monedas de bienvenida para Tatiana" />
+              <button className="btn cta lg block" onClick={() => next(3)}>Estoy preparada</button>
             </div>
           )}
         </div>
@@ -97,7 +98,7 @@ export default function Intro() {
             <li><span><b>La pregunta del día.</b> <span className="muted">¿Qué es lo que más te apetece que pase hoy?</span></span></li>
           </ol>
           <div className="stack" style={d(0.9)}>
-            <button className="btn value lg block" onClick={() => { finishIntro(); go('challenge', 'h-breakfast'); }}>Empezar la misión</button>
+            <button className="btn cta lg block" onClick={() => { finishIntro(); go('challenge', 'h-breakfast'); }}>Empezar la misión</button>
             <button className="btn quiet block" onClick={() => { finishIntro(); go('home'); }}>Ir al plató</button>
           </div>
         </div>
@@ -127,7 +128,7 @@ function QuickPrefs({ onDone }: { onDone: () => void }) {
         </div>
       </div>
       <div className="stack" style={d(0.85)}>
-        <button className="btn value lg block" onClick={() => { set({}); onDone(); }}>Listo</button>
+        <button className="btn cta lg block" onClick={() => { set({}); onDone(); }}>Listo</button>
         <p className="small faint" style={{ textAlign: 'center' }}>Gabriel configurará los suyos en privado. Nadie ve los límites del otro.</p>
       </div>
     </div>

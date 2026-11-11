@@ -16,7 +16,7 @@ export default function Couples() {
   const list = CHALLENGES.filter((c) => c.category === 'couples');
   return (
     <div>
-      <PageHead title="Couples Mode" sub="Siempre al nivel más suave de los dos, y siempre con derecho a pasar. Las recompensas románticas no se anuncian: se descubren." />
+      <PageHead show="After Hours" title="En pareja" sub="Siempre al nivel más suave de los dos, y siempre con derecho a pasar. Las recompensas románticas no se anuncian: se descubren." />
 
       <section className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
         <div className="split"><span className="label">Nivel que se juega hoy</span><button className="btn quiet sm" onClick={() => go('prefs')}><Icon name="sliders" size={14} />Mis límites</button></div>

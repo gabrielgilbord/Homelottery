@@ -31,7 +31,7 @@ export default function Inventory() {
 
   return (
     <div>
-      <PageHead eyebrow="Inventario" title="Inventario" sub="Cartas, llaves, cajas gratis, misiones secretas y todos los premios ganados." />
+      <PageHead show="Backstage" title="Inventario" sub="Cartas, llaves, cajas gratis, misiones secretas y todos los premios ganados." />
       <PlayerSwitch value={who} onChange={(p) => { setWho(p); setMissionsOpen(false); }} label="Ver" />
 
       <div className="ledger" style={{ marginTop: 'var(--s-6)' }}>

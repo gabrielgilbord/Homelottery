@@ -1,3 +1,4 @@
+import { useGame } from '../state/store';
 import { CHALLENGES } from '../data/challenges';
 import { GAMES, LOL_CHAMPIONS, LOL_ROLES } from '../data/gaming';
 import { ChallengeList } from './Challenges';
@@ -13,12 +14,35 @@ const GAME_PANELS = [
   { sub: 'PlayStation F2P', id: 'ps', mark: 'PS', note: 'Gratis, en la misma consola' },
 ];
 
+/** Arcade scoreboard: P1 vs P2, gaming rounds played, who holds the high score. */
+function ArcadeBoard() {
+  const s = useGame();
+  const games = CHALLENGES.filter((c) => c.category === 'gaming');
+  const played = games.filter((c) => s.completed[c.id]).length;
+  const g = s.players.gabriel.points, t = s.players.tatiana.points;
+  return (
+    <section className="arcade" aria-label={`Ronda ${played + 1} de ${games.length}. Gabriel ${g}, Tatiana ${t}`}>
+      <div className="ar-row">
+        <span className={'ar-p' + (g >= t ? ' hi' : '')}><b>P1</b>Gabriel<i>{String(g).padStart(4, '0')}</i></span>
+        <span className="ar-vs" aria-hidden>VS</span>
+        <span className={'ar-p right' + (t >= g ? ' hi' : '')}><b>P2</b>Tatiana<i>{String(t).padStart(4, '0')}</i></span>
+      </div>
+      <div className="ar-rounds" aria-hidden>
+        <span>Ronda {played + 1}</span>
+        <span className="ar-pips">{games.map((c) => <i key={c.id} className={s.completed[c.id] ? 'on' : ''} />)}</span>
+        <span>{played} de {games.length}</span>
+      </div>
+    </section>
+  );
+}
+
 export default function Gaming() {
   const list = CHALLENGES.filter((c) => c.category === 'gaming');
   const f2p = GAMES.filter((g) => g.price.startsWith('Gratis') && g.priority !== 'NO RECOMENDADO' && g.platform !== 'PC');
   return (
     <div>
-      <PageHead title="Gaming Arena" sub="League of Legends, Split Fiction, ARK y los gratuitos de PlayStation que funcionan para dos en el mismo sofá." />
+      <PageHead show="The Arcade Break" title="Gaming" sub="League of Legends, Split Fiction, ARK y los gratuitos de PlayStation que funcionan para dos en el mismo sofá." />
+      <ArcadeBoard />
 
       <div className="game-panel" data-game="lol">
         <div className="gp-head"><span className="gp-mark">LoL</span><div className="stack grow" style={{ ['--gap' as string]: '2px' }}><h2 className="h3">Sorteo para la Grieta</h2><span className="small faint">Campeón, rol y modo de juego</span></div></div>

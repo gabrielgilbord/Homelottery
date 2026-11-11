@@ -7,6 +7,7 @@ import { ConfirmButton, Empty, Modal, PageHead, Seg, Timer } from '../components
 import { go } from '../lib/router';
 import { pick } from '../lib/random';
 import { celebrate } from '../lib/celebrate';
+import { Seal } from '../components/Logo';
 import type { CategoryId, Challenge, GameState } from '../types';
 import { INTENSITY_LABEL, PLAYERS, PLAYER_NAME } from '../types';
 import { WORLD_ICON } from './Home';
@@ -72,7 +73,7 @@ export default function Challenges() {
 
   return (
     <div>
-      <PageHead title="Challenges" sub={`${CHALLENGES.length} pruebas en seis mundos. Lleváis ${played} jugadas.`}
+      <PageHead show="Catálogo" title="Las pruebas" sub={`${CHALLENGES.length} pruebas en seis mundos. Lleváis ${played} jugadas.`}
         aside={<button className="btn primary" onClick={randomPick}><Icon name="dice" size={16} />Al azar</button>} />
       <div className="filters">
         <label className="search"><Icon name="target" size={18} /><span className="sr-only">Buscar prueba</span><input className="input" placeholder="Buscar una prueba" value={q} onChange={(e) => setQ(e.target.value)} /></label>
@@ -187,7 +188,7 @@ export function ChallengeDetail({ id }: { id: string }) {
         {result && (
           <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
             <div className="result-hero">
-              <Icon name="trophy" size={28} style={{ color: 'var(--brass)' }} />
+              <Seal ring="Winner · Homelottery · emisión privada ·" size={104} className="result-seal"><Icon name="trophy" size={26} /></Seal>
               <h2 className="h1">{result.headline}</h2>
               <span className="small faint">{c.name}</span>
             </div>
