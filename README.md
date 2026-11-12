@@ -21,7 +21,7 @@ npm install
 npm run dev        # desarrollo: abre la URL "Network" desde el móvil (misma WiFi)
 npm run build      # genera dist/ (web estática)
 npm run preview    # sirve dist/ en http://localhost:4173 y en la red local
-npm test           # 19 tests: lógica del juego + simulación de un día completo (tests/day.test.ts)
+npm test           # 23 tests: lógica del juego, simulación de un día completo y Night Show aislado
 npm run cheatsheet # regenera las dos guías (Markdown + HTML) desde los datos de la app
 ```
 
@@ -48,6 +48,7 @@ Alternativa por terminal: `npx vercel` (preview) y `npx vercel --prod` (producci
 | Sección | Qué hace |
 |---|---|
 | Intro | Invitación animada, reglas, Primer Sobre, límites de Tatiana y misión de bienvenida. |
+| Night Show | Modo opcional para una noche suelta: retos al azar o a elegir, mundos que se encienden y apagan, nivel de la noche, carta rápida, última ronda ×2 y su propio marcador. No toca la partida principal. |
 | Home | Marcador Gabriel vs Tatiana, episodio actual, siguiente prueba, avisos (sobres, cajas gratis). |
 | The Show | Escaleta de 8 episodios, avance de episodio, sobres secretos (11) con condiciones. |
 | Challenges | Biblioteca de 84 pruebas con filtros, búsqueda, prueba al azar, temporizador, registro de resultado, pasar/sustituir sin penalización. |

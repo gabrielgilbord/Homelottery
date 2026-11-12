@@ -49,6 +49,7 @@ export default function Intro() {
           <div style={{ ...d(6.2), marginTop: 'var(--s-5)' }}>
             <button className="btn cta lg block" onClick={() => next(1)}>Descubrir mi sorpresa</button>
           </div>
+          <button className="intro-night" style={d(6.6)} onClick={() => go('night')}>¿Solo esta noche? <b>Night Show</b>, sin abrir la invitación</button>
         </div>
       )}
 

@@ -158,6 +158,17 @@ export function quickGuide(): Doc {
         { p: 'Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloquea al salir y tras 5 minutos sin tocar nada.' },
         { note: 'Tatiana: aquí están los spoilers. No entres.', tone: 'warn' },
       ] },
+      { id: 'night', title: 'Night Show: jugar esta noche, aparte', blocks: [
+        { p: 'Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.' },
+        { ol: [
+          'Ábrelo desde **Inicio → Night Show** o **Más → Night Show**. Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir).',
+          'En **Ajustes de esta noche** enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**.',
+          'Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.',
+          'Al acabar: **Gana Gabriel / Gana Tatiana / Empate** (dos toques). En equipo: **Superado en equipo** o **No superado**. ¿No apetece? **Cambiar de reto**.',
+          'Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.',
+        ] },
+        { note: 'Entre reto y reto, **Carta rápida** saca una carta de las barajas de Fiesta y En pareja según el nivel de la noche.', tone: 'tip' },
+      ] },
       { id: 'guardado', title: 'Cómo se guarda el progreso', blocks: [
         { ul: [
           'Se guarda **solo y al instante** en el propio móvil. No hace falta pulsar nada.',
@@ -183,6 +194,8 @@ export function quickGuide(): Doc {
           ['Activar sonidos', '**Más → Mis límites → Sonidos del show**'],
           ['Consultar mis controles privados', '**Más → Host Mode** → PIN'],
           ['Pasar de episodio', '**Programa → Pasar al siguiente episodio** (dos toques)'],
+          ['Jugar solo esta noche, aparte', '**Inicio → Night Show** (o Más → Night Show)'],
+          ['Activar o desactivar juegos', 'Night Show → **Ajustes de esta noche** (mundos); en el juego grande, **Más → Mis límites → Mundos que prefiero evitar**'],
         ] } },
       ] },
     ],

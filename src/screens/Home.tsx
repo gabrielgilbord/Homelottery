@@ -102,6 +102,12 @@ export default function Home() {
       )}
       <div className="home-sub-actions"><button className="btn quiet" onClick={() => go('show')}>Ver la escaleta completa</button></div>
 
+      <button className="night-door" onClick={() => go('night')}>
+        <span className="nd-k">Night Show</span>
+        <span className="nd-t">¿Solo una noche? Jugad ahora, con su propio marcador.</span>
+        <Icon name="chevron" size={18} />
+      </button>
+
       <div className="home-cols">
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-9)' }}>
           {pending > 0 && (

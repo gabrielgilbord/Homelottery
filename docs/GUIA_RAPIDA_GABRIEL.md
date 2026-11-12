@@ -18,8 +18,9 @@
 9. [Premios y logros](#premios)
 10. [El marcador Gabriel contra Tatiana](#marcador)
 11. [Host Mode](#host)
-12. [Cómo se guarda el progreso](#guardado)
-13. [Consulta rápida](#tabla)
+12. [Night Show: jugar esta noche, aparte](#night)
+13. [Cómo se guarda el progreso](#guardado)
+14. [Consulta rápida](#tabla)
 
 <a id="empezar"></a>
 
@@ -178,9 +179,23 @@ Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloque
 
 > **Ojo.** Tatiana: aquí están los spoilers. No entres.
 
+<a id="night"></a>
+
+## 12. Night Show: jugar esta noche, aparte
+
+Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.
+
+1. Ábrelo desde **Inicio → Night Show** o **Más → Night Show**. Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir).
+2. En **Ajustes de esta noche** enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**.
+3. Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.
+4. Al acabar: **Gana Gabriel / Gana Tatiana / Empate** (dos toques). En equipo: **Superado en equipo** o **No superado**. ¿No apetece? **Cambiar de reto**.
+5. Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.
+
+> **Truco.** Entre reto y reto, **Carta rápida** saca una carta de las barajas de Fiesta y En pareja según el nivel de la noche.
+
 <a id="guardado"></a>
 
-## 12. Cómo se guarda el progreso
+## 13. Cómo se guarda el progreso
 
 - Se guarda **solo y al instante** en el propio móvil. No hace falta pulsar nada.
 - Funciona **sin conexión** después de abrirla una vez con WiFi.
@@ -189,7 +204,7 @@ Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloque
 
 <a id="tabla"></a>
 
-## 13. Consulta rápida
+## 14. Consulta rápida
 
 | Quiero… | Tengo que pulsar… |
 |---|---|
@@ -208,6 +223,8 @@ Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloque
 | Activar sonidos | **Más → Mis límites → Sonidos del show** |
 | Consultar mis controles privados | **Más → Host Mode** → PIN |
 | Pasar de episodio | **Programa → Pasar al siguiente episodio** (dos toques) |
+| Jugar solo esta noche, aparte | **Inicio → Night Show** (o Más → Night Show) |
+| Activar o desactivar juegos | Night Show → **Ajustes de esta noche** (mundos); en el juego grande, **Más → Mis límites → Mundos que prefiero evitar** |
 
 ---
 _Generado desde los datos de la app (npm run cheatsheet). Sin spoilers._

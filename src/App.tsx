@@ -23,6 +23,7 @@ import Leaderboard from './screens/Leaderboard';
 import Achievements from './screens/Achievements';
 import Host from './screens/Host';
 import Prefs from './screens/Prefs';
+import Night from './screens/Night';
 
 export interface NavItem { id: string; label: string; icon: string; world: string; show?: string }
 export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
@@ -30,6 +31,7 @@ export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
     { id: 'home', label: 'Inicio', icon: 'home', world: 'home' },
     { id: 'show', label: 'El programa', icon: 'show', world: 'show', show: "Tonight's show" },
     { id: 'challenges', label: 'Pruebas', icon: 'target', world: 'show' },
+    { id: 'night', label: 'Night Show', icon: 'star', world: 'couples', show: 'Para jugar ahora, aparte' },
   ] },
   { title: 'Secciones', items: [
     { id: 'gaming', label: 'Gaming', icon: 'gamepad', world: 'gaming', show: 'The Arcade Break' },
@@ -53,7 +55,7 @@ export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
 /** The ground each screen is printed on (see tokens.css SCHEMES). */
 const SCHEME: Record<string, string> = {
   show: 'paper', challenges: 'paper', challenge: 'paper', leaderboard: 'paper', inventory: 'paper', achievements: 'paper', prefs: 'paper',
-  gaming: 'ink', movie: 'ink', host: 'ink', cards: 'ink', couples: 'stage', party: 'live',
+  gaming: 'ink', movie: 'ink', host: 'ink', cards: 'ink', couples: 'stage', party: 'live', night: 'stage',
 };
 const SCHEME_BG: Record<string, string> = { night: '#2a101b', paper: '#f2e9d8', ink: '#171417', stage: '#3b1320', live: '#9a3f26' };
 const BOTTOM_LABEL: Record<string, string> = { home: 'Inicio', show: 'Programa', challenges: 'Pruebas', boxes: 'Premios' };
@@ -85,7 +87,7 @@ export default function App() {
 
   const ch = route.name === 'challenge' ? challengeById(route.param || '') : undefined;
   const world = ch ? CAT_WORLD[ch.category] : ALL.find((n) => n.id === route.name)?.world || 'home';
-  const scheme = !s.introDone ? 'night' : SCHEME[route.name] || 'night';
+  const scheme = !s.introDone && route.name !== 'night' ? 'night' : SCHEME[route.name] || 'night';
   useEffect(() => {
     const html = document.documentElement;
     html.dataset.world = world;
@@ -93,6 +95,8 @@ export default function App() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', SCHEME_BG[scheme]);
   }, [world, scheme]);
 
+  // The Night Show is self-contained: it can be played before the Invitation without spoiling it.
+  if (!s.introDone && route.name === 'night') return (<><div className="stage-light" /><main className="content solo"><div className="page"><Night standalone /></div></main><Toaster /></>);
   if (!s.introDone) return (<><div className="stage-light" /><Intro /><Toaster /></>);
 
   let screen;
@@ -112,6 +116,7 @@ export default function App() {
     case 'achievements': screen = <Achievements />; break;
     case 'host': screen = <Host unlocked={hostUnlocked} onUnlock={() => setHostUnlocked(true)} onLock={() => { setHostUnlocked(false); go('home'); }} />; break;
     case 'prefs': screen = <Prefs />; break;
+    case 'night': screen = <Night />; break;
     default: screen = <Home />;
   }
 
