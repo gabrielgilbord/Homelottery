@@ -206,6 +206,13 @@ export const DECKS: Deck[] = [
       'Sé tú quien decida la ruta en cada bifurcación.', 'Consigue que el otro te dé las gracias.']),
   },
   {
+    id: 'palabras', name: 'Palabras de peli', hint: 'Tus 3 palabras secretas. Si las dicen en la peli, punto para ti.', section: 'movie', private: true,
+    cards: s(['Amor · Nunca · Perdón', 'Vale · Mira · Espera', 'Casa · Noche · Miedo', 'Verdad · Mentira · Ahora', 'Dinero · Trabajo · Jefe', 'Papá · Mamá · Familia',
+      'Siempre · Juntos · Promesa', 'Corre · Vamos · Rápido', 'Gracias · Por favor · Lo siento', 'Muerto · Sangre · Arma', 'Bonito · Guapa · Precioso', 'Cariño · Amor mío · Cielo',
+      'Coche · Llaves · Teléfono', 'Fiesta · Beber · Bailar', 'Secreto · Confía · Promételo', 'Dios · Joder · Madre mía', 'Mañana · Hoy · Tiempo', 'Hablar · Escúchame · Calla',
+      'Agua · Comida · Hambre', 'Amigo · Hermano · Tío']),
+  },
+  {
     id: 'forbidden', name: 'Forbidden Words', hint: 'Tus 3 palabras secretas para la peli.', section: 'movie', private: true,
     cards: s(['love', 'sorry', 'please', 'really', 'never', 'always', 'baby', 'okay', 'right', 'maybe', 'seriously', 'listen',
       'promise', 'money', 'kill', 'dad', 'mom', 'home', 'night', 'trust', 'friend', 'wait', 'stop', 'beautiful', 'crazy', 'god', 'leave', 'stay', 'thank', 'yes']),
@@ -225,23 +232,58 @@ export const DECKS: Deck[] = [
 export const deckById = (id: string) => DECKS.find((d) => d.id === id)!;
 
 /* ---------- Bingo cell pools (situations that can happen in any episode — nothing is claimed about a specific scene) ---------- */
-export const BINGO_POOLS: Record<string, { name: string; shout: string; cells: string[] }> = {
+export const BINGO_POOLS: Record<string, { name: string; shout: string; cells: string[]; archived?: boolean }> = {
+  peli: {
+    name: 'Cualquier peli', shout: '¡CLAQUETA!',
+    cells: ['Alguien dice "tenemos que hablar"', 'Un beso', 'Una persecución', 'Alguien llora', 'Suena un móvil en mal momento', 'Un flashback', 'Alguien dice "confía en mí"',
+      'Una pelea', 'Alguien corre bajo la lluvia', 'Un brindis', 'Alguien da un portazo', 'Una mentira que se descubre', 'Ciudad de noche desde arriba', 'Alguien despierta sobresaltado',
+      'Un abrazo largo', 'Alguien mira por la ventana', 'Un coche que no arranca', 'Alguien dice "no es lo que parece"', 'Una cena incómoda', 'Alguien se tropieza',
+      'Una carta o mensaje importante', 'Música triste en el peor momento', 'Tatiana adivina lo que va a pasar', 'Gabriel comenta algo en voz alta'],
+  },
+  romantica: {
+    name: 'Romántica', shout: '¡FLECHAZO!',
+    cells: ['Primer encuentro torpe', 'Se chocan y se caen cosas', 'Mejor amigo/a que da consejos', 'Malentendido que lo complica todo', 'Escena en una cafetería', 'Baile lento',
+      'Carrera al aeropuerto o a la estación', 'Declaración bajo la lluvia', 'Montaje con canción', 'Un ex que reaparece', 'Beso interrumpido', 'Cita que sale mal',
+      'Prueba de ropa frente al espejo', 'Discusión a gritos', 'Reconciliación', 'Primer "te quiero"', 'Un regalo pensado', 'Cena con velas', 'Un viaje juntos',
+      'Alguien escribe una nota', 'Mirada desde lejos', 'Celos', 'La familia se mete', 'Final feliz con beso'],
+  },
+  accion: {
+    name: 'Acción', shout: '¡BOOM!',
+    cells: ['Explosión', 'Persecución en coche', 'Salto desde un edificio', 'Cuenta atrás', 'Frase chula antes de pelear', 'El malo explica su plan', 'Disparo que falla',
+      'Herida que no impide seguir', 'Hackeo en 10 segundos', 'Alguien grita "¡vamos, vamos!"', 'Cámara lenta', 'Traición', 'Algo se desactiva en el último segundo',
+      'Pelea cuerpo a cuerpo', 'Helicóptero', 'Se escapa por los pelos', 'Alguien se aleja sin mirar la explosión', 'Un cristal que se rompe', 'Gafas de sol',
+      'Base secreta', 'El malo no muere a la primera', 'El equipo se reúne', 'Abrazo de alivio al final', 'Alguien dice "confía en mí"'],
+  },
+  terror: {
+    name: 'Terror', shout: '¡GRITO!',
+    cells: ['Luz que parpadea', 'Alguien pregunta "¿hay alguien ahí?"', 'Susto con un espejo', 'Puerta que se abre sola', 'Móvil sin cobertura', 'El grupo se separa',
+      'Sótano o desván', 'Niño o muñeco inquietante', 'Alguien baja a investigar', 'Ruido en la casa', 'Coche que no arranca', 'Sombra que pasa', 'La música sube de golpe',
+      'Alguien tropieza huyendo', 'Algo debajo de la cama', 'Sueño que parece real', 'Alguien no se cree nada', 'Foto o vídeo antiguo', 'Bosque de noche', 'Un grito ahogado',
+      'Tatiana se tapa los ojos', 'Gabriel da un bote en el sofá', 'Final abierto', 'El susto era un gato'],
+  },
+  serie: {
+    name: 'Serie o reality', shout: '¡OTRO CAPÍTULO!',
+    cells: ['Final con cliffhanger', 'Resumen "anteriormente en…"', 'Alguien dice "tenemos que hablar"', 'Discusión de pareja', 'Sale un secreto a la luz', 'Alguien llora en el baño',
+      'Fiesta que acaba mal', 'Confesión mirando a cámara', 'Música dramática', 'Alguien se va dando un portazo', 'Un brindis', 'Alguien lee un mensaje que no debía',
+      'Plano del sitio desde el aire', 'Reconciliación', 'Alguien dice "me da igual"', 'Celos', 'Personaje nuevo que lo cambia todo', 'Escena en un coche',
+      'Abrazo de grupo', 'Alguien miente mirando a los ojos', 'Comentario de Tatiana', 'Comentario de Gabriel', 'Alguien dice "confía en mí"', 'Os pedís "uno más"'],
+  },
   twilight: {
-    name: 'Twilight', shout: '¡VAMPIRO!',
+    name: 'Twilight', shout: '¡VAMPIRO!', archived: true,
     cells: ['Mirada intensa de más de 3 s', 'Niebla o lluvia', 'Escena en el bosque', 'Alguien se muerde el labio', 'Música indie melancólica',
       'Alguien aparece de repente', 'Plano aéreo de árboles', 'Alguien dice "peligroso"', 'Piel brillante', 'Coche antiguo', 'Escena en el instituto',
       'Alguien huye corriendo', 'Primer plano de ojos', 'Silencio incómodo', 'Diálogo susurrado', 'Alguien se sonroja', 'Escena de cafetería',
       'Padre/madre preocupado', 'Pelea o amenaza', 'Mano en la cara del otro', 'Abrazo dramático', 'Alguien mira por la ventana', 'Tatiana suspira', 'Gabriel hace un comentario', 'Alguien dice "Bella"'],
   },
   isla: {
-    name: 'La Isla', shout: '¡HOGUERA!',
+    name: 'La Isla', shout: '¡HOGUERA!', archived: true,
     cells: ['Alguien llora', 'Frase "yo soy así"', 'Mirada a cámara', 'Baile en la fiesta', 'Brindis en grupo', 'Alguien pide calma', 'Conversación en la piscina',
       'Confesión en el confesionario', 'Alguien dice "me da igual"', 'Abrazo de grupo', 'Gritos', 'Alguien se va enfadado/a', 'Plano de la playa al atardecer',
       'Alguien dice "confío en él/ella"', 'Silencio tenso', 'Alguien se ríe nervioso/a', 'Hablan de "límites"', 'Alguien se arregla frente al espejo',
       'Alguien dice "tentación"', 'Cita con cena', 'Alguien pide perdón', 'Comentario de Tatiana', 'Comentario de Gabriel', 'Alguien dice "bebé"', 'Música dramática de suspense'],
   },
   english: {
-    name: 'English', shout: 'BINGO!',
+    name: 'Inglés', shout: 'BINGO!',
     cells: ['"Seriously?"', '"Oh my God"', '"I\'m sorry"', '"What the..."', '"Let\'s go"', '"I love you"', '"Trust me"', '"Wait!"', '"Are you okay?"', '"Shut up"',
       '"I promise"', '"Come on"', '"No way"', '"Thank you"', '"Hey"', '"I know"', '"Listen"', '"Damn"', '"Please"', '"Look"', '"Right?"', '"Whatever"',
       '"I don\'t know"', '"Never"', '"Maybe"'],

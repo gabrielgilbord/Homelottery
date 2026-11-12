@@ -80,7 +80,8 @@ describe('Night Show', () => {
     }
     const ids = new Set(pool.map((c) => c.id));
     expect(ids.has('p-pong')).toBe(false);
-    expect(ids.has('m-tw-quiz')).toBe(true); // El Examen de Forks: played after watching Twilight
+    expect(ids.has('m-any-quiz')).toBe(true); // El Examen de la Peli: played after any film
+    expect(ids.has('m-tw-quiz')).toBe(false); // Twilight is archived (already watched)
     N.setNoProps(false);
     expect(N.nightPool().some((c) => c.id === 'p-pong')).toBe(true);
 

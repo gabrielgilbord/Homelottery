@@ -395,9 +395,9 @@
 
 ### EP 07 · 21:15 – 23:30 · The Evening Show
 
-**Qué hace Gabriel:** Antes de la peli: Movie Lottery (subastas). Generad los cartones de Bingo y bloquead predicciones. Snacks listos.
+**Qué hace Gabriel:** Antes del play: Movie Lottery (subastas), un cartón de Bingo para cada uno del tipo de peli que toque, 3 predicciones selladas y una carta de “Palabras de peli” por cabeza. Snacks listos.
 
-**Pruebas del episodio:** Bingo Crepuscular, Oráculo Vampírico, Detectives de Parejas, Bingo del Drama, English Word Bingo, Forbidden Words.
+**Pruebas del episodio:** Bingo de la Peli, El Oráculo de la Peli, Palabras Prohibidas, El Examen de la Peli, Los Críticos, Doblaje en Directo.
 
 **Se abre:** Sobre del Cine.
 
@@ -661,4 +661,4 @@ Y en la **Ruleta de Medianoche** (30 monedas, EP 06): **Beso 10 s** (12 %): Beso
 - Los premios románticos no se anuncian. Si pregunta qué hay en las cajas: "Eso es información clasificada".
 
 ---
-_Generado desde los datos de la app (npm run cheatsheet). Biblioteca: 84 pruebas, 48 premios, 4 ruletas, 11 sobres. Confidencial._
+_Generado desde los datos de la app (npm run cheatsheet). Biblioteca: 82 pruebas, 48 premios, 4 ruletas, 11 sobres. Confidencial._

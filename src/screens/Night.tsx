@@ -94,12 +94,16 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
           </div>
           {cur.requires && <p className="ac-warn"><Icon name="info" size={14} />{cur.requires}</p>}
           {n.drinks && <p className="ac-drinks"><Icon name="glass" size={16} /><span><b>Modo copas.</b> {drinkRule(cur)} Siempre opcional: el agua vale.</span></p>}
-          <p className="ac-mat"><b>Materiales:</b> {cur.materials.join(', ')}.</p>
+          <h3 className="ac-h">1. Qué necesitáis</h3>
+          <ul className="need-list">{cur.materials.map((m) => <li key={m}><Icon name="check" size={14} />{m}</li>)}</ul>
+          <h3 className="ac-h">2. Cómo se juega</h3>
           <ol className="steps ac-steps">{cur.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
+          <h3 className="ac-h">3. Cómo se gana</h3>
           <dl className="ac-rules">
             <div><dt>Puntuación</dt><dd>{cur.scoring}</dd></div>
             <div><dt>Victoria</dt><dd>{cur.win}</dd></div>
           </dl>
+          <h3 className="ac-h">4. Al acabar</h3>
           <p className="ac-hint"><Icon name="info" size={14} /><span>{cur.mode === 'coop'
             ? <>Jugad juntos siguiendo los pasos. Al acabar, toca <b>Superado en equipo</b> o <b>No superado</b> y confírmalo tocando otra vez.</>
             : <>Leed los pasos y jugad. Al acabar, toca quién ha ganado (o <b>Empate</b>) y confírmalo tocando otra vez. ¿No os gusta? <b>Cambiar de reto</b>.</>}</span></p>

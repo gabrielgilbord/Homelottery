@@ -144,11 +144,11 @@ describe('envelopes, decks, bingo, lottery', () => {
     expect(seen.size).toBe(d.cards.length);
   });
   it('bingo needs a real line', () => {
-    S.newBingo('twilight', 'tatiana');
-    expect(S.claimBingo('twilight', 'tatiana')).toBe(false);
-    for (const i of [0, 1, 2, 3]) S.toggleBingo('twilight', 'tatiana', i);
-    expect(S.claimBingo('twilight', 'tatiana')).toBe(true);
-    expect(S.claimBingo('twilight', 'tatiana')).toBe(false);
+    S.newBingo('peli', 'tatiana');
+    expect(S.claimBingo('peli', 'tatiana')).toBe(false);
+    for (const i of [0, 1, 2, 3]) S.toggleBingo('peli', 'tatiana', i);
+    expect(S.claimBingo('peli', 'tatiana')).toBe(true);
+    expect(S.claimBingo('peli', 'tatiana')).toBe(false);
   });
   it('lottery: highest sealed bid wins and pays', () => {
     const g0 = S.getState().players.gabriel.coins, t0 = S.getState().players.tatiana.coins;
@@ -164,5 +164,18 @@ describe('envelopes, decks, bingo, lottery', () => {
     expect(S.checkHostPin('2468')).toBe(true);
     S.resetGame(false);
     expect(S.checkHostPin('2468')).toBe(false);
+  });
+});
+
+describe('movie night for any film', () => {
+  it('archives the watched Twilight / La isla challenges but keeps their names for old results', async () => {
+    const { CHALLENGES, challengeById, ARCHIVED_CHALLENGES } = await import('../src/data/challenges');
+    const { EPISODES } = await import('../src/data/episodes');
+    const { BINGO_POOLS } = await import('../src/data/decks');
+    expect(CHALLENGES.some((c) => c.sub === 'Twilight' || c.sub === 'La isla de las tentaciones')).toBe(false);
+    expect(ARCHIVED_CHALLENGES.length).toBe(8);
+    expect(challengeById('m-tw-bingo')?.name).toBe('Bingo Crepuscular');
+    for (const id of EPISODES[6].picks) expect(CHALLENGES.find((c) => c.id === id), id).toBeTruthy();
+    for (const [k, v] of Object.entries(BINGO_POOLS)) if (!v.archived) expect(v.cells.length, k).toBeGreaterThanOrEqual(16);
   });
 });

@@ -6,6 +6,7 @@ import { ChallengeList } from './Challenges';
 import { ConfirmButton, Curtain, Empty, Modal, PlayerSwitch, Section, Seg } from '../components/ui';
 import { DeckStage } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
+import { HowTo } from '../components/HowTo';
 import { celebrate } from '../lib/celebrate';
 import {
   useGame, newBingo, toggleBingo, claimBingo, bingoHasLine, addPrediction, resolvePrediction,
@@ -24,7 +25,7 @@ export default function Movie() {
           <div className="marquee" aria-hidden>{Array.from({ length: 12 }, (_, i) => <i key={i} />)}</div>
           <span className="bc" style={{ alignSelf: 'flex-start', color: 'var(--champagne)' }}>The Screening Room</span>
           <h1 className="h1">Noche de cine</h1>
-          <p className="lead">Un concurso con palomitas. La película se gana en subasta y todo se juega sin pausar.</p>
+          <p className="lead">Para cualquier peli o serie que elijáis. Antes del play: subasta, cartones y predicciones. Durante: se marca sin pausar. En los créditos: se cuenta quién gana.</p>
           <p className="credits" aria-label="Créditos">
             <span>Una producción</span><b>Homelottery</b><span>protagonizada por</span><b>Tatiana</b><span>y</span><b>Gabriel</b><span>en</span><b>sesión privada</b>
           </p>
@@ -51,7 +52,16 @@ function Lottery() {
   return (
     <section>
       <div className="section-head"><h2 className="h2">The Movie Lottery</h2></div>
-      <p className="small muted prose" style={{ marginBottom: 'var(--s-5)' }}>Cada decisión de la noche se subasta. Cada uno puja en secreto. La puja más alta gana y paga sus monedas; el otro no paga nada. Si hay empate, decide el azar.</p>
+      <HowTo
+        need={['Monedas del juego (las que tengáis cada uno)', 'Este móvil, que os vais pasando']}
+        steps={[
+          <><b>Se subasta cada decisión de la noche:</b> el género, qué peli o serie, el idioma, los snacks, cómo la veis y qué juegos activáis.</>,
+          <>Toca <b>Subastar</b> en una fila. Primero puja Gabriel en secreto (con la cortina) y pulsa <b>Sellar puja</b>; luego Tatiana.</>,
+          <>Gana la puja más alta y <b>solo paga quien gana</b>. Si empatáis, decide el azar.</>,
+          <>Quien gana elige la opción (o escribe otra en <b>Otra opción</b>).</>,
+          <>¿Os da igual pujar? Pujad 0 los dos y lo decide el azar.</>,
+        ]}
+      />
       <div style={{ borderTop: '1px solid var(--line)' }}>
         {LOTTERY_ITEMS.map((it) => {
           const lot = s.lottery[it.id];
@@ -142,21 +152,39 @@ function BidFlow({ itemId, onClose }: { itemId: string; onClose: () => void }) {
 /* ---------------- BINGO ---------------- */
 function Bingo() {
   const s = useGame();
-  const [pool, setPool] = useState<string>('twilight');
+  const [pool, setPool] = useState<string>('peli');
   const [who, setWho] = useState<PlayerId>('tatiana');
   const card = s.bingo[pool]?.[who];
   const line = card ? bingoHasLine(card.marked) : false;
+  const LINES = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15], [0, 4, 8, 12], [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [0, 5, 10, 15], [3, 6, 9, 12]];
+  const missing = card ? Math.min(...LINES.map((l) => l.filter((i) => !card.marked[i]).length)) : 4;
   return (
     <section className="stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
-      <div className="split" style={{ flexWrap: 'wrap' }}>
-        <Seg value={pool} onChange={setPool} label="Cartón" options={Object.entries(BINGO_POOLS).map(([k, v]) => ({ v: k, label: v.name }))} />
-        <PlayerSwitch value={who} onChange={setWho} />
+      <HowTo
+        need={['Cualquier peli o serie', 'Este móvil (un cartón para cada uno, en el mismo móvil)']}
+        steps={[
+          <><b>Elegid el tipo de cartón</b> que pega con lo que vais a ver: Cualquier peli, Romántica, Acción, Terror o Serie / reality.</>,
+          <><b>Un cartón para cada uno.</b> En “Cartón de” elige <b>Gabriel</b> y pulsa <b>Generar cartón</b>. Luego elige <b>Tatiana</b> y genera el suyo. Son distintos.</>,
+          <><b>Dadle al play.</b> Cuando pase en pantalla algo de tu cartón, pon tu nombre en “Cartón de” y <b>toca esa casilla</b> (se pone granate). No hace falta pausar.</>,
+          <><b>Línea</b> = 4 casillas seguidas en fila, columna o diagonal. Cuando la tengas, se enciende <b>Cantar</b>: púlsalo y grita la palabra. +15 puntos y +30 monedas.</>,
+          <>Gana quien cante primero. Si os pica, seguid a cartón lleno.</>,
+        ]}
+      />
+      <div className="stack" style={{ ['--gap' as string]: 'var(--s-3)' }}>
+        <label className="field">Tipo de cartón
+          <Seg value={pool} onChange={setPool} label="Tipo de cartón" options={Object.entries(BINGO_POOLS).filter(([, v]) => !v.archived).map(([k, v]) => ({ v: k, label: v.name }))} />
+        </label>
+        <div className="split" style={{ flexWrap: 'wrap' }}>
+          <PlayerSwitch value={who} onChange={setWho} label="Cartón de" />
+          <span className="cluster bingo-status">{PLAYERS.map((p) => <span key={p} className={'tag' + (s.bingo[pool]?.[p] ? ' ok' : '')}>{PLAYER_NAME[p]}: {s.bingo[pool]?.[p] ? (s.bingo[pool]![p]!.claimed ? 'cantó' : 'listo') : 'sin cartón'}</span>)}</span>
+        </div>
       </div>
       {!card ? (
         <Empty icon="film" action={<button className="btn accent" onClick={() => newBingo(pool, who)}>Generar cartón</button>}>{PLAYER_NAME[who]} todavía no tiene cartón de {BINGO_POOLS[pool].name}.</Empty>
       ) : (
         <>
           <div className="bingo" style={{ maxWidth: 520 }}>{card.cells.map((c, i) => <button key={i} className={card.marked[i] ? 'on' : ''} aria-pressed={card.marked[i]} onClick={() => toggleBingo(pool, who, i)}>{c}</button>)}</div>
+          {!card.claimed && <p className="bingo-hint">{line ? <b>¡Tienes línea! Pulsa Cantar.</b> : <>A {PLAYER_NAME[who]} le {missing === 1 ? 'falta 1 casilla' : `faltan ${missing} casillas`} para cantar línea.</>}</p>}
           <div className="cluster">
             {card.claimed ? <span className="tag ok">Línea cantada: +15 pts y +30 monedas</span> : (
               <button className="btn accent lg" disabled={!line} onClick={() => { if (claimBingo(pool, who)) { celebrate(2); toast(BINGO_POOLS[pool].shout, `${PLAYER_NAME[who]} canta línea · +15 pts · +30 monedas`, 'gold'); } }}>Cantar {BINGO_POOLS[pool].shout}</button>
@@ -165,7 +193,7 @@ function Bingo() {
           </div>
         </>
       )}
-      <p className="small faint prose">Cada cartón es distinto y aleatorio. Las casillas son situaciones genéricas: ninguna afirma lo que pasa en un episodio concreto.</p>
+      <p className="small faint prose">Cada cartón sale al azar de 24 situaciones típicas del tipo de peli. ¿Os equivocáis al tocar? Se toca otra vez y se desmarca.</p>
     </section>
   );
 }
@@ -181,8 +209,17 @@ function Predictions() {
   const resolved = s.predictions.filter((p) => p.status !== 'locked');
   return (
     <section className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
+      <HowTo
+        need={['Una peli o serie (o cualquier cosa que vaya a pasar esta noche)', 'Este móvil, que os vais pasando']}
+        steps={[
+          <><b>Antes del play</b>, elige tu nombre y escribe una predicción: “acaban juntos”, “el amigo es el malo”, “alguien llora antes de la mitad”…</>,
+          <>Pulsa <b>Sellar predicción</b>. Queda oculta (se ven puntitos). Escribid 3 cada uno.</>,
+          <><b>Al acabar</b>, pulsad <b>Revelar todas</b> y marcad cada una con el botón de acierto o el de fallo.</>,
+          <>Cada acierto suma solo <b>+3 puntos y +10 monedas</b> a quien la escribió.</>,
+        ]}
+      />
       <div className="surface stack">
-        <div className="split" style={{ flexWrap: 'wrap' }}><PlayerSwitch value={who} onChange={setWho} /><Seg value={show} onChange={setShow} label="Tema" options={['Película', 'Isla', 'LoL', 'Fiesta', 'Otro'].map((v) => ({ v, label: v }))} /></div>
+        <div className="split" style={{ flexWrap: 'wrap' }}><PlayerSwitch value={who} onChange={setWho} /><Seg value={show} onChange={setShow} label="Tema" options={['Película', 'Serie', 'Fiesta', 'LoL', 'Otro'].map((v) => ({ v, label: v }))} /></div>
         <label className="field"><span className="sr-only">Predicción</span><textarea className="input" placeholder="Escribe tu predicción. El otro no debería mirar." value={text} onChange={(e) => setText(e.target.value)} /></label>
         <button className="btn accent" disabled={!text.trim()} onClick={() => { addPrediction(who, text.trim(), show); setText(''); toast('Predicción sellada', 'Se revelará al final.', 'good'); }}><Icon name="lock" size={16} />Sellar predicción</button>
       </div>
@@ -211,11 +248,20 @@ function LiveCounter() {
   const load = () => { try { return JSON.parse(localStorage.getItem(KEY) || '') as Record<string, number>; } catch { return {}; } };
   const [c, setC] = useState<Record<string, number>>(load);
   useEffect(() => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch { /* noop */ } }, [c]);
-  const rows = [{ id: 'word', label: 'Palabra prohibida oída' }, { id: 'drama', label: 'Drama predicho' }, { id: 'line', label: 'Next line acertada' }];
+  const rows = [{ id: 'word', label: 'Palabra prohibida oída' }, { id: 'drama', label: 'Predicción que se cumple' }, { id: 'line', label: 'Cliché de peli que alguien canta antes' }];
   const inc = (k: string, d: number) => { setC((x) => ({ ...x, [k]: Math.max(0, (x[k] || 0) + d) })); try { navigator.vibrate?.(12); } catch { /* noop */ } };
   return (
     <section className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
-      <div className="split"><p className="small muted prose">Botones grandes para tocar a ciegas sin pausar. Al final, registrad el ganador de la prueba.</p><ConfirmButton className="btn quiet sm" onConfirm={() => setC({})} confirmText="¿A cero?">Reiniciar</ConfirmButton></div>
+      <HowTo
+        need={['Este móvil a mano durante la peli']}
+        steps={[
+          <><b>Contador sin pausar:</b> botones grandes para tocar casi sin mirar.</>,
+          <><b>Palabra prohibida oída:</b> para la prueba Palabras Prohibidas. Cada vez que en la peli dicen una de tus palabras, toca tu columna.</>,
+          <><b>Predicción que se cumple</b> y <b>Cliché de peli</b>: para llevar la cuenta de lo que acertáis en voz alta (“¡ahora se besan!”).</>,
+          <>¿Te equivocaste? <b>Restar uno</b>. Al final, registrad quién gana en la prueba correspondiente.</>,
+        ]}
+      />
+      <div className="split"><p className="small muted prose">Los números se guardan aunque cierres la app.</p><ConfirmButton className="btn quiet sm" onConfirm={() => setC({})} confirmText="¿A cero?">Reiniciar</ConfirmButton></div>
       {rows.map((r) => (
         <div key={r.id} className="stack" style={{ ['--gap' as string]: 'var(--s-2)' }}>
           <h3 className="h4">{r.label}</h3>
@@ -244,18 +290,20 @@ function Modes() {
       <section>
         <h2 className="h2" style={{ marginBottom: 'var(--s-3)' }}>Cómo jugar sin pausar</h2>
         <ol className="steps">
-          <li><span><b>Antes del play.</b> <span className="muted">Movie Lottery, cartones de Bingo, predicciones selladas y palabras prohibidas.</span></span></li>
-          <li><span><b>Durante.</b> <span className="muted">Solo se marcan casillas y se toca el marcador en vivo.</span></span></li>
-          <li><span><b>En los créditos.</b> <span className="muted">Se revelan predicciones, se cuentan palabras y se registran ganadores.</span></span></li>
+          <li><span><b>Antes del play.</b> <span className="muted">Subasta (qué veis y con qué snacks), un cartón de Bingo para cada uno, 3 predicciones selladas y una carta de Palabras de peli por cabeza.</span></span></li>
+          <li><span><b>Durante.</b> <span className="muted">Solo se marcan casillas del Bingo y se toca el contador En vivo. Nadie pausa.</span></span></li>
+          <li><span><b>En los créditos.</b> <span className="muted">Se revelan predicciones, se cuentan palabras, El Examen de la Peli y Los Críticos. Registrad cada ganador en su prueba.</span></span></li>
         </ol>
       </section>
-      <Section title="Twilight" eyebrow="The Vampire Game"><ChallengeList list={list.filter((c) => c.sub === 'Twilight')} /></Section>
-      <Section title="La isla de las tentaciones" eyebrow="The Couples Detectives"><ChallengeList list={list.filter((c) => c.sub === 'La isla de las tentaciones')} /></Section>
-      <Section title="English Night" eyebrow="Películas y series en inglés"><ChallengeList list={list.filter((c) => c.sub === 'English Night')} /></Section>
-      <Section title="Barajas de English Night">
+      <Section title="Para cualquier peli o serie" eyebrow="Las pruebas de la noche de cine"><ChallengeList list={list.filter((c) => c.sub === 'Cualquier peli o serie')} /></Section>
+      <Section title="Palabras de peli" eyebrow="Cada uno roba una carta en privado: 3 palabras secretas">
+        <DeckStage deckIds={['palabras']} />
+      </Section>
+      <Section title="En inglés (opcional)" eyebrow="Solo si os apetece practicar"><ChallengeList list={list.filter((c) => c.sub === 'English Night')} /></Section>
+      <Section title="Barajas en inglés" eyebrow="Opcionales">
         <DeckStage deckIds={['forbidden', 'translate', 'accents']} />
       </Section>
-      <Section title="Cartelera propuesta" eyebrow="Para elegir en la Lottery">
+      <Section title="Qué ver" eyebrow="Ideas por tipo de peli, para elegir en la subasta">
         <div className="poster-grid">
           {MOVIE_PICKS.map((m, i) => (
             <div key={m.title} className="poster" style={{ ['--pbg' as string]: POSTER_BG[i % POSTER_BG.length] } as CSSProperties}>

@@ -1,14 +1,14 @@
 # HOMELOTTERY · Gabriel × Tatiana
 **The Ultimate Couples Game Show.** One day. Two players. Unlimited surprises.
 
-Un concurso de un día entero en una web app pensada para el móvil: 8 episodios, 84 pruebas jugables, economía de monedas y puntos, cajas misteriosas, ruletas, cartas especiales, sobres secretos, Movie Night interactiva y un Host Mode privado con el Cheat Sheet de Gabriel.
+Un concurso de un día entero en una web app pensada para el móvil: 8 episodios, 82 pruebas jugables, economía de monedas y puntos, cajas misteriosas, ruletas, cartas especiales, sobres secretos, Movie Night interactiva y un Host Mode privado con el Cheat Sheet de Gabriel.
 
 ## Guías para Gabriel
 | Documento | Para qué | Versión móvil |
 |---|---|---|
 | [Guía rápida](docs/GUIA_RAPIDA_GABRIEL.md) | Cómo funciona todo, en dos minutos. **Sin spoilers.** | [guia-rapida-gabriel.html](docs/guia-rapida-gabriel.html) |
 | [Cheat Sheet secreto](docs/GABRIEL_SECRET_CHEAT_SHEET.md) | Preparación, PIN, controles de anfitrión, premios, sobres, cronología y plan B. **Confidencial: no abrir delante de Tatiana.** | [gabriel-secret-cheat-sheet.html](docs/gabriel-secret-cheat-sheet.html) |
-| [Reglamento y lista de la compra](docs/REGLAMENTO_Y_COMPRA.md) | Reglas de las 84 pruebas y de todas las mecánicas, y la compra completa. **La última sección (premios) es secreta.** | [reglamento-y-compra.html](docs/reglamento-y-compra.html) |
+| [Reglamento y lista de la compra](docs/REGLAMENTO_Y_COMPRA.md) | Reglas de las 82 pruebas y de todas las mecánicas, y la compra completa. **La última sección (premios) es secreta.** | [reglamento-y-compra.html](docs/reglamento-y-compra.html) |
 
 Los seis archivos se generan desde los datos del juego con `npm run cheatsheet`, así que siempre coinciden con la app. La versión interactiva del Cheat Sheet, con su checklist, está en la app: Más → Host Mode → Cheat Sheet.
 
@@ -51,12 +51,12 @@ Alternativa por terminal: `npx vercel` (preview) y `npx vercel --prod` (producci
 | Night Show | Modo opcional para una noche suelta: retos al azar o a elegir, mundos que se encienden y apagan, nivel de la noche, carta rápida, última ronda ×2 y su propio marcador. No toca la partida principal. |
 | Home | Marcador Gabriel vs Tatiana, episodio actual, siguiente prueba, avisos (sobres, cajas gratis). |
 | The Show | Escaleta de 8 episodios, avance de episodio, sobres secretos (11) con condiciones. |
-| Challenges | Biblioteca de 84 pruebas con filtros, búsqueda, prueba al azar, temporizador, registro de resultado, pasar/sustituir sin penalización. |
+| Challenges | Biblioteca de 82 pruebas con filtros, búsqueda, prueba al azar, temporizador, registro de resultado, pasar/sustituir sin penalización. |
 | Gaming Arena | Ruletas de campeón/rol/modo de LoL, barajas secretas, pruebas de LoL, Split Fiction, ARK y F2P de PS. |
 | Card Arena | Dados, moneda, carta al azar (española/póker), series al mejor de 3/5/7 y 13 juegos para dos. |
 | Party Mode | Laboratorio de cócteles/mocktails, 9 barajas sin repetición, 12 juegos de fiesta (beber nunca obligatorio). |
 | Couples Mode | Sweet · Spicy · Legendary, nivel común = el más suave de los dos, barajas de pareja. |
-| Movie Night | Movie Lottery (subastas a sobre cerrado), Bingo (Twilight/Isla/English), predicciones selladas, marcador en vivo, modos y propuestas. |
+| Movie Night | Para cualquier peli o serie: Movie Lottery (subastas a sobre cerrado), Bingo por tipo de peli (cualquiera, romántica, acción, terror, serie), predicciones selladas, Palabras Prohibidas, contador en vivo y pruebas de créditos. Inglés opcional. Las pruebas de Crepúsculo y La isla quedan archivadas. |
 | Mystery Boxes | Bronze/Silver/Gold/Diamond/Legendary con tablas de premios ponderadas, premios únicos sin duplicados y registro inmutable. |
 | Roulette | 4 ruletas desbloqueables; las porciones son proporcionales a su probabilidad. Doble o nada. |
 | Inventory | Cartas (10 tipos con efectos reales), misiones secretas, llaves, cajas gratis y premios canjeables. |

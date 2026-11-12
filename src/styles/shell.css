@@ -186,3 +186,14 @@
   .h1, .h2, .h3, .h4 { color: #111 !important; }
   .print-break { break-before: page; }
 }
+/* Contextual help button in the broadcast header */
+.help-btn { flex-shrink: 0; width: 36px; height: 36px; margin-left: auto; border-radius: 50%; border: 1.5px solid var(--line-3); background: transparent; color: var(--fg); display: grid; place-items: center; font-family: var(--f-display); font-weight: 900; font-size: 19px; line-height: 1; transition: transform var(--d-press) var(--ease-out), border-color var(--d-fast) ease; }
+.help-btn:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) { .help-btn:hover { border-color: var(--fg); } }
+@media (min-width: 600px) { .help-btn { margin-left: 0; } }
+@media (max-width: 359px) { .help-btn { width: 32px; height: 32px; font-size: 17px; } }
+.help-basics { padding-top: var(--s-3); border-top: 2px solid var(--fg); }
+.help-basics h3 { display: flex; align-items: center; gap: 6px; font-size: 18px; }
+.help-basics ul { margin: var(--s-2) 0 0; padding-left: 18px; font-size: var(--t-sm); color: var(--fg-2); }
+.help-basics li { margin: 6px 0; }
+.help-basics b { color: var(--fg); }

@@ -1052,5 +1052,90 @@ const M: Challenge[] = [
   },
 ];
 
-export const CHALLENGES: Challenge[] = [...H, ...C, ...K, ...G, ...P, ...M];
-export const challengeById = (id: string) => CHALLENGES.find((c) => c.id === id);
+
+/* ---------------- Noche de cine para CUALQUIER peli o serie (sustituye a Twilight / La isla, ya vistas) ---------------- */
+const ANY = 'Cualquier peli o serie';
+const MA: Challenge[] = [
+  {
+    id: 'm-any-bingo', name: 'Bingo de la Peli', tagline: 'Lo que pasa en todas las pelis, en vuestro cartón.', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Una peli o serie que os apetezca', 'Este móvil (Noche de cine → Bingo)'], mode: 'duel', players: '2 jugadores',
+    duration: 90, difficulty: 1,
+    steps: [
+      'Elegid qué veis. En Noche de cine → Bingo, elegid el cartón que mejor encaje: Cualquier peli, Romántica, Acción, Terror o Serie / reality.',
+      'Un cartón para cada uno: arriba eliges de quién es (Gabriel o Tatiana) y pulsas Generar cartón. Luego cambias el nombre y generas el otro. Cada cartón es distinto.',
+      'Dadle al play. Cuando en la pantalla pase algo de tu cartón, cambia arriba a tu nombre y toca esa casilla. No hace falta pausar.',
+      'Cuando completes una línea (fila, columna o diagonal de 4) se enciende el botón Cantar: púlsalo y grita la palabra del cartón. Suma +15 puntos y +30 monedas al momento.',
+      'Al acabar, volved a esta prueba y registrad quién cantó primero.',
+    ],
+    scoring: 'Cantar línea en la app da +15 puntos y +30 monedas en el momento; esta prueba premia además a quien cante primero.',
+    win: 'Quien cante línea primero.',
+    reward: { points: 15, coins: 25 }, rematch: 'Revancha: cartón lleno, las 16 casillas.',
+  },
+  {
+    id: 'm-any-oracle', name: 'El Oráculo de la Peli', tagline: 'Lo vi venir.', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Una peli o serie', 'Este móvil (Noche de cine → Predicciones)'], mode: 'duel', players: '2 jugadores',
+    duration: 90, difficulty: 2,
+    steps: [
+      'Antes del play, cada uno escribe 3 predicciones en Noche de cine → Predicciones sin que el otro mire. Ejemplos: “acaban juntos”, “el amigo es el malo”, “alguien muere antes de la mitad”.',
+      'Después de cada una, pulsa Sellar predicción: queda oculta.',
+      'Al acabar la peli, pulsad Revelar todas y marcad cada predicción como acierto o fallo.',
+      'Cada acierto suma solo +3 puntos y +10 monedas. Contad quién ha acertado más y registradlo aquí.',
+    ],
+    scoring: 'Número de predicciones acertadas.', win: 'Más aciertos. Si acertáis las mismas, empate.',
+    reward: { points: 20, coins: 30 }, rematch: 'Revancha: una sola predicción, sobre el final exacto.',
+  },
+  {
+    id: 'm-any-words', name: 'Palabras Prohibidas', tagline: 'Si la dicen en la peli, punto para ti.', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Una peli o serie en castellano', 'Este móvil (baraja “Palabras de peli” y contador En vivo)'], mode: 'duel', players: '2 jugadores',
+    duration: 90, difficulty: 1,
+    steps: [
+      'Antes del play, cada uno roba en privado una carta de la baraja “Palabras de peli” (Noche de cine → Modos). Cada carta trae 3 palabras. No las enseñes.',
+      'Cada vez que un personaje diga una de tus palabras, suma 1 en Noche de cine → En vivo, en la fila “Palabra prohibida oída”, en tu columna.',
+      'Al acabar, enseñad las cartas y comprobad los contadores.',
+    ],
+    scoring: '1 punto cada vez que se dice una de tus palabras.', win: 'Más palabras oídas.',
+    reward: { points: 15, coins: 30 }, rematch: 'Revancha con 2 cartas cada uno (6 palabras).',
+  },
+  {
+    id: 'm-any-quiz', name: 'El Examen de la Peli', tagline: 'Tú pones las preguntas. Yo sufro.', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Papel', 'Bolígrafo'], mode: 'duel', players: '2 jugadores',
+    duration: 15, difficulty: 2,
+    steps: [
+      'Mientras veis la peli, cada uno apunta en secreto 5 preguntas sobre detalles: un color, una frase, un objeto, un nombre.',
+      'Al terminar, os hacéis las preguntas por turnos.',
+      'Solo valen preguntas que se puedan responder con lo que se ha visto: quien pregunta decide si la respuesta vale.',
+    ],
+    scoring: '1 punto por respuesta correcta.', win: 'Más aciertos.',
+    reward: { points: 15, coins: 30 }, rematch: 'Revancha con 3 preguntas de “¿quién dijo…?”.',
+  },
+  {
+    id: 'm-any-critics', name: 'Los Críticos', tagline: '¿Cuánto le pondrás tú?', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Papel', 'Bolígrafo'], mode: 'duel', players: '2 jugadores',
+    duration: 5, difficulty: 1,
+    steps: [
+      'Al acabar la peli, cada uno escribe en secreto dos números del 1 al 10: la nota que le pone a la peli y la nota que cree que le pondrá el otro.',
+      'Enseñad los papeles a la vez.',
+      'Mirad quién ha estado más cerca de adivinar la nota del otro.',
+    ],
+    scoring: 'Diferencia entre tu apuesta y la nota real del otro.', win: 'La diferencia más pequeña. Si es igual, empate.',
+    reward: { points: 10, coins: 20 }, rematch: 'Revancha: adivinad también la escena favorita del otro.',
+  },
+  {
+    id: 'm-any-dub', name: 'Doblaje en Directo', tagline: 'Silencio en la sala. Ahora habláis vosotros.', category: 'movie', sub: ANY,
+    episodes: [7], materials: ['Una peli o serie', 'El mando para quitar el volumen'], mode: 'duel', players: '2 jugadores',
+    duration: 10, difficulty: 2,
+    steps: [
+      'Buscad una escena con diálogo de un minuto, más o menos, y quitad el volumen.',
+      'Gabriel dobla la escena en directo, inventándose lo que dicen. Después Tatiana dobla otra escena.',
+      'Cada uno puntúa el doblaje del otro del 1 al 10 (gracia y que no se quede callado).',
+    ],
+    scoring: 'La nota que te pone el otro.', win: 'La nota más alta. Si es igual, empate.',
+    reward: { points: 15, coins: 25 }, rematch: 'Revancha: doblaje con acento inventado.',
+  },
+];
+
+/** Already watched (Twilight, La isla): kept so old results still show their name, but no longer offered anywhere. */
+const ARCHIVED_SUBS = new Set(['Twilight', 'La isla de las tentaciones']);
+export const ARCHIVED_CHALLENGES: Challenge[] = M.filter((c) => ARCHIVED_SUBS.has(c.sub || ''));
+export const CHALLENGES: Challenge[] = [...H, ...C, ...K, ...G, ...P, ...MA, ...M.filter((c) => !ARCHIVED_SUBS.has(c.sub || ''))];
+export const challengeById = (id: string) => CHALLENGES.find((c) => c.id === id) || ARCHIVED_CHALLENGES.find((c) => c.id === id);

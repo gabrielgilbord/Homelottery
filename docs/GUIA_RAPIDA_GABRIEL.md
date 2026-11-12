@@ -15,12 +15,14 @@
 6. [Cómo funcionan las ruletas](#ruletas)
 7. [Cómo se abren las cajas misteriosas](#cajas)
 8. [Cómo funcionan los sobres](#sobres)
-9. [Premios y logros](#premios)
-10. [El marcador Gabriel contra Tatiana](#marcador)
-11. [Host Mode](#host)
-12. [Night Show: jugar esta noche, aparte](#night)
-13. [Cómo se guarda el progreso](#guardado)
-14. [Consulta rápida](#tabla)
+9. [Noche de cine (para cualquier peli o serie)](#cine)
+10. [Premios y logros](#premios)
+11. [El marcador Gabriel contra Tatiana](#marcador)
+12. [Host Mode](#host)
+13. [Night Show: jugar esta noche, aparte](#night)
+14. [Cómo se guarda el progreso](#guardado)
+15. [Si no sabes cómo va algo](#ayuda)
+16. [Consulta rápida](#tabla)
 
 <a id="empezar"></a>
 
@@ -101,7 +103,7 @@ El día está dividido en **8 episodios**. El episodio en emisión decide qué p
 
 > **Truco.** ¿No apetece? **Pasar o cambiar** → **Sustituir al azar** (otra prueba parecida) o **Solo pasar**. Sin penalización, nunca.
 
-**Pruebas** tiene las 84 pruebas con buscador, filtros por mundo y el botón **Al azar**.
+**Pruebas** tiene las 82 pruebas con buscador, filtros por mundo y el botón **Al azar**.
 
 <a id="ruletas"></a>
 
@@ -151,9 +153,23 @@ Cada porción ocupa exactamente su probabilidad. Debajo de la rueda está la tab
 
 > Los sobres personales piden la cortina de privacidad: solo los lee su destinatario.
 
+<a id="cine"></a>
+
+## 9. Noche de cine (para cualquier peli o serie)
+
+Más → **Noche de cine**. Cada pestaña tiene arriba su **Cómo funciona**. Lo que necesitáis: la peli o serie que queráis y este móvil.
+
+1. **Antes del play.** Pestaña **Subasta**: se puja en secreto por elegir género, peli, idioma, snacks… Solo paga quien gana.
+2. **Bingo.** Elegid el tipo de cartón (Cualquier peli, Romántica, Acción, Terror o Serie / reality). En **Cartón de** elige Gabriel → **Generar cartón**; luego Tatiana → **Generar cartón**.
+3. **Predicciones.** Cada uno escribe 3 (“acaban juntos”…) y **Sellar predicción**. Quedan ocultas.
+4. **Durante la peli.** Cuando pase algo de tu cartón, pon tu nombre en **Cartón de** y toca la casilla. Con 4 seguidas (fila, columna o diagonal) se enciende **Cantar**: +15 puntos y +30 monedas.
+5. **En los créditos.** **Revelar todas** las predicciones y marcar aciertos (+3 puntos y +10 monedas cada uno). Luego, en **Modos**: El Examen de la Peli y Los Críticos.
+
+> Las pruebas de Crepúsculo y La isla ya no salen (ya las habéis visto). Las de inglés siguen, pero son opcionales.
+
 <a id="premios"></a>
 
-## 9. Premios y logros
+## 10. Premios y logros
 
 - **Premios**: salen de cajas, ruletas y sobres. Se guardan en **Más → Inventario → Premios ganados**. Cuando se cumple uno, tocar **Canjear** (queda como “Canjeado”).
 - **Cartas especiales** (10 tipos): Inventario → tocar la carta → **Usar carta** (toca otra vez). Algunas solo sirven en un momento concreto y lo explican.
@@ -162,7 +178,7 @@ Cada porción ocupa exactamente su probabilidad. Debajo de la rueda está la tab
 
 <a id="marcador"></a>
 
-## 10. El marcador Gabriel contra Tatiana
+## 11. El marcador Gabriel contra Tatiana
 
 1. Toca los puntos de la barra superior (o Más → **Marcador**).
 2. Arriba: puntos de cada uno y el sello de quien lidera con la ventaja.
@@ -173,7 +189,7 @@ Gana el día quien tenga **más puntos** al final de la Gran Final.
 
 <a id="host"></a>
 
-## 11. Host Mode
+## 12. Host Mode
 
 Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloquea al salir y tras 5 minutos sin tocar nada.
 
@@ -181,7 +197,7 @@ Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloque
 
 <a id="night"></a>
 
-## 12. Night Show: jugar esta noche, aparte
+## 13. Night Show: jugar esta noche, aparte
 
 Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.
 
@@ -198,16 +214,25 @@ Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca l
 
 <a id="guardado"></a>
 
-## 13. Cómo se guarda el progreso
+## 14. Cómo se guarda el progreso
 
 - Se guarda **solo y al instante** en el propio móvil. No hace falta pulsar nada.
 - Funciona **sin conexión** después de abrirla una vez con WiFi.
 - La partida vive en ese móvil y en esa dirección. En el iPhone, la app del icono guarda aparte de Safari: jugad siempre desde el icono.
 - Copia de seguridad: la hace Gabriel desde Host Mode.
 
+<a id="ayuda"></a>
+
+## 15. Si no sabes cómo va algo
+
+- Toca el **?** de la barra de arriba: explica la pantalla en la que estás y el juego en 5 frases.
+- En cada prueba: **1. Qué necesitáis**, **2. Cómo se juega**, **3. Cómo se gana** y **4. Al acabar**.
+- En Noche de cine, cada pestaña tiene su **Cómo funciona** (se pliega cuando ya os lo sabéis).
+- En el Night Show, el botón **?** rosa de abajo.
+
 <a id="tabla"></a>
 
-## 14. Consulta rápida
+## 16. Consulta rápida
 
 | Quiero… | Tengo que pulsar… |
 |---|---|

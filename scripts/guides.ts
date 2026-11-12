@@ -106,7 +106,7 @@ export function quickGuide(): Doc {
           'Sale el resultado con lo que cobra cada uno y atajos a **Cajas** y **Ruleta**.',
         ] },
         { note: '¿No apetece? **Pasar o cambiar** → **Sustituir al azar** (otra prueba parecida) o **Solo pasar**. Sin penalización, nunca.', tone: 'tip' },
-        { p: '**Pruebas** tiene las 84 pruebas con buscador, filtros por mundo y el botón **Al azar**.' },
+        { p: `**Pruebas** tiene las ${CHALLENGES.length} pruebas con buscador, filtros por mundo y el botón **Al azar**.` },
       ] },
       { id: 'ruletas', title: 'Cómo funcionan las ruletas', blocks: [
         { ol: [
@@ -136,6 +136,17 @@ export function quickGuide(): Doc {
           'Se abre, sale la carta y la recompensa se cobra sola. Los abiertos se pueden **releer**.',
         ] },
         { note: 'Los sobres personales piden la cortina de privacidad: solo los lee su destinatario.' },
+      ] },
+      { id: 'cine', title: 'Noche de cine (para cualquier peli o serie)', blocks: [
+        { p: 'Más → **Noche de cine**. Cada pestaña tiene arriba su **Cómo funciona**. Lo que necesitáis: la peli o serie que queráis y este móvil.' },
+        { ol: [
+          '**Antes del play.** Pestaña **Subasta**: se puja en secreto por elegir género, peli, idioma, snacks… Solo paga quien gana.',
+          '**Bingo.** Elegid el tipo de cartón (Cualquier peli, Romántica, Acción, Terror o Serie / reality). En **Cartón de** elige Gabriel → **Generar cartón**; luego Tatiana → **Generar cartón**.',
+          '**Predicciones.** Cada uno escribe 3 (“acaban juntos”…) y **Sellar predicción**. Quedan ocultas.',
+          '**Durante la peli.** Cuando pase algo de tu cartón, pon tu nombre en **Cartón de** y toca la casilla. Con 4 seguidas (fila, columna o diagonal) se enciende **Cantar**: +15 puntos y +30 monedas.',
+          '**En los créditos.** **Revelar todas** las predicciones y marcar aciertos (+3 puntos y +10 monedas cada uno). Luego, en **Modos**: El Examen de la Peli y Los Críticos.',
+        ] },
+        { note: 'Las pruebas de Crepúsculo y La isla ya no salen (ya las habéis visto). Las de inglés siguen, pero son opcionales.' },
       ] },
       { id: 'premios', title: 'Premios y logros', blocks: [
         { ul: [
@@ -177,6 +188,14 @@ export function quickGuide(): Doc {
           'Funciona **sin conexión** después de abrirla una vez con WiFi.',
           'La partida vive en ese móvil y en esa dirección. En el iPhone, la app del icono guarda aparte de Safari: jugad siempre desde el icono.',
           'Copia de seguridad: la hace Gabriel desde Host Mode.',
+        ] },
+      ] },
+      { id: 'ayuda', title: 'Si no sabes cómo va algo', blocks: [
+        { ul: [
+          'Toca el **?** de la barra de arriba: explica la pantalla en la que estás y el juego en 5 frases.',
+          'En cada prueba: **1. Qué necesitáis**, **2. Cómo se juega**, **3. Cómo se gana** y **4. Al acabar**.',
+          'En Noche de cine, cada pestaña tiene su **Cómo funciona** (se pliega cuando ya os lo sabéis).',
+          'En el Night Show, el botón **?** rosa de abajo.',
         ] },
       ] },
       { id: 'tabla', title: 'Consulta rápida', blocks: [

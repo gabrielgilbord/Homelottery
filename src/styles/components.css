@@ -259,3 +259,19 @@ table.t td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 /* ---------------- Score deltas ---------------- */
 .delta { position: absolute; right: 0; top: -4px; font-family: var(--f-edit); font-stretch: 80%; font-size: 15px; font-weight: 800; color: var(--value); animation: float-up 1.3s var(--ease-out) forwards; pointer-events: none; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .delta.neg { color: var(--danger); }
+
+/* ---------------- HowTo: "Cómo funciona" (folds away once learned) ---------------- */
+.howto { margin-bottom: var(--s-5); border-radius: var(--r-md); background: var(--bg-1); border: 1px solid var(--line-2); }
+.howto summary { display: flex; align-items: center; gap: var(--s-2); min-height: var(--tap); padding: 0 var(--s-4); cursor: pointer; list-style: none; font-family: var(--f-edit); font-stretch: 80%; font-weight: 750; font-size: 16px; color: var(--fg); }
+.howto summary::-webkit-details-marker { display: none; }
+.howto summary > svg:first-child { color: var(--accent); }
+.howto summary .howto-chev { margin-left: auto; color: var(--fg-3); transform: rotate(90deg); transition: transform var(--d-fast) var(--ease-out); }
+.howto:not([open]) summary .howto-chev { transform: rotate(0deg); }
+.howto-body { padding: 0 var(--s-4) var(--s-3); }
+.howto-need { padding: var(--s-3) 0; border-top: 1px solid var(--line); font-size: var(--t-sm); }
+.howto-need b { font-family: var(--f-edit); font-stretch: 80%; font-weight: 750; font-size: 15px; }
+.howto-need ul { margin: 6px 0 0; padding-left: 18px; color: var(--fg-2); }
+.howto-need li { margin: 3px 0; }
+.howto .steps { border-top: 1px solid var(--line); }
+.howto .steps li { padding: var(--s-3) 0; font-size: var(--t-sm); color: var(--fg-2); }
+.howto .steps li b { color: var(--fg); }

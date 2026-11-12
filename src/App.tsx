@@ -24,6 +24,7 @@ import Achievements from './screens/Achievements';
 import Host from './screens/Host';
 import Prefs from './screens/Prefs';
 import Night from './screens/Night';
+import { HelpButton } from './components/Help';
 
 export interface NavItem { id: string; label: string; icon: string; world: string; show?: string }
 export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
@@ -154,6 +155,7 @@ export default function App() {
             <b>{ep.title}</b>
             <span className="faint">{ep.time.replace(' – ', ' a ')}</span>
           </div>
+          {route.name !== 'night' && <HelpButton route={route.name} />}
           <button className="scorepill" onClick={() => go('leaderboard')} aria-label={`Marcador: Gabriel ${s.players.gabriel.points}, Tatiana ${s.players.tatiana.points}`}>
             <span className={'s gabriel' + (lead === 'gabriel' ? ' lead' : '')}><i>G</i><AnimatedNumber value={s.players.gabriel.points} /></span>
             <span className="sep" aria-hidden>vs</span>

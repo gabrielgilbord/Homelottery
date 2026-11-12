@@ -1,7 +1,7 @@
 # Reglamento y lista de la compra
 **Para Gabriel. La sección de premios es secreta**
 
-> Las reglas oficiales de las 84 pruebas y de todas las mecánicas del show, tal como aparecen en la app, y todo lo que hay que tener en casa.
+> Las reglas oficiales de las 82 pruebas y de todas las mecánicas del show, tal como aparecen en la app, y todo lo que hay que tener en casa.
 
 > **Truco.** **Regla de oro:** cualquier prueba se puede pasar o cambiar, sin penalización y sin explicaciones. Se juega siempre al nivel más suave de los dos. Beber nunca es obligatorio ni un castigo.
 
@@ -15,7 +15,7 @@
 4. [Cartas y dados (13 pruebas)](#p-cards)
 5. [Gaming (15 pruebas)](#p-gaming)
 6. [Fiesta (12 pruebas)](#p-party)
-7. [Noche de cine (13 pruebas)](#p-movie)
+7. [Noche de cine (11 pruebas)](#p-movie)
 8. [Lista de la compra](#compra)
 
 <a id="reglas"></a>
@@ -127,6 +127,7 @@ Se usan en **Más → Inventario** → tocar la carta → **Usar carta** (dos to
 | En pareja | **Plan Secreto** (privada) | Tu encargo secreto para hoy. No lo enseñes. |
 | Gaming | **Reglas Absurdas (LoL)** (privada) | Tu regla secreta para esta partida. |
 | Gaming | **Objetivos Ocultos (Split Fiction)** (privada) | Cúmplelo sin que se note. |
+| Noche de cine | **Palabras de peli** (privada) | Tus 3 palabras secretas. Si las dicen en la peli, punto para ti. |
 | Noche de cine | **Forbidden Words** (privada) | Tus 3 palabras secretas para la peli. |
 | Noche de cine | **Translation Roulette** | Traduce al inglés. Bonus si suena natural. |
 | Noche de cine | **Acentos** | El acento que te toca para esta ronda. |
@@ -1328,137 +1329,108 @@ Predice la tarde antes de que pase.
 
 <a id="p-movie"></a>
 
-## 7. Noche de cine (13 pruebas)
+## 7. Noche de cine (11 pruebas)
 
-Twilight, La isla de las tentaciones y English Night.
+Para cualquier peli o serie: bingo, predicciones, palabras prohibidas, examen, críticos y doblaje. Inglés opcional.
 
-### Oráculo Vampírico · Twilight
+### Bingo de la Peli · Cualquier peli o serie
 
-Predice la película antes de que te muerda.
+Lo que pasa en todas las pelis, en vuestro cartón.
 
-**Duelo** · **2 jugadores** · **120 min** · **dificultad fácil** · **paga 15 puntos y 30 monedas** · **episodio 07**
+**Duelo** · **2 jugadores** · **90 min** · **dificultad fácil** · **paga 15 puntos y 25 monedas** · **episodio 07**
 
-**Materiales:** Crepúsculo, Predicciones (Noche de cine).
+**Materiales:** Una peli o serie que os apetezca, Este móvil (Noche de cine → Bingo).
 
-1. Antes de darle al play, cada uno bloquea 5 predicciones: "habrá una escena en el bosque de más de 2 minutos", "alguien mirará fijamente sin pestañear", "habrá una canción que Tatiana tararee"...
-2. No se pausa la película: se comprueba todo al final.
-3. Durante los créditos, marcad aciertos y fallos.
-
-| Puntuación | Victoria | Revancha |
-|---|---|---|
-| 1 punto por predicción acertada. | Más aciertos. | Revancha en la siguiente película de la saga. |
-
-### Bingo Crepuscular · Twilight
-
-Miradas intensas, niebla y piel brillante.
-
-**Duelo** · **2 jugadores** · **120 min** · **dificultad fácil** · **paga 15 puntos y 30 monedas** · **episodio 07**
-
-**Materiales:** Bingo de Noche de cine (cartón Twilight).
-
-1. Cada uno genera su cartón de Bingo Twilight en Noche de cine (casillas distintas para cada uno).
-2. Mientras veis la película, marcáis las situaciones cuando ocurren. Sin pausar.
-3. Quien complete primero una línea, grita "¡VAMPIRO!" y lo reclama en la app.
+1. Elegid qué veis. En Noche de cine → Bingo, elegid el cartón que mejor encaje: Cualquier peli, Romántica, Acción, Terror o Serie / reality.
+2. Un cartón para cada uno: arriba eliges de quién es (Gabriel o Tatiana) y pulsas Generar cartón. Luego cambias el nombre y generas el otro. Cada cartón es distinto.
+3. Dadle al play. Cuando en la pantalla pase algo de tu cartón, cambia arriba a tu nombre y toca esa casilla. No hace falta pausar.
+4. Cuando completes una línea (fila, columna o diagonal de 4) se enciende el botón Cantar: púlsalo y grita la palabra del cartón. Suma +15 puntos y +30 monedas al momento.
+5. Al acabar, volved a esta prueba y registrad quién cantó primero.
 
 | Puntuación | Victoria | Revancha |
 |---|---|---|
-| Línea = victoria. Si nadie completa línea, gana quien tenga más casillas. | Primera línea. | Cartón nuevo y a por el bingo completo. |
+| Cantar línea en la app da +15 puntos y +30 monedas en el momento; esta prueba premia además a quien cante primero. | Quien cante línea primero. | Revancha: cartón lleno, las 16 casillas. |
 
-### El Examen de Forks · Twilight
+### El Oráculo de la Peli · Cualquier peli o serie
 
-Tú creas las preguntas. Yo sufro.
+Lo vi venir.
+
+**Duelo** · **2 jugadores** · **90 min** · **dificultad media** · **paga 20 puntos y 30 monedas** · **episodio 07**
+
+**Materiales:** Una peli o serie, Este móvil (Noche de cine → Predicciones).
+
+1. Antes del play, cada uno escribe 3 predicciones en Noche de cine → Predicciones sin que el otro mire. Ejemplos: “acaban juntos”, “el amigo es el malo”, “alguien muere antes de la mitad”.
+2. Después de cada una, pulsa Sellar predicción: queda oculta.
+3. Al acabar la peli, pulsad Revelar todas y marcad cada predicción como acierto o fallo.
+4. Cada acierto suma solo +3 puntos y +10 monedas. Contad quién ha acertado más y registradlo aquí.
+
+| Puntuación | Victoria | Revancha |
+|---|---|---|
+| Número de predicciones acertadas. | Más aciertos. Si acertáis las mismas, empate. | Revancha: una sola predicción, sobre el final exacto. |
+
+### Palabras Prohibidas · Cualquier peli o serie
+
+Si la dicen en la peli, punto para ti.
+
+**Duelo** · **2 jugadores** · **90 min** · **dificultad fácil** · **paga 15 puntos y 30 monedas** · **episodio 07**
+
+**Materiales:** Una peli o serie en castellano, Este móvil (baraja “Palabras de peli” y contador En vivo).
+
+1. Antes del play, cada uno roba en privado una carta de la baraja “Palabras de peli” (Noche de cine → Modos). Cada carta trae 3 palabras. No las enseñes.
+2. Cada vez que un personaje diga una de tus palabras, suma 1 en Noche de cine → En vivo, en la fila “Palabra prohibida oída”, en tu columna.
+3. Al acabar, enseñad las cartas y comprobad los contadores.
+
+| Puntuación | Victoria | Revancha |
+|---|---|---|
+| 1 punto cada vez que se dice una de tus palabras. | Más palabras oídas. | Revancha con 2 cartas cada uno (6 palabras). |
+
+### El Examen de la Peli · Cualquier peli o serie
+
+Tú pones las preguntas. Yo sufro.
 
 **Duelo** · **2 jugadores** · **15 min** · **dificultad media** · **paga 15 puntos y 30 monedas** · **episodio 07**
 
 **Materiales:** Papel, Bolígrafo.
 
-1. Durante la película, cada uno apunta en secreto 5 preguntas sobre detalles que acaba de ver (colores, frases, objetos).
+1. Mientras veis la peli, cada uno apunta en secreto 5 preguntas sobre detalles: un color, una frase, un objeto, un nombre.
 2. Al terminar, os hacéis las preguntas por turnos.
-3. Las preguntas deben poder responderse con lo que se ha visto: el que pregunta decide si la respuesta vale.
+3. Solo valen preguntas que se puedan responder con lo que se ha visto: quien pregunta decide si la respuesta vale.
 
 | Puntuación | Victoria | Revancha |
 |---|---|---|
-| 1 punto por respuesta correcta. | Más aciertos. | Revancha con 3 preguntas de "¿quién dijo...?". |
+| 1 punto por respuesta correcta. | Más aciertos. | Revancha con 3 preguntas de “¿quién dijo…?”. |
 
-### Team Edward vs Team Jacob · Twilight
+### Los Críticos · Cualquier peli o serie
 
-Un debate que lleva años sin resolverse.
+¿Cuánto le pondrás tú?
 
-**Duelo** · **2 jugadores** · **8 min** · **dificultad fácil** · **paga 10 puntos y 20 monedas** · **episodio 07**
+**Duelo** · **2 jugadores** · **5 min** · **dificultad fácil** · **paga 10 puntos y 20 monedas** · **episodio 07**
 
-**Materiales:** Temporizador.
+**Materiales:** Papel, Bolígrafo.
 
-1. Una moneda decide qué equipo defiende cada uno (aunque no sea el tuyo).
-2. 90 segundos de alegato cada uno con argumentos de la película que acabáis de ver.
-3. Réplica de 30 segundos. Se decide con "Cara de Póker": quien haga reír más al otro con su alegato, gana.
-
-| Puntuación | Victoria | Revancha |
-|---|---|---|
-| El que provoque la reacción más fuerte del rival. | Decisión honesta del rival. | Revancha defendiendo a los Vulturi. |
-
-### Detectives de Parejas · La isla de las tentaciones
-
-Predice decisiones antes que la hoguera.
-
-**Duelo** · **2 jugadores** · **60 min** · **dificultad fácil** · **paga 15 puntos y 30 monedas** · **episodio 07**
-
-**Materiales:** Un episodio cualquiera, Predicciones (Noche de cine).
-
-1. En los primeros 5 minutos del episodio, cada uno bloquea 5 predicciones de comportamiento sobre lo que va a pasar en ESE episodio (quién llorará, quién se acercará a quién, quién pedirá ver imágenes...).
-2. No inventéis datos del programa: predicciones abiertas, se comprueban al final.
-3. Al acabar, marcad aciertos.
+1. Al acabar la peli, cada uno escribe en secreto dos números del 1 al 10: la nota que le pone a la peli y la nota que cree que le pondrá el otro.
+2. Enseñad los papeles a la vez.
+3. Mirad quién ha estado más cerca de adivinar la nota del otro.
 
 | Puntuación | Victoria | Revancha |
 |---|---|---|
-| 1 punto por acierto. Predicción "atrevida" (marcada como tal antes) vale 2. | Más puntos. | Siguiente episodio, nuevas predicciones. |
+| Diferencia entre tu apuesta y la nota real del otro. | La diferencia más pequeña. Si es igual, empate. | Revancha: adivinad también la escena favorita del otro. |
 
-### Bingo del Drama · La isla de las tentaciones
+### Doblaje en Directo · Cualquier peli o serie
 
-Lágrimas, miradas y "es que yo soy así".
+Silencio en la sala. Ahora habláis vosotros.
 
-**Duelo** · **2 jugadores** · **60 min** · **dificultad fácil** · **paga 15 puntos y 30 monedas** · **episodio 07**
+**Duelo** · **2 jugadores** · **10 min** · **dificultad media** · **paga 15 puntos y 25 monedas** · **episodio 07**
 
-**Materiales:** Bingo de Noche de cine (cartón Isla).
+**Materiales:** Una peli o serie, El mando para quitar el volumen.
 
-1. Generad un cartón Isla cada uno en Noche de cine.
-2. Marcad las situaciones cuando ocurran.
-3. Primera línea = "¡HOGUERA!".
-
-| Puntuación | Victoria | Revancha |
-|---|---|---|
-| Primera línea gana. | Primera línea. | Cartón nuevo con el siguiente episodio. |
-
-### Detector de Dramas · La isla de las tentaciones
-
-Llámalo antes de que ocurra.
-
-**Duelo** · **2 jugadores** · **60 min** · **dificultad media** · **paga 15 puntos y 30 monedas** · **episodio 07**
-
-**Materiales:** 3 fichas por jugador.
-
-1. Cada jugador tiene 3 fichas de "¡DRAMA!".
-2. Cuando intuyas que algo dramático va a pasar en el próximo minuto (una discusión, unas lágrimas, una revelación), dejas una ficha en la mesa y dices "¡DRAMA!".
-3. Si ocurre en el siguiente minuto, ganas 2 puntos. Si no, la ficha se pierde.
+1. Buscad una escena con diálogo de un minuto, más o menos, y quitad el volumen.
+2. Gabriel dobla la escena en directo, inventándose lo que dicen. Después Tatiana dobla otra escena.
+3. Cada uno puntúa el doblaje del otro del 1 al 10 (gracia y que no se quede callado).
 
 | Puntuación | Victoria | Revancha |
 |---|---|---|
-| 2 puntos por drama predicho. | Más puntos al final del episodio. | Revancha con 2 fichas solo. |
-
-### La Apuesta de la Hoguera · La isla de las tentaciones
-
-Monedas ficticias sobre decisiones reales... de otros.
-
-**Duelo** · **2 jugadores** · **60 min** · **dificultad media** · **paga 12 puntos y 25 monedas** · **episodio 07**
-
-**Materiales:** Monedas de la app (apuesta simbólica).
-
-1. Antes de un momento de decisión del programa, cada uno apuesta en voz alta qué decidirá un participante.
-2. La apuesta es simbólica: el ganador recibe la recompensa de la prueba; nadie pierde monedas.
-3. Se juega con cualquier episodio.
-
-| Puntuación | Victoria | Revancha |
-|---|---|---|
-| Aciertos. | Más aciertos al final del episodio. | En el siguiente episodio. |
+| La nota que te pone el otro. | La nota más alta. Si es igual, empate. | Revancha: doblaje con acento inventado. |
 
 ### English Word Bingo · English Night
 
@@ -1653,20 +1625,20 @@ Sin sonido, ¿qué está sintiendo?
 
 | Material | Lo usan |
 |---|---|
-| Temporizador | El Imitador, Caza Express, MasterTostada, El Juicio Absurdo, El Lazarillo, Cita Improvisada, Masaje de Estrellas, Cara de Póker, Contrarreloj de Mundos, Recolector Supremo, Bartender Bajo Presión, Asociación Musical, Preguntas Relámpago, Team Edward vs Team Jacob |
+| Temporizador | El Imitador, Caza Express, MasterTostada, El Juicio Absurdo, El Lazarillo, Cita Improvisada, Masaje de Estrellas, Cara de Póker, Contrarreloj de Mundos, Recolector Supremo, Bartender Bajo Presión, Asociación Musical, Preguntas Relámpago |
 | PS5 | Silencio Total, Capitán y Copiloto, Objetivo Oculto, Contrarreloj de Mundos, Recolector Supremo, Arquitectos del Jurásico, Domador Express, Expedición Perdida, Mundial del Salón, Torneo de Leyendas |
-| Papel | Picasso a Ciegas, El Cerdito Codicioso, Código Secreto, Puntos y Cajas, El Examen de Forks |
+| Papel | Picasso a Ciegas, El Cerdito Codicioso, Código Secreto, Puntos y Cajas, El Examen de la Peli, Los Críticos |
+| Bolígrafo | La Carta de 3 Minutos, Código Secreto, El Examen de la Peli, Los Críticos |
 | Baraja de póker | Guerra con Apuestas, Mayor o Menor: Racha, Heads-Up Hold'em de Salón, Velocidad Pura |
 | Split Fiction | Silencio Total, Capitán y Copiloto, Objetivo Oculto, Contrarreloj de Mundos |
 | 2 mandos | Silencio Total, Capitán y Copiloto, Mundial del Salón, Torneo de Leyendas |
 | ARK (actualizado) | Recolector Supremo, Arquitectos del Jurásico, Domador Express, Expedición Perdida |
 | Antifaz | El Paladar de Oro, El Lazarillo, El Sommelier Ciego |
-| Bolígrafo | La Carta de 3 Minutos, Código Secreto, El Examen de Forks |
-| Predicciones (Noche de cine) | El Profeta de la Fiesta, Oráculo Vampírico, Detectives de Parejas |
 | Baraja "Preguntas Relámpago" (Fiesta) | La Estatua Parlante, Preguntas Relámpago |
 | Baraja española de 40 cartas | Escoba a Dos, Brisca Relámpago |
 | 1 dado | El Cerdito Codicioso, Dados del Destino |
 | League of Legends (PC) | Ruleta de Campeones, Partida de Reglas Absurdas |
+| Una peli o serie | El Oráculo de la Peli, Doblaje en Directo |
 | Película en inglés | Forbidden Words, Guess the Next Line |
 | El desayuno | Operación Desayuno |
 | Un pañuelo o antifaz (opcional) | Operación Desayuno |
@@ -1756,12 +1728,13 @@ Sin sonido, ¿qué está sintiendo?
 | Baraja "Asociación Musical" (Fiesta) | Asociación Musical |
 | Baraja "Huecos" (Fiesta) | Cartas Contra Nosotros |
 | Papeles y bolígrafo | Cartas Contra Nosotros |
-| Crepúsculo | Oráculo Vampírico |
-| Bingo de Noche de cine (cartón Twilight) | Bingo Crepuscular |
-| Un episodio cualquiera | Detectives de Parejas |
-| Bingo de Noche de cine (cartón Isla) | Bingo del Drama |
-| 3 fichas por jugador | Detector de Dramas |
-| Monedas de la app (apuesta simbólica) | La Apuesta de la Hoguera |
+| Predicciones (Noche de cine) | El Profeta de la Fiesta |
+| Una peli o serie que os apetezca | Bingo de la Peli |
+| Este móvil (Noche de cine → Bingo) | Bingo de la Peli |
+| Este móvil (Noche de cine → Predicciones) | El Oráculo de la Peli |
+| Una peli o serie en castellano | Palabras Prohibidas |
+| Este móvil (baraja “Palabras de peli” y contador En vivo) | Palabras Prohibidas |
+| El mando para quitar el volumen | Doblaje en Directo |
 | Una película o serie en inglés | English Word Bingo |
 | Bingo de Noche de cine (cartón English) | English Word Bingo |
 | Baraja "Forbidden Words" (Noche de cine) | Forbidden Words |
@@ -1769,4 +1742,4 @@ Sin sonido, ¿qué está sintiendo?
 | Película o serie en inglés | Guess the Emotion |
 
 ---
-_Generado desde los datos de la app (npm run cheatsheet): 84 pruebas, 18 barajas, 114 materiales distintos._
+_Generado desde los datos de la app (npm run cheatsheet): 82 pruebas, 19 barajas, 115 materiales distintos._

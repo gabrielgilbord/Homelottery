@@ -52,10 +52,10 @@ export const EPISODES: Episode[] = [
     hostNote: 'Velas LED, manta, playlist. Revisa que ambos han configurado sus límites. Entrega de los Planes Secretos aquí o en la Final.',
   },
   {
-    n: 7, code: 'EP 07', title: 'The Evening Show', subtitle: 'Películas, series, música y pruebas en inglés.', time: '21:15 – 23:30',
-    mood: 'Cine · Palomitas', categories: ['movie', 'party'], picks: ['m-tw-bingo', 'm-tw-oracle', 'm-isla-detectives', 'm-isla-bingo', 'm-en-bingo', 'm-en-forbidden'], theme: 'movie',
-    playerNote: 'La Movie Lottery decide la película. Bingo, predicciones y palabras prohibidas sin pausar la peli.',
-    hostNote: 'Antes de la peli: Movie Lottery (subastas). Generad los cartones de Bingo y bloquead predicciones. Snacks listos.',
+    n: 7, code: 'EP 07', title: 'The Evening Show', subtitle: 'La peli o serie que elijáis, con bingo, predicciones y examen final.', time: '21:15 – 23:30',
+    mood: 'Cine · Palomitas', categories: ['movie', 'party'], picks: ['m-any-bingo', 'm-any-oracle', 'm-any-words', 'm-any-quiz', 'm-any-critics', 'm-any-dub'], theme: 'movie',
+    playerNote: 'La Movie Lottery decide qué veis. Bingo, predicciones y palabras prohibidas sin pausar la peli; examen y críticos en los créditos.',
+    hostNote: 'Antes del play: Movie Lottery (subastas), un cartón de Bingo para cada uno del tipo de peli que toque, 3 predicciones selladas y una carta de “Palabras de peli” por cabeza. Snacks listos.',
   },
   {
     n: 8, code: 'EP 08', title: 'The Grand Finale', subtitle: 'Última competición, cajas legendarias y ceremonia.', time: '23:30 – 00:15',
@@ -77,5 +77,5 @@ export const CATEGORIES: Record<CategoryId, { name: string; short: string; theme
   cards: { name: 'Cartas y dados', short: 'Cartas', theme: 'cards', desc: 'Baraja española, póker, dados, monedas y papel.' },
   gaming: { name: 'Gaming', short: 'Gaming', theme: 'gaming', desc: 'League of Legends, Split Fiction, ARK y free-to-play de PS.' },
   party: { name: 'Fiesta', short: 'Fiesta', theme: 'party', desc: 'Juegos de fiesta con bebidas opcionales. Nunca obligatorio beber.' },
-  movie: { name: 'Noche de cine', short: 'Cine', theme: 'movie', desc: 'Twilight, La isla de las tentaciones y English Night.' },
+  movie: { name: 'Noche de cine', short: 'Cine', theme: 'movie', desc: 'Para cualquier peli o serie: bingo, predicciones, palabras prohibidas, examen, críticos y doblaje. Inglés opcional.' },
 };

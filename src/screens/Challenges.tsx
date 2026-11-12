@@ -135,26 +135,31 @@ export function ChallengeDetail({ id }: { id: string }) {
 
       <div className="detail-grid section" style={{ marginTop: 'var(--s-8)' }}>
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-8)' }}>
-          <section>
-            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>Materiales</h2>
-            <div className="cluster">{c.materials.map((m) => <span key={m} className="chip">{m}</span>)}</div>
+          <section className="need-box">
+            <h2 className="h3">1. Qué necesitáis</h2>
+            <ul className="need-list">{c.materials.map((m) => <li key={m}><Icon name="check" size={14} />{m}</li>)}</ul>
+            <p className="small faint">¿Falta algo? Pulsa <b>Pasar o cambiar</b> y sale otra prueba. Sin penalización.</p>
           </section>
           <section>
-            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>Cómo se juega</h2>
+            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>2. Cómo se juega</h2>
             <ol className="steps">{c.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
           </section>
-          <section className="rules3">
+          <section>
+            <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>3. Cómo se gana</h2>
+            <div className="rules3">
             <div><span>Puntuación</span><span className="small">{c.scoring}</span></div>
             <div><span>Victoria</span><span className="small">{c.win}</span></div>
             <div><span>Revancha</span><span className="small">{c.rematch}</span></div>
             <div><span>Premio</span><span className="small">{c.mode === 'coop' ? 'Si lo superáis, los dos cobráis la recompensa completa.' : 'Quien gana cobra la recompensa. Quien pierde, una consolación.'}{c.reward.bonus ? ' Además hay un premio sorpresa.' : ''}{s.episode === 8 ? ' Gran Final: puntos x2.' : ''}</span></div>
+          </div>
           </section>
         </div>
 
         <aside className="detail-aside stack" style={{ ['--gap' as string]: 'var(--s-4)' }}>
           <div className="surface"><h2 className="h3" style={{ marginBottom: 'var(--s-4)' }}>Temporizador</h2><Timer seconds={c.duration <= 5 ? 60 : Math.min(600, c.duration * 60)} /></div>
           <div className="surface result-panel">
-            <div className="split"><h2 className="h3">¿Quién ha ganado?</h2><span className="small faint">Toca dos veces</span></div>
+            <div className="split"><h2 className="h3">4. Al acabar: ¿quién ha ganado?</h2></div>
+            <p className="small faint">{c.mode === 'duel' ? 'Toca el nombre de quien gana y vuelve a tocar para confirmar. Si empatáis, Empate.' : 'Toca Superado en equipo (y otra vez para confirmar) o No superado.'}</p>
             {mods.length > 0 && <div className="small value-text">{mods.map((p) => `${PLAYER_NAME[p]}: ${s.players[p].doubleArmed ? 'Double Trouble' : ''}${s.players[p].multiplier > 1 ? ` x${s.players[p].multiplier}` : ''}`).join(' · ')}</div>}
             {c.mode === 'duel' ? (
               <>

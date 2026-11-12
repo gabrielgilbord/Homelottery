@@ -74,18 +74,18 @@ export const COCKTAIL = {
 
 /* ---------------- Movie night ---------------- */
 export const MOVIE_PICKS = [
-  { title: 'Crepúsculo (Twilight, 2008)', why: 'El plan estrella: Bingo Crepuscular, Oráculo Vampírico y Examen de Forks.', lang: 'Inglés con subtítulos o castellano', where: 'Comprobad en JustWatch España dónde está disponible hoy (alquiler o suscripción).' },
-  { title: 'La isla de las tentaciones (cualquier episodio)', why: 'Bingo del Drama, Detector de Dramas y predicciones. Funciona con cualquier episodio.', lang: 'Castellano', where: 'Mediaset Infinity / Telecinco (verificad en vuestra cuenta).' },
-  { title: 'Crazy, Stupid, Love (2011)', why: 'Comedia romántica con diálogos claros: perfecta para English Bingo y Guess the Next Line.', lang: 'Inglés', where: 'Comprobad disponibilidad en JustWatch.' },
-  { title: 'The Proposal / La proposición (2009)', why: 'Inglés fácil de seguir, humor y romance: ideal para Forbidden Words.', lang: 'Inglés', where: 'Comprobad disponibilidad en JustWatch.' },
-  { title: 'Brooklyn Nine-Nine (episodios sueltos)', why: 'Episodios de 20 minutos, muy citables, ideal para Accent Challenge.', lang: 'Inglés', where: 'Comprobad disponibilidad en JustWatch.' },
-  { title: 'Friends (episodios sueltos)', why: 'Clásico para aprender expresiones: English Bingo funciona muy bien.', lang: 'Inglés', where: 'Comprobad disponibilidad en JustWatch.' },
+  { title: 'Una comedia romántica', why: 'Cartón “Romántica” del bingo. Fácil de seguir mientras jugáis.', lang: 'Castellano o VOS', where: 'La que tengáis en vuestras plataformas.' },
+  { title: 'Una de acción o thriller', why: 'Cartón “Acción”: explosiones, persecuciones y frases chulas. El bingo va rápido.', lang: 'Castellano o VOS', where: 'La que tengáis en vuestras plataformas.' },
+  { title: 'Una de terror o misterio', why: 'Cartón “Terror” y El Oráculo de la Peli: predecir quién cae es la gracia.', lang: 'Castellano o VOS', where: 'La que tengáis en vuestras plataformas.' },
+  { title: 'Una serie: 2 o 3 capítulos', why: 'Cartón “Serie o reality”. Predicciones al final de cada capítulo.', lang: 'Castellano o VOS', where: 'La que tengáis en vuestras plataformas.' },
+  { title: 'Un reality', why: 'Cartón “Serie o reality” y Palabras Prohibidas: se dicen mucho.', lang: 'Castellano', where: 'El que os apetezca.' },
+  { title: 'Algo en inglés (opcional)', why: 'Solo si os apetece: cartón “Inglés” y las pruebas de English Night.', lang: 'Inglés', where: 'Comprobad disponibilidad en JustWatch.' },
 ];
 
 export const LOTTERY_ITEMS = [
-  { id: 'genre', name: 'Género', options: ['Romántica', 'Comedia', 'Fantasía / Vampiros', 'Reality', 'Serie en inglés', 'Terror suave'] },
+  { id: 'genre', name: 'Género', options: ['Comedia romántica', 'Comedia', 'Acción / thriller', 'Terror / misterio', 'Serie', 'Reality', 'Algo en inglés'] },
   { id: 'title', name: 'Película o serie', options: [] as string[] },
-  { id: 'lang', name: 'Idioma', options: ['Versión original con subtítulos en inglés', 'VO con subtítulos en castellano', 'Castellano'] },
+  { id: 'lang', name: 'Idioma', options: ['Castellano', 'VO con subtítulos en castellano', 'VO con subtítulos en inglés'] },
   { id: 'snacks', name: 'Snacks', options: ['Palomitas', 'Nachos con salsa', 'Chocolate y fruta', 'Pizza', 'Helado', 'Sorpresa del ganador'] },
   { id: 'mode', name: 'Modo de visionado', options: ['Sofá y manta', 'Cine en la cama', 'Fuerte de cojines', 'Luces apagadas total'] },
   { id: 'rules', name: 'Retos activos', options: ['Bingo', 'Predicciones', 'Forbidden Words', 'Detector de Dramas', 'Todo a la vez'] },

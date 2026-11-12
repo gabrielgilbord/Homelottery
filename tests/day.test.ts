@@ -107,9 +107,9 @@ describe('a full day of HOMELOTTERY', () => {
           expect(typeof w).toBe('string');
           S.lotteryChoice(it.id, it.options[0] || 'Crepúsculo (Twilight, 2008)');
         }
-        S.newBingo('twilight', 'tatiana');
-        for (const i of [0, 5, 10, 15]) S.toggleBingo('twilight', 'tatiana', i);
-        expect(S.claimBingo('twilight', 'tatiana')).toBe(true);
+        S.newBingo('peli', 'tatiana');
+        for (const i of [0, 5, 10, 15]) S.toggleBingo('peli', 'tatiana', i);
+        expect(S.claimBingo('peli', 'tatiana')).toBe(true);
         S.addPrediction('gabriel', 'Habrá una escena en el bosque', 'Película');
         S.addPrediction('tatiana', 'Alguien llorará', 'Película');
         for (const p of S.getState().predictions) S.resolvePrediction(p.uid, true);
