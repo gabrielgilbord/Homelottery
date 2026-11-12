@@ -194,6 +194,8 @@ Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca l
 
 > **Truco.** Entre reto y reto, **Carta rápida** saca una carta de las barajas de Fiesta y En pareja según el nivel de la noche.
 
+> ¿Perdido a mitad? El botón **?** (abajo a la derecha) y **Cómo se juega** (arriba) abren la ayuda en cualquier momento. Cada ficha recuerda también qué tocar al acabar.
+
 <a id="guardado"></a>
 
 ## 13. Cómo se guarda el progreso

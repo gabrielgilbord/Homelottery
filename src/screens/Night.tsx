@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { challengeById } from '../data/challenges';
 import { CATEGORIES } from '../data/episodes';
 import { Icon } from '../components/Icon';
-import { ConfirmButton, Seg, Toggle, AnimatedNumber } from '../components/ui';
+import { ConfirmButton, Seg, Toggle, AnimatedNumber, Modal } from '../components/ui';
 import { OnAir, Seal } from '../components/Logo';
 import { celebrate } from '../lib/celebrate';
 import { go } from '../lib/router';
@@ -30,6 +30,7 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
   const [deck, setDeck] = useState(n.drinks ? 'never' : QUICK_DECKS[0]?.id || '');
   const [card, setCard] = useState<{ text: string; k: number } | null>(null);
   const [chooser, setChooser] = useState(false);
+  const [help, setHelp] = useState(false);
   const cur = n.current ? challengeById(n.current) : undefined;
   const pool = nightPool(n);
   const lead = nightLeader(n);
@@ -43,7 +44,10 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
       <header className="night-head">
         <div className="nh-top">
           <OnAir label="Late night" />
-          {standalone ? <button className="btn quiet sm" onClick={() => go('home')}>Volver a la invitación</button> : <span className="nh-note">Aparte del gran día</span>}
+          <span className="cluster" style={{ ['--gap' as string]: '4px' }}>
+            <button className="btn ghost sm" onClick={() => setHelp(true)}><Icon name="info" size={14} />Cómo se juega</button>
+            {standalone && <button className="btn quiet sm" onClick={() => go('home')}>Volver</button>}
+          </span>
         </div>
         <h1 className="nh-title">Night Show</h1>
         <p className="nh-sub">Una noche suelta, para jugar ahora. Tiene su propio marcador y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres.</p>
@@ -96,6 +100,9 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
             <div><dt>Puntuación</dt><dd>{cur.scoring}</dd></div>
             <div><dt>Victoria</dt><dd>{cur.win}</dd></div>
           </dl>
+          <p className="ac-hint"><Icon name="info" size={14} /><span>{cur.mode === 'coop'
+            ? <>Jugad juntos siguiendo los pasos. Al acabar, toca <b>Superado en equipo</b> o <b>No superado</b> y confírmalo tocando otra vez.</>
+            : <>Leed los pasos y jugad. Al acabar, toca quién ha ganado (o <b>Empate</b>) y confírmalo tocando otra vez. ¿No os gusta? <b>Cambiar de reto</b>.</>}</span></p>
           <div className="ac-result">
             {cur.mode === 'coop' ? (
               <>
@@ -220,6 +227,30 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
           </ol>
         </section>
       )}
+
+      <button className="night-help-fab" onClick={() => setHelp(true)} aria-label="Ayuda: cómo se juega el Night Show"><span aria-hidden>?</span></button>
+
+      <Modal open={help} onClose={() => setHelp(false)} eyebrow="Ayuda" title="Cómo se juega el Night Show">
+        <div className="stack night-help" style={{ ['--gap' as string]: 'var(--s-4)' }}>
+          <ol className="steps">
+            <li><span><b>Sale un reto.</b> Arriba está su nombre, cuánto dura y los puntos que da. Si no hay ninguno, toca <b>Sacar un reto al azar</b> o <b>Elegir uno concreto</b>.</span></li>
+            <li><span><b>Leed los pasos</b> numerados de la ficha y mirad los materiales. Todo se hace con lo que hay en casa.</span></li>
+            <li><span><b>Jugad.</b> “Puntuación” y “Victoria” dicen cómo se gana.</span></li>
+            <li><span><b>Al acabar, toca quién ha ganado</b> (Gana Gabriel, Gana Tatiana o Empate). El botón cambia: <b>tócalo otra vez</b> para confirmar. En los retos de equipo: Superado o No superado.</span></li>
+            <li><span><b>Siguiente.</b> Vuelve a tocar <b>Sacar un reto al azar</b>. Así hasta que queráis.</span></li>
+            <li><span><b>Para terminar</b>, activa <b>Última ronda ×2</b> si queréis emoción y luego <b>Cerrar el show</b>: sale el ganador.</span></li>
+          </ol>
+          <div className="night-help-faq">
+            <p><b>¿No os gusta el reto?</b> <b>Cambiar de reto</b>: sale otro y no cuenta nada.</p>
+            <p><b>¿Me equivoqué al marcar?</b> No pasa nada: es solo el marcador de esta noche. Si queréis, <b>Empezar de cero</b> abajo del todo.</p>
+            <p><b>¿Y lo de beber?</b> En los ajustes, <b>Modo copas</b>: quien pierde da un sorbo y en empate brindáis. Siempre opcional, el agua vale.</p>
+            <p><b>¿Sin cartas ni vasos?</b> <b>Sin compras</b> activado: solo salen retos con lo que hay en casa.</p>
+            <p><b>¿Entre reto y reto?</b> <b>Carta rápida</b>: Yo Nunca, Más Probable, Verdad, Reto…</p>
+            <p><b>¿Y el juego grande de mañana?</b> No se toca. El Night Show tiene su propio marcador.</p>
+          </div>
+          <button className="btn cta lg block" onClick={() => setHelp(false)}>Entendido, a jugar</button>
+        </div>
+      </Modal>
     </div>
   );
 }

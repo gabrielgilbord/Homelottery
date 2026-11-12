@@ -169,6 +169,7 @@ export function quickGuide(): Doc {
           'Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.',
         ] },
         { note: 'Entre reto y reto, **Carta rápida** saca una carta de las barajas de Fiesta y En pareja según el nivel de la noche.', tone: 'tip' },
+        { note: '¿Perdido a mitad? El botón **?** (abajo a la derecha) y **Cómo se juega** (arriba) abren la ayuda en cualquier momento. Cada ficha recuerda también qué tocar al acabar.' },
       ] },
       { id: 'guardado', title: 'Cómo se guarda el progreso', blocks: [
         { ul: [
