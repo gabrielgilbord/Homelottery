@@ -8,7 +8,7 @@ import { celebrate } from '../lib/celebrate';
 import { go } from '../lib/router';
 import { WORLD_ICON, WORLD_SHOW } from './Home';
 import {
-  useNight, nightPool, worldCount, nightLeader, toggleWorld, setLevel, setKeepTomorrow, setLastCall,
+  useNight, nightPool, worldCount, nightLeader, toggleWorld, setLevel, setKeepTomorrow, setLastCall, setNoProps, setDrinks, drinkRule,
   nextAct, swapAct, playAct, scoreAct, closeShow, resetNight, quickCard, QUICK_DECKS, NIGHT_WORLDS,
 } from '../state/night';
 import { PLAYERS, PLAYER_NAME, INTENSITY_LABEL, type Intensity } from '../types';
@@ -18,7 +18,7 @@ const DIFF = ['', 'Fácil', 'Media', 'Difícil'];
 /** NIGHT SHOW: an optional late-night game with its own scoreboard. Never touches the main show. */
 export default function Night({ standalone }: { standalone?: boolean }) {
   const n = useNight();
-  const [deck, setDeck] = useState(QUICK_DECKS[0]?.id || '');
+  const [deck, setDeck] = useState(n.drinks ? 'never' : QUICK_DECKS[0]?.id || '');
   const [card, setCard] = useState<{ text: string; k: number } | null>(null);
   const [chooser, setChooser] = useState(false);
   const cur = n.current ? challengeById(n.current) : undefined;
@@ -80,6 +80,7 @@ export default function Night({ standalone }: { standalone?: boolean }) {
             <span className="ac-pts">+{cur.reward.points * mult} puntos</span>
           </div>
           {cur.requires && <p className="ac-warn"><Icon name="info" size={14} />{cur.requires}</p>}
+          {n.drinks && <p className="ac-drinks"><Icon name="glass" size={16} /><span><b>Modo copas.</b> {drinkRule(cur)} Siempre opcional: el agua vale.</span></p>}
           <p className="ac-mat"><b>Materiales:</b> {cur.materials.join(', ')}.</p>
           <ol className="steps ac-steps">{cur.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
           <dl className="ac-rules">
@@ -147,6 +148,10 @@ export default function Night({ standalone }: { standalone?: boolean }) {
       <section className="section" aria-label="Ajustes de esta noche">
         <div className="section-head"><h2 className="h2">Ajustes de esta noche</h2></div>
         <div className="stack" style={{ ['--gap' as string]: 'var(--s-5)' }}>
+          <div className="night-switches">
+            <div className="setting"><span><b>Sin compras</b><span className="xs faint" style={{ display: 'block' }}>Solo retos con lo que hay en casa: sin barajas de cartas, dados, beer pong, consola ni peli puesta</span></span><Toggle on={n.noProps} onChange={setNoProps} label="Sin compras" /></div>
+            <div className="setting"><span><b>Modo copas</b><span className="xs faint" style={{ display: 'block' }}>Cada reto lleva una regla de sorbo opcional. No cambia los puntos</span></span><Toggle on={n.drinks} onChange={(v) => { setDrinks(v); if (v) { setDeck('never'); setCard(null); } }} label="Modo copas" /></div>
+          </div>
           <div className="field">Mundos que entran esta noche
             <div className="cluster">
               {NIGHT_WORLDS.map((c) => {
@@ -158,7 +163,7 @@ export default function Night({ standalone }: { standalone?: boolean }) {
                 );
               })}
             </div>
-            <span className="hint">Gaming necesita la consola o el PC encendidos y Cine, una peli puesta.</span>
+            <span className="hint">{n.noProps ? 'Con “Sin compras”, Cine deja solo los retos que se juegan después de la peli (El Examen de Forks, Team Edward vs Team Jacob…).' : 'Gaming necesita la consola o el PC encendidos y Cine, una peli puesta.'}</span>
           </div>
           <label className="field">Nivel de esta noche
             <Seg<Intensity> block value={n.level} onChange={setLevel} label="Nivel de esta noche" options={[{ v: 'sweet', label: 'Sweet' }, { v: 'spicy', label: 'Spicy' }, { v: 'legendary', label: 'Legendary' }]} />

@@ -162,7 +162,8 @@ export function quickGuide(): Doc {
         { p: 'Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.' },
         { ol: [
           'Ábrelo desde **Inicio → Night Show** o **Más → Night Show**. Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir).',
-          'En **Ajustes de esta noche** enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**.',
+          'En **Ajustes de esta noche**: **Sin compras** (activado: solo retos con lo que hay en casa, sin barajas de cartas, dados, beer pong, consola ni peli puesta) y **Modo copas** (cada reto lleva una regla de sorbo opcional; no cambia los puntos).',
+          'Debajo, enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**. Si lo desactivas, entran también Yo Nunca, El Sommelier Ciego y la Ruleta de Cócteles.',
           'Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.',
           'Al acabar: **Gana Gabriel / Gana Tatiana / Empate** (dos toques). En equipo: **Superado en equipo** o **No superado**. ¿No apetece? **Cambiar de reto**.',
           'Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.',

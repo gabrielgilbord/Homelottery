@@ -706,3 +706,7 @@ html[data-world='movie'] .page-head .h1 { color: var(--champagne); }
 .intro-night { align-self: center; margin-top: var(--s-2); min-height: var(--tap); padding: 0 var(--s-3); border: 0; background: none; color: rgba(242, 233, 216, 0.55); font-size: var(--t-sm); text-decoration: underline; text-decoration-color: rgba(242, 233, 216, 0.25); text-underline-offset: 4px; }
 .intro-night b { color: rgba(242, 233, 216, 0.8); font-weight: 600; }
 .content.solo { padding-bottom: var(--s-9); }
+.night-switches { border-block: 2px solid var(--fg); }
+.night-switches .setting b { font-family: var(--f-edit); font-stretch: 80%; font-size: 17px; font-weight: 750; }
+.ac-drinks { display: flex; gap: 10px; align-items: flex-start; margin-top: var(--s-3); padding: var(--s-3); border-radius: var(--r-sm); background: #f6e3d3; color: var(--ink); font-size: var(--t-sm); }
+.ac-drinks svg { color: #a8452a; flex-shrink: 0; margin-top: 1px; }

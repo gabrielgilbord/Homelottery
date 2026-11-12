@@ -68,4 +68,27 @@ describe('Night Show', () => {
     while (N.nextAct()) { const id = N.getNight().current!; expect(seen.has(id)).toBe(false); seen.add(id); N.scoreAct('tie'); }
     expect(N.nightPool().length).toBe(0);
   });
+
+  it('"Sin compras" keeps out physical decks, dice, beer pong, consoles and films; "Modo copas" never changes points', () => {
+    N.setNoProps(true); N.setKeepTomorrow(false); N.setLevel('legendary');
+    for (const w of N.NIGHT_WORLDS) if (!N.getNight().worlds.includes(w)) N.toggleWorld(w);
+    const pool = N.nightPool();
+    expect(pool.length).toBeGreaterThan(30);
+    for (const c of pool) {
+      expect(c.category).not.toBe('gaming');
+      for (const m of c.materials) expect(m, c.name).not.toMatch(/baraja española|baraja de póker|\bdados?\b|ping-pong|película|Bingo de Noche de cine/i);
+    }
+    const ids = new Set(pool.map((c) => c.id));
+    expect(ids.has('p-pong')).toBe(false);
+    expect(ids.has('m-tw-quiz')).toBe(true); // El Examen de Forks: played after watching Twilight
+    N.setNoProps(false);
+    expect(N.nightPool().some((c) => c.id === 'p-pong')).toBe(true);
+
+    N.setLastCall(false);
+    N.setDrinks(false); N.playAct('k-dots'); N.scoreAct('gabriel'); const dry = N.getNight().points.gabriel;
+    N.resetNight(); N.setDrinks(true); N.playAct('k-dots'); N.scoreAct('gabriel');
+    expect(N.getNight().points.gabriel).toBe(dry);
+    expect(N.drinkRule(challengeById('k-dots')!)).toMatch(/sorbo/);
+  });
 });
+

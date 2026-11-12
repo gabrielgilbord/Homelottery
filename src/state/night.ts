@@ -24,12 +24,16 @@ export interface NightState {
   keepTomorrow: boolean;
   current: string | null;
   lastCall: boolean;
+  /** Only challenges playable with what any home has: no physical decks, dice, pong cups, consoles or a film playing. */
+  noProps: boolean;
+  /** Drinking overlay: an optional sip rule on top of every act. Never changes the scoring. */
+  drinks: boolean;
   closed: boolean;
   startedAt: number;
 }
 
 export function initialNight(): NightState {
-  return { v: 1, points: { gabriel: 0, tatiana: 0 }, rounds: [], worlds: ['home', 'couples', 'cards', 'party'], level: 'sweet', keepTomorrow: true, current: null, lastCall: false, closed: false, startedAt: Date.now() };
+  return { v: 1, points: { gabriel: 0, tatiana: 0 }, rounds: [], worlds: ['home', 'couples', 'cards', 'party'], level: 'sweet', keepTomorrow: true, current: null, lastCall: false, noProps: true, drinks: false, closed: false, startedAt: Date.now() };
 }
 
 function load(): NightState {
@@ -56,12 +60,20 @@ export function useNight(): NightState {
 
 /* ---------------- the pool ---------------- */
 const TOMORROW = new Set(EPISODES.flatMap((e) => e.picks));
+/** Needs something that has to be bought or switched on: physical decks, dice, pong set, console/PC, a film playing.
+    The app's own decks ("Baraja \"Yo Nunca\" (Fiesta)") do not count: they live in the phone. */
+const PROPS = /baraja española|baraja de póker|\bdados?\b|ping-pong|vasos por jugador|\bPS5\b|\bPC\b|League of Legends|Split Fiction|\bARK\b|Rocket League|Brawlhalla|película|serie en inglés|episodio cualquiera|^Crepúsculo$|Bingo de Noche de cine|Una partida de LoL/i;
+export function needsProps(c: Challenge): boolean {
+  if (c.category === 'gaming') return true;
+  if (c.category === 'movie' && c.duration >= 60) return true; // played while watching
+  return c.materials.some((m) => PROPS.test(m));
+}
 const levelOk = (lv: Intensity, i?: Intensity) => !i || INTENSITY_ORDER.indexOf(i) <= INTENSITY_ORDER.indexOf(lv);
 
 /** Challenges that fit tonight's settings and have not been played tonight. */
 export function nightPool(s: NightState = night): Challenge[] {
   const played = new Set(s.rounds.map((r) => r.id));
-  return CHALLENGES.filter((c) => s.worlds.includes(c.category) && levelOk(s.level, c.intensity) && !(s.keepTomorrow && TOMORROW.has(c.id)) && !played.has(c.id) && c.id !== s.current);
+  return CHALLENGES.filter((c) => s.worlds.includes(c.category) && levelOk(s.level, c.intensity) && !(s.keepTomorrow && TOMORROW.has(c.id)) && !(s.noProps && needsProps(c)) && !played.has(c.id) && c.id !== s.current);
 }
 /** How many challenges each world offers with the current settings. */
 export function worldCount(c: CategoryId, s: NightState = night) {
@@ -73,6 +85,15 @@ export function toggleWorld(c: CategoryId) { commit((s) => { s.worlds = s.worlds
 export function setLevel(l: Intensity) { commit((s) => { s.level = l; }); }
 export function setKeepTomorrow(v: boolean) { commit((s) => { s.keepTomorrow = v; }); }
 export function setLastCall(v: boolean) { commit((s) => { s.lastCall = v; }); }
+export function setNoProps(v: boolean) { commit((s) => { s.noProps = v; }); }
+export function setDrinks(v: boolean) { commit((s) => { s.drinks = v; }); }
+
+/** The optional sip rule shown on every act in Modo copas. Water always counts; never mandatory. */
+export function drinkRule(c: Challenge): string {
+  return c.mode === 'coop'
+    ? 'Si lo superáis, brindáis los dos. Si no, sorbo para los dos.'
+    : 'Quien pierde da un sorbo. En empate, brindáis los dos.';
+}
 
 /** Draws the next act at random from the pool. Returns false when the pool is empty. */
 export function nextAct(): boolean {
@@ -105,7 +126,7 @@ export function scoreAct(outcome: Exclude<NightOutcome, 'skip'>) {
   });
 }
 export function closeShow() { commit((s) => { s.closed = true; s.current = null; }); }
-export function resetNight() { const keep = night; commit((s) => { Object.assign(s, initialNight(), { worlds: keep.worlds, level: keep.level, keepTomorrow: keep.keepTomorrow }); }); }
+export function resetNight() { const keep = night; commit((s) => { Object.assign(s, initialNight(), { worlds: keep.worlds, level: keep.level, keepTomorrow: keep.keepTomorrow, noProps: keep.noProps, drinks: keep.drinks }); }); }
 
 /* ---------------- quick cards (public party/couples decks, never private ones) ---------------- */
 export const QUICK_DECKS = DECKS.filter((d) => !d.private && (d.section === 'party' || d.section === 'couples'));

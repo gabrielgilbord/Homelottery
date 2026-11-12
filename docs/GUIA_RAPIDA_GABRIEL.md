@@ -186,10 +186,11 @@ Es la sala de control de Gabriel: Más → **Host Mode**. Pide un PIN, se bloque
 Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.
 
 1. Ábrelo desde **Inicio → Night Show** o **Más → Night Show**. Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir).
-2. En **Ajustes de esta noche** enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**.
-3. Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.
-4. Al acabar: **Gana Gabriel / Gana Tatiana / Empate** (dos toques). En equipo: **Superado en equipo** o **No superado**. ¿No apetece? **Cambiar de reto**.
-5. Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.
+2. En **Ajustes de esta noche**: **Sin compras** (activado: solo retos con lo que hay en casa, sin barajas de cartas, dados, beer pong, consola ni peli puesta) y **Modo copas** (cada reto lleva una regla de sorbo opcional; no cambia los puntos).
+3. Debajo, enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**. Si lo desactivas, entran también Yo Nunca, El Sommelier Ciego y la Ruleta de Cócteles.
+4. Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.
+5. Al acabar: **Gana Gabriel / Gana Tatiana / Empate** (dos toques). En equipo: **Superado en equipo** o **No superado**. ¿No apetece? **Cambiar de reto**.
+6. Para el final, activa **Última ronda: puntos ×2**. Cuando queráis, **Cerrar el show** corona al ganador. **Nuevo Night Show** pone el marcador a cero.
 
 > **Truco.** Entre reto y reto, **Carta rápida** saca una carta de las barajas de Fiesta y En pareja según el nivel de la noche.
 
