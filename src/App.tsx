@@ -96,7 +96,7 @@ export default function App() {
   }, [world, scheme]);
 
   // The Night Show is self-contained: it can be played before the Invitation without spoiling it.
-  if (!s.introDone && route.name === 'night') return (<><div className="stage-light" /><main className="content solo"><div className="page"><Night standalone /></div></main><Toaster /></>);
+  if (!s.introDone && route.name === 'night') return (<><div className="stage-light" /><main className="content solo"><div className="page"><Night standalone autoplay={route.param === 'play'} /></div></main><Toaster /></>);
   if (!s.introDone) return (<><div className="stage-light" /><Intro /><Toaster /></>);
 
   let screen;
@@ -116,7 +116,7 @@ export default function App() {
     case 'achievements': screen = <Achievements />; break;
     case 'host': screen = <Host unlocked={hostUnlocked} onUnlock={() => setHostUnlocked(true)} onLock={() => { setHostUnlocked(false); go('home'); }} />; break;
     case 'prefs': screen = <Prefs />; break;
-    case 'night': screen = <Night />; break;
+    case 'night': screen = <Night autoplay={route.param === 'play'} />; break;
     default: screen = <Home />;
   }
 

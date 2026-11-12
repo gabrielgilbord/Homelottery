@@ -102,9 +102,9 @@ export default function Home() {
       )}
       <div className="home-sub-actions"><button className="btn quiet" onClick={() => go('show')}>Ver la escaleta completa</button></div>
 
-      <button className="night-door" onClick={() => go('night')}>
+      <button className="night-door" onClick={() => go('night', 'play')}>
         <span className="nd-k">Night Show</span>
-        <span className="nd-t">¿Solo una noche? Jugad ahora, con su propio marcador.</span>
+        <span className="nd-t">Jugar ya: un reto directo, con su propio marcador y sin tocar el juego grande.</span>
         <Icon name="chevron" size={18} />
       </button>
 

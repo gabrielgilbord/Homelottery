@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { challengeById } from '../data/challenges';
 import { CATEGORIES } from '../data/episodes';
 import { Icon } from '../components/Icon';
@@ -8,7 +8,7 @@ import { celebrate } from '../lib/celebrate';
 import { go } from '../lib/router';
 import { WORLD_ICON, WORLD_SHOW } from './Home';
 import {
-  useNight, nightPool, worldCount, nightLeader, toggleWorld, setLevel, setKeepTomorrow, setLastCall, setNoProps, setDrinks, drinkRule,
+  useNight, getNight, nightPool, worldCount, nightLeader, toggleWorld, setLevel, setKeepTomorrow, setLastCall, setNoProps, setDrinks, drinkRule,
   nextAct, swapAct, playAct, scoreAct, closeShow, resetNight, quickCard, QUICK_DECKS, NIGHT_WORLDS,
 } from '../state/night';
 import { PLAYERS, PLAYER_NAME, INTENSITY_LABEL, type Intensity } from '../types';
@@ -16,8 +16,17 @@ import { PLAYERS, PLAYER_NAME, INTENSITY_LABEL, type Intensity } from '../types'
 const DIFF = ['', 'Fácil', 'Media', 'Difícil'];
 
 /** NIGHT SHOW: an optional late-night game with its own scoreboard. Never touches the main show. */
-export default function Night({ standalone }: { standalone?: boolean }) {
+export default function Night({ standalone, autoplay }: { standalone?: boolean; autoplay?: boolean }) {
   const n = useNight();
+  // "Jugar ya": arriving from the Night Show button puts an act on screen straight away.
+  // If an act is already in progress it is kept. The URL is cleaned so a reload never draws again.
+  useEffect(() => {
+    if (!autoplay) return;
+    const s0 = getNight();
+    if (!s0.current) nextAct();
+    try { history.replaceState(null, '', '#/night'); } catch { /* noop */ }
+    requestAnimationFrame(() => document.querySelector('.act-card')?.scrollIntoView({ block: 'start', behavior: 'smooth' }));
+  }, [autoplay]);
   const [deck, setDeck] = useState(n.drinks ? 'never' : QUICK_DECKS[0]?.id || '');
   const [card, setCard] = useState<{ text: string; k: number } | null>(null);
   const [chooser, setChooser] = useState(false);

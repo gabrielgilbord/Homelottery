@@ -161,7 +161,7 @@ export function quickGuide(): Doc {
       { id: 'night', title: 'Night Show: jugar esta noche, aparte', blocks: [
         { p: 'Un modo opcional para una noche suelta. Tiene **su propio marcador** y no toca la partida principal: ni puntos, ni monedas, ni premios, ni sobres, ni pruebas hechas.' },
         { ol: [
-          'Ábrelo desde **Inicio → Night Show** o **Más → Night Show**. Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir).',
+          '**Jugar ya:** toca **Night Show** en Inicio y entras directo con un reto en pantalla (si había uno a medias, sigue ese). Si todavía no habéis visto la Invitación, en su primera pantalla hay un enlace pequeño: **¿Solo esta noche? Night Show** (la Invitación queda sin abrir). Desde **Más → Night Show** entras sin sacar reto, para tocar los ajustes.',
           'En **Ajustes de esta noche**: **Sin compras** (activado: solo retos con lo que hay en casa, sin barajas de cartas, dados, beer pong, consola ni peli puesta) y **Modo copas** (cada reto lleva una regla de sorbo opcional; no cambia los puntos).',
           'Debajo, enciende o apaga mundos con un toque (el número dice cuántos retos quedan), elige el **nivel** (Sweet, Spicy o Legendary) y deja activado **Reservar las pruebas de mañana**. Si lo desactivas, entran también Yo Nunca, El Sommelier Ciego y la Ruleta de Cócteles.',
           'Pulsa **Sacar un reto al azar** o **Elegir uno concreto**. Sale la ficha con materiales, pasos y cómo se gana.',
@@ -195,7 +195,7 @@ export function quickGuide(): Doc {
           ['Activar sonidos', '**Más → Mis límites → Sonidos del show**'],
           ['Consultar mis controles privados', '**Más → Host Mode** → PIN'],
           ['Pasar de episodio', '**Programa → Pasar al siguiente episodio** (dos toques)'],
-          ['Jugar solo esta noche, aparte', '**Inicio → Night Show** (o Más → Night Show)'],
+          ['Jugar solo esta noche, aparte', '**Inicio → Night Show**: entra directo con un reto'],
           ['Activar o desactivar juegos', 'Night Show → **Ajustes de esta noche** (mundos); en el juego grande, **Más → Mis límites → Mundos que prefiero evitar**'],
         ] } },
       ] },

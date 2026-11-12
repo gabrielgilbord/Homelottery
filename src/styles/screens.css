@@ -710,3 +710,4 @@ html[data-world='movie'] .page-head .h1 { color: var(--champagne); }
 .night-switches .setting b { font-family: var(--f-edit); font-stretch: 80%; font-size: 17px; font-weight: 750; }
 .ac-drinks { display: flex; gap: 10px; align-items: flex-start; margin-top: var(--s-3); padding: var(--s-3); border-radius: var(--r-sm); background: #f6e3d3; color: var(--ink); font-size: var(--t-sm); }
 .ac-drinks svg { color: #a8452a; flex-shrink: 0; margin-top: 1px; }
+.act-card { scroll-margin-top: calc(var(--bar-h) + var(--safe-t) + 14px); }
