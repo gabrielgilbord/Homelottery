@@ -88,6 +88,8 @@ describe('a full day of HOMELOTTERY', () => {
         openAll(p);
         // use every card that is currently usable
         for (const c of [...S.getState().players[p].cards]) {
+          // a card used just before (Swap, an event…) can move this one out of the hand: only play cards still held
+          if (!S.getState().players[p].cards.some((x) => x.uid === c.uid)) continue;
           if (S.cardUsable(S.getState(), p, c.type).ok) { const r = S.useCard(p, c.uid); expect('error' in r).toBe(false); }
         }
         openAll(p);
