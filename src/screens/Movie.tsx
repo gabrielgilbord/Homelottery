@@ -8,6 +8,7 @@ import { DeckStage } from '../components/DeckDrawer';
 import { Icon } from '../components/Icon';
 import { HowTo } from '../components/HowTo';
 import { celebrate } from '../lib/celebrate';
+import { useRoute } from '../lib/router';
 import {
   useGame, newBingo, toggleBingo, claimBingo, bingoHasLine, addPrediction, resolvePrediction,
   lotteryBid, lotteryChoice, lotteryGoldenSeat, lotteryReset, toast,
@@ -16,8 +17,12 @@ import { PLAYERS, PLAYER_NAME, type PlayerId } from '../types';
 
 type Tab = 'lottery' | 'bingo' | 'predict' | 'live' | 'modes';
 
+const TABS: Tab[] = ['lottery', 'bingo', 'predict', 'live', 'modes'];
 export default function Movie() {
-  const [tab, setTab] = useState<Tab>('lottery');
+  const route = useRoute();
+  const fromLink = TABS.includes(route.param as Tab) ? (route.param as Tab) : null;
+  const [tab, setTab] = useState<Tab>(fromLink || 'lottery');
+  useEffect(() => { if (fromLink) setTab(fromLink); }, [fromLink]);
   return (
     <div>
       <header className="cinema-head">

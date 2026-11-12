@@ -3,15 +3,17 @@ import { DECKS } from '../data/decks';
 import { drawDeck, useGame, intensityAllowed } from '../state/store';
 import { Icon } from './Icon';
 import { Curtain, PlayerSwitch } from './ui';
-import type { PlayerId } from '../types';
+import { INTENSITY_ORDER, type Intensity, type PlayerId } from '../types';
+import { pick } from '../lib/random';
 
 /**
  * One card stage for several prompt decks: pick a deck, deal a card.
  * Cards come without repetition and respect the couple's shared intensity.
  * Private decks deal behind the privacy curtain on a shared phone.
  */
-export function DeckStage({ deckIds }: { deckIds: string[] }) {
+export function DeckStage({ deckIds, local }: { deckIds: string[]; /** Night Show: draw at random at this level and never write the main game. */ local?: { level: Intensity } }) {
   const s = useGame();
+  const okLevel = (i?: Intensity) => (local ? !i || INTENSITY_ORDER.indexOf(i) <= INTENSITY_ORDER.indexOf(local.level) : intensityAllowed(s, i));
   const decks = deckIds.map((id) => DECKS.find((d) => d.id === id)!).filter(Boolean);
   const [deckId, setDeckId] = useState(decks[0].id);
   const [card, setCard] = useState<{ text: string; remaining: number; k: number; deck: string } | null>(null);
@@ -19,10 +21,14 @@ export function DeckStage({ deckIds }: { deckIds: string[] }) {
   const [who, setWho] = useState<PlayerId>('tatiana');
   const [curtain, setCurtain] = useState(false);
   const deck = decks.find((d) => d.id === deckId)!;
-  const total = deck.cards.filter((c) => intensityAllowed(s, c.intensity)).length;
+  const total = deck.cards.filter((c) => okLevel(c.intensity)).length;
   const shown = card && card.deck === deckId ? card : null;
 
-  const draw = () => { const r = drawDeck(deckId); if (r) { setCard({ ...r, k: Date.now(), deck: deckId }); setHidden(false); try { navigator.vibrate?.(12); } catch { /* noop */ } } };
+  const draw = () => {
+    const r = local
+      ? (() => { const pool = deck.cards.filter((c) => okLevel(c.intensity)); return pool.length ? { index: 0, text: pick(pool).text, remaining: pool.length } : null; })()
+      : drawDeck(deckId);
+    if (r) { setCard({ ...r, k: Date.now(), deck: deckId }); setHidden(false); try { navigator.vibrate?.(12); } catch { /* noop */ } } };
   const onDraw = () => { if (deck.private && s.sharedScreen) setCurtain(true); else draw(); };
 
   return (
@@ -38,7 +44,7 @@ export function DeckStage({ deckIds }: { deckIds: string[] }) {
       )}
       {shown && !hidden ? (
         <div key={shown.k} className="prompt-card dealt" aria-live="polite">
-          <div className="pc-deck"><span>{deck.name}</span><span>{shown.remaining > 0 ? `quedan ${shown.remaining}` : 'se baraja de nuevo'}</span></div>
+          <div className="pc-deck"><span>{deck.name}</span><span>{local ? `${shown.remaining} cartas` : shown.remaining > 0 ? `quedan ${shown.remaining}` : 'se baraja de nuevo'}</span></div>
           <div className="pc-text">{shown.text}</div>
           <div className="pc-foot">{deck.hint}</div>
         </div>

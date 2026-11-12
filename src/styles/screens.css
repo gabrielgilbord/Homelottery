@@ -740,3 +740,12 @@ html[data-world='movie'] .page-head .h1 { color: var(--champagne); }
 .ac-h { font-family: var(--f-edit); font-stretch: 80%; font-weight: 800; font-size: 15px; letter-spacing: 0.02em; margin: var(--s-5) 0 var(--s-2); color: var(--ink); }
 .act-card .need-list svg { color: var(--burgundy); }
 .act-card .ac-hint { margin-top: 0; }
+/* In-sheet tools: whatever the challenge asks for, right there */
+.ctools { display: flex; flex-direction: column; gap: var(--s-4); padding: var(--s-4); border-radius: var(--r-lg); border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); }
+.ctools-h { display: flex; align-items: center; gap: 8px; }
+.ctools-h svg { color: var(--accent); }
+.ctool-h { font-family: var(--f-edit); font-stretch: 80%; font-weight: 800; font-size: 16px; margin-bottom: var(--s-2); }
+.ctool .slots { border-top: 0; }
+.ctool-felt { display: flex; flex-direction: column; gap: var(--s-3); }
+.act-card .ctools { margin-top: var(--s-4); --accent: var(--burgundy); }
+.act-card .ctools .prompt-card { box-shadow: 0 0 0 1px rgba(23, 20, 23, 0.15); }

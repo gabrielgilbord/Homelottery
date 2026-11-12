@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { Icon } from './Icon';
 import { Modal } from './ui';
+import { startTour } from './Tour';
 
 /** Contextual help: what this screen is for, what to tap, in plain words. No secrets (players can open it). */
 interface HelpPage { title: string; need?: string[]; steps: ReactNode[] }
@@ -102,7 +103,10 @@ export function HelpButton({ route }: { route: string }) {
           {page.need && <div className="howto-need" style={{ borderTop: 0, paddingTop: 0 }}><b>Qué necesitáis</b><ul>{page.need.map((n) => <li key={n}>{n}</li>)}</ul></div>}
           <ol className="steps">{page.steps.map((s, i) => <li key={i}><span>{s}</span></li>)}</ol>
           <div className="help-basics"><h3 className="h3"><Icon name="info" size={16} /> El juego en 5 frases</h3><ul>{BASICS.map((b, i) => <li key={i}>{b}</li>)}</ul></div>
-          <button className="btn cta lg block" onClick={() => setOpen(false)}>Entendido</button>
+          <div className="grid-2">
+            <button className="btn ghost lg" onClick={() => { setOpen(false); setTimeout(startTour, 50); }}>Ver el tutorial</button>
+            <button className="btn cta lg" onClick={() => setOpen(false)}>Entendido</button>
+          </div>
         </div>
       </Modal>
     </>

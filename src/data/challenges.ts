@@ -277,7 +277,7 @@ const C: Challenge[] = [
     episodes: [6, 8], materials: ['Papel bonito', 'Bolígrafo'], mode: 'coop', players: '2 jugadores a la vez',
     duration: 10, difficulty: 1,
     steps: [
-      'Cada uno roba 3 palabras al azar de la baraja "Palabras Prohibidas" (Fiesta): deberán aparecer en la carta.',
+      'Cada uno roba una carta de la baraja "Palabras de peli" (trae 3 palabras): deberán aparecer en la carta.',
       '3 minutos para escribir una mini carta de amor al otro.',
       'Se leen en voz alta. Si las 3 palabras aparecen y la carta saca una sonrisa, superado.',
     ],

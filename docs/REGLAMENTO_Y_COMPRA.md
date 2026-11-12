@@ -499,7 +499,7 @@ Palabras obligatorias. Sentimientos libres.
 
 **Materiales:** Papel bonito, Bolígrafo.
 
-1. Cada uno roba 3 palabras al azar de la baraja "Palabras Prohibidas" (Fiesta): deberán aparecer en la carta.
+1. Cada uno roba una carta de la baraja "Palabras de peli" (trae 3 palabras): deberán aparecer en la carta.
 2. 3 minutos para escribir una mini carta de amor al otro.
 3. Se leen en voz alta. Si las 3 palabras aparecen y la carta saca una sonrisa, superado.
 

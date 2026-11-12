@@ -179,3 +179,17 @@ describe('movie night for any film', () => {
     for (const [k, v] of Object.entries(BINGO_POOLS)) if (!v.archived) expect(v.cells.length, k).toBeGreaterThanOrEqual(16);
   });
 });
+
+describe('tools inside each challenge', () => {
+  it('finds the app decks, dice and coin each challenge asks for', async () => {
+    const { toolsFor } = await import('../src/components/ChallengeTools');
+    const { challengeById, CHALLENGES } = await import('../src/data/challenges');
+    expect(toolsFor(challengeById('h-impressions')!).decks).toEqual(['mime']);
+    expect(toolsFor(challengeById('p-dice')!).decks).toEqual(['truth', 'dare']);
+    expect(toolsFor(challengeById('p-dice')!).dice).toBe(true);
+    expect(toolsFor(challengeById('k-coin')!).coin).toBe(true);
+    expect(toolsFor(challengeById('c-letter')!).decks).toEqual(['palabras']);
+    // every deck a challenge names in its materials exists in the app
+    for (const c of CHALLENGES) for (const m of c.materials) if (/baraja\s*["“]/i.test(m)) expect(toolsFor(c).decks.length, c.id).toBeGreaterThan(0);
+  });
+});

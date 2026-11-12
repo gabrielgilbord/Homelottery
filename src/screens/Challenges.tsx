@@ -8,6 +8,7 @@ import { go } from '../lib/router';
 import { pick } from '../lib/random';
 import { celebrate } from '../lib/celebrate';
 import { Seal } from '../components/Logo';
+import { ChallengeTools } from '../components/ChallengeTools';
 import type { CategoryId, Challenge, GameState } from '../types';
 import { INTENSITY_LABEL, PLAYERS, PLAYER_NAME } from '../types';
 import { WORLD_ICON } from './Home';
@@ -140,6 +141,7 @@ export function ChallengeDetail({ id }: { id: string }) {
             <ul className="need-list">{c.materials.map((m) => <li key={m}><Icon name="check" size={14} />{m}</li>)}</ul>
             <p className="small faint">¿Falta algo? Pulsa <b>Pasar o cambiar</b> y sale otra prueba. Sin penalización.</p>
           </section>
+          <ChallengeTools c={c} />
           <section>
             <h2 className="h3" style={{ marginBottom: 'var(--s-3)' }}>2. Cómo se juega</h2>
             <ol className="steps">{c.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>

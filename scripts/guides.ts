@@ -192,6 +192,8 @@ export function quickGuide(): Doc {
       ] },
       { id: 'ayuda', title: 'Si no sabes cómo va algo', blocks: [
         { ul: [
+          '**Tutorial guiado**: sale solo la primera vez; se repite en **Más → Tutorial** o desde el **?** → **Ver el tutorial**. Resalta cada parte de la app y dice para qué sirve.',
+          'Si una prueba usa **cartas de la app** (Mímica, Yo Nunca, Verdad, Reto…), **dados**, **moneda**, **carta al azar** o la **ruleta de campeones**, salen **dentro de la propia prueba**, en el recuadro **Lo tenéis aquí**.',
           'Toca el **?** de la barra de arriba: explica la pantalla en la que estás y el juego en 5 frases.',
           'En cada prueba: **1. Qué necesitáis**, **2. Cómo se juega**, **3. Cómo se gana** y **4. Al acabar**.',
           'En Noche de cine, cada pestaña tiene su **Cómo funciona** (se pliega cuando ya os lo sabéis).',

@@ -10,7 +10,7 @@ import { useGame } from '../state/store';
 import { pick } from '../lib/random';
 import { PLAYER_NAME, type PlayerId } from '../types';
 
-function CocktailLab() {
+export function CocktailLab() {
   const s = useGame();
   const [who, setWho] = useState<PlayerId>('tatiana');
   const canAlcohol = s.prefs[who].alcohol;

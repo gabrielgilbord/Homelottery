@@ -7,6 +7,7 @@ import { OnAir, Seal } from '../components/Logo';
 import { celebrate } from '../lib/celebrate';
 import { go } from '../lib/router';
 import { WORLD_ICON, WORLD_SHOW } from './Home';
+import { ChallengeTools } from '../components/ChallengeTools';
 import {
   useNight, getNight, nightPool, worldCount, nightLeader, toggleWorld, setLevel, setKeepTomorrow, setLastCall, setNoProps, setDrinks, drinkRule,
   nextAct, swapAct, playAct, scoreAct, closeShow, resetNight, quickCard, QUICK_DECKS, NIGHT_WORLDS,
@@ -96,6 +97,7 @@ export default function Night({ standalone, autoplay }: { standalone?: boolean; 
           {n.drinks && <p className="ac-drinks"><Icon name="glass" size={16} /><span><b>Modo copas.</b> {drinkRule(cur)} Siempre opcional: el agua vale.</span></p>}
           <h3 className="ac-h">1. Qué necesitáis</h3>
           <ul className="need-list">{cur.materials.map((m) => <li key={m}><Icon name="check" size={14} />{m}</li>)}</ul>
+          <ChallengeTools c={cur} local={{ level: n.level }} timer />
           <h3 className="ac-h">2. Cómo se juega</h3>
           <ol className="steps ac-steps">{cur.steps.map((st, i) => <li key={i}><span>{st}</span></li>)}</ol>
           <h3 className="ac-h">3. Cómo se gana</h3>

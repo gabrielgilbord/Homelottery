@@ -25,6 +25,7 @@ import Host from './screens/Host';
 import Prefs from './screens/Prefs';
 import Night from './screens/Night';
 import { HelpButton } from './components/Help';
+import { Tour, startTour } from './components/Tour';
 
 export interface NavItem { id: string; label: string; icon: string; world: string; show?: string }
 export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
@@ -33,6 +34,7 @@ export const NAV_GROUPS: { title: string; items: NavItem[] }[] = [
     { id: 'show', label: 'El programa', icon: 'show', world: 'show', show: "Tonight's show" },
     { id: 'challenges', label: 'Pruebas', icon: 'target', world: 'show' },
     { id: 'night', label: 'Night Show', icon: 'star', world: 'couples', show: 'Para jugar ahora, aparte' },
+    { id: 'tutorial', label: 'Tutorial', icon: 'info', world: 'home', show: 'Cómo funciona todo' },
   ] },
   { title: 'Secciones', items: [
     { id: 'gaming', label: 'Gaming', icon: 'gamepad', world: 'gaming', show: 'The Arcade Break' },
@@ -95,6 +97,9 @@ export default function App() {
     html.dataset.scheme = scheme;
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', SCHEME_BG[scheme]);
   }, [world, scheme]);
+
+  // "Más → Tutorial" replays the guided tour from Inicio
+  useEffect(() => { if (route.name === 'tutorial' && s.introDone) { go('home'); setTimeout(startTour, 50); } }, [route.name, s.introDone]);
 
   // The Night Show is self-contained: it can be played before the Invitation without spoiling it.
   if (!s.introDone && route.name === 'night') return (<><div className="stage-light" /><main className="content solo"><div className="page"><Night standalone autoplay={route.param === 'play'} /></div></main><Toaster /></>);
@@ -202,6 +207,7 @@ export default function App() {
           </div>
         </div>
       )}
+      <Tour autoStart={s.introDone && route.name === 'home'} />
       <Toaster />
     </>
   );
